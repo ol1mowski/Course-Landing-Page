@@ -1,2 +1,116 @@
-# Course-Landing-Page
-Celem projektu jest stworzenie platformy z kursami online, która umożliwia użytkownikom efektywne zarządzanie treścią edukacyjną. Platforma zawiera landing page promujący kursy oraz panel administratora do zarządzania zawartością.
+Here's a draft of the `README.md` file for your GitHub project based on the provided information:
+
+---
+
+# **Online Course Platform**
+
+A modern, responsive platform for hosting and managing online courses. This project combines cutting-edge web development technologies to deliver a seamless user experience, including a landing page for showcasing courses and an admin panel for content management.
+
+---
+
+## **Features**
+
+- **Landing Page**: Promotes courses and highlights their features.
+- **Admin Panel**: Tools for managing course content.
+- **Responsive Design**: Built with TailwindCSS to ensure compatibility across devices.
+- **State Management**: Efficiently handled with Redux.
+- **Routing and Data Fetching**:
+  - **Routing**: Powered by React Router for seamless navigation.
+  - **HTTP Queries**: Managed via React Query for optimal data handling.
+
+---
+
+## **Tech Stack**
+
+### **Frontend**
+- **Framework**: React with TypeScript
+- **Styling**: TailwindCSS
+- **Routing**: React Router
+- **HTTP Requests**: React Query
+- **State Management**: Redux
+
+### **Build Tool**
+- **Vite**: For fast and efficient project bundling.
+
+### **Hosting and Deployment**
+- **Hosting**: [Vercel](https://vercel.com/)
+- **Domain**: [freelancematt.pl](https://freelancematt.pl)
+
+### **Version Control**
+- **Git**: Source code managed with Git.
+- **Repository**: Hosted on GitHub.
+
+### **CI/CD**
+- **GitHub Actions**: Automates testing and deployment workflows.
+
+### **Testing**
+- **Unit Testing**: Implemented using Jest.
+- **End-to-End Testing (E2E)**: Powered by Cypress.
+
+---
+
+## **Setup and Installation**
+
+To run the project locally, follow these steps:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd your-repo
+   ```
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+4. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+---
+
+## **Development Workflow**
+
+1. **Feature Development**: Create feature branches from `main`.
+2. **Testing**:
+   - Run unit tests with Jest:
+     ```bash
+     npm run test
+     ```
+   - Run E2E tests with Cypress:
+     ```bash
+     npm run cypress:open
+     ```
+3. **CI/CD Pipeline**: Automatically triggered by pushes to `main`. Includes testing and deployment to Vercel.
+
+---
+
+## **Contributing**
+
+Contributions are welcome! Follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add feature-name"
+   ```
+4. Push your branch and submit a pull request.
+
+---
+
+
+## **Acknowledgments**
+
+Thanks to all contributors and the tools used in this project: React, TypeScript, TailwindCSS, Jest, Cypress, and more.
+
+---
+
+Let me know if you want to tweak any sections or add more details!
