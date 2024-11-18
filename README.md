@@ -1,7 +1,3 @@
-Here's a draft of the `README.md` file for your GitHub project based on the provided information:
-
----
-
 # **Online Course Platform**
 
 A modern, responsive platform for hosting and managing online courses. This project combines cutting-edge web development technologies to deliver a seamless user experience, including a landing page for showcasing courses and an admin panel for content management.
