@@ -51,15 +51,15 @@ To run the project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/your-repo.git
+   git clone https://github.com/ol1mowski/Course-Landing-Page.git
    ```
 2. **Navigate to the project directory**:
    ```bash
-   cd your-repo
+   cd Course-Landing-Page
    ```
 3. **Install dependencies**:
    ```bash
-   npm install
+   npm install / npm ci
    ```
 4. **Start the development server**:
    ```bash
