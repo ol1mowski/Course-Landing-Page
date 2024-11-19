@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import  Welcome from './Welcome';
+import Welcome from './Welcome';
 
 describe('Welcome Component', () => {
   test('wyświetla powitalne wiadomości z podanym imieniem', () => {
@@ -10,4 +10,5 @@ describe('Welcome Component', () => {
     expect(screen.getByText(`Witaj, ${testName}!`)).toBeInTheDocument();
     expect(screen.getByText('Witamy w naszej platformie kursowej')).toBeInTheDocument();
   });
+
 }); 
