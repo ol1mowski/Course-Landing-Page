@@ -41,7 +41,7 @@ A modern, responsive platform for hosting and managing online courses. This proj
 
 ### **Testing**
 - **Unit Testing**: Implemented using Jest.
-- **End-to-End Testing (E2E)**: Powered by Cypress.
+- **End-to-End Testing (E2E)**: Powered by Playwright.
 
 ---
 
@@ -77,9 +77,9 @@ To run the project locally, follow these steps:
      ```bash
      npm run test
      ```
-   - Run E2E tests with Cypress:
+   - Run E2E tests with Playwright:
      ```bash
-     npm run cypress:open
+     npx playwright test
      ```
 3. **CI/CD Pipeline**: Automatically triggered by pushes to `main`. Includes testing and deployment to Vercel.
 
