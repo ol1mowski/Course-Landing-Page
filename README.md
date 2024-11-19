@@ -1,7 +1,3 @@
-Here's a draft of the `README.md` file for your GitHub project based on the provided information:
-
----
-
 # **Online Course Platform**
 
 A modern, responsive platform for hosting and managing online courses. This project combines cutting-edge web development technologies to deliver a seamless user experience, including a landing page for showcasing courses and an admin panel for content management.
@@ -103,14 +99,3 @@ Contributions are welcome! Follow these steps to contribute:
    git commit -m "Add feature-name"
    ```
 4. Push your branch and submit a pull request.
-
----
-
-
-## **Acknowledgments**
-
-Thanks to all contributors and the tools used in this project: React, TypeScript, TailwindCSS, Jest, Cypress, and more.
-
----
-
-Let me know if you want to tweak any sections or add more details!
