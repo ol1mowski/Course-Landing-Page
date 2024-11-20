@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        headerBoxShadow: "0px 4px 10px 0px rgba(0, 0, 0, 0.10)",
+        headerBoxShadow: "0px 4px 30px 0px rgba(0, 0, 0, 0.10)",
       },
       colors: {
         primary: "#007ACC",
