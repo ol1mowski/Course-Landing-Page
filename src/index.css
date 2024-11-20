@@ -7,6 +7,9 @@ html {
 }
 
 body {
-    padding-inline: 20px;
-    color: #2d2e2d;
+  padding-inline: 50px;
+  color: #2d2e2d;
+  @media screen and (min-width: 1024px) {
+    padding-inline: 100px;
+  }
 }
