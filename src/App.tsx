@@ -1,9 +1,10 @@
-import Welcome from './components/Welcome'
+import Header from './components/Header/Header.component'
+
 function App() {
 
   return (
     <>
-      <Welcome name="Jan" />
+      <Header />
     </>
   )
 }
