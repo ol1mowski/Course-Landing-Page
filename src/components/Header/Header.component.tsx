@@ -2,7 +2,7 @@ import HeaderDesktopNavBar from "./HeaderDesktopNavBar/HeaderDesktopNavBar.compo
 
 const Header = () => {
   return (
-    <header className="flex justify-around items-center p-10 mt-5 shadow-headerBoxShadow rounded-xl">
+    <header className="flex bg-white justify-around items-center p-10 mt-5 shadow-headerBoxShadow rounded-xl relative z-10">
       <section>
         <img
           className="w-3/4 cursor-pointer"
