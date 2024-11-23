@@ -1,6 +1,6 @@
 const HeaderDesktopNavBar = () => {
   return (
-    <ul className="hidden lg:flex gap-10">
+    <ul className="hidden xl:flex gap-10">
       <a href="#for-who">
         <li className="text-lg transition-colors duration-500 hover:text-primary">Dla Kogo jest ten kurs ?</li>
       </a>

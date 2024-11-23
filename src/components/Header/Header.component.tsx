@@ -12,7 +12,7 @@ const Header = () => {
       </section>
       <nav className="flex items-center">
         <img
-          className="lg:hidden"
+          className="xl:hidden"
           src="https://res.cloudinary.com/dbbuav0rj/image/upload/v1729846726/Portfolio/Icons/hamburger_black_cyojcu.svg"
           alt="Hamburger menu icon"
         />
