@@ -1,3 +1,5 @@
+import Button from "../UI/Button/Button.component";
+
 const Hero = () => {
   return (
     <main className="flex h-screen flex-col xl:pl-32 gap-20 items-end justify-self-start mt-20 md:mt-32 md:items-start">
@@ -14,9 +16,7 @@ const Hero = () => {
           Dołącz do naszego ekskluzywnego kursu i zdobądź umiejętności, które
           otworzą przed Tobą nowe możliwości zawodowe!
         </p>
-        <button className="bg-primary text-white px-5 py-3 rounded-xl text-lg w-fit hover:bg-white border border-primary hover:text-primary transition-colors">
-          Dowiedz się więcej
-        </button>
+        <Button>Dowiedz się więcej</Button>
       </section>
       <section className="flex w-full flex-row flex-wrap gap-5">
         <div className="flex w-full flex-row flex-wrap gap-3 items-center">

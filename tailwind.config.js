@@ -4,13 +4,19 @@ export default {
   theme: {
     extend: {
       keyframes: {
-        slideIn: {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0)' }
+        fadeIn: {
+          '0%': { 
+            opacity: '0',
+            transform: 'scale(0.98)'
+          },
+          '100%': { 
+            opacity: '1',
+            transform: 'scale(1)'
+          }
         }
       },
       animation: {
-        'slide-in': 'slideIn 0.7s ease-out'
+        'fade-in': 'fadeIn 0.3s ease-out'
       },
       boxShadow: {
         headerBoxShadow: "0px 4px 30px 0px rgba(0, 0, 0, 0.10)",
