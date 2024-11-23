@@ -4,7 +4,7 @@ const Hero = () => {
       <img
         src="https://res.cloudinary.com/dbbuav0rj/image/upload/v1732108538/Course-site/circle_ml7st7.svg"
         alt="circle icon"
-        className="hidden lg:block lg:absolute top-0 right-0 z-[-10]"
+        className="hidden xl:block lg:absolute top-0 right-0 z-[-10]"
       />
       <section className="flex flex-col gap-8">
         <h1 className="text-6xl font-bold leading-tight">
