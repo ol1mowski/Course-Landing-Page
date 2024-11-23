@@ -17,7 +17,10 @@ const HeaderMobileNavMenu = ({
 
 
   return (
-    <section className="flex flex-col fixed inset-0 bg-white w-screen h-screen overflow-hidden z-50 animate-fade-in">
+    <section 
+      role="complementary" 
+      className="flex flex-col fixed inset-0 bg-white w-screen h-screen overflow-hidden z-50 animate-fade-in"
+    >
       <button
         type="button"
         className="absolute top-10 right-10 cursor-pointer w-10 h-10"
