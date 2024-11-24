@@ -3,7 +3,7 @@ import Description from "../../UI/Description/Description.component";
 
 const HeroContent = () => (
   <section className="flex flex-col gap-8">
-    <h1 className="text-6xl font-bold leading-tight">
+    <h1 className="text-5xl font-bold leading-tight sm:text-6xl">
       Zostań programistą <br /> nawet w czasach kryzysu
     </h1>
     <Description>

@@ -20,6 +20,7 @@ export default {
       },
       boxShadow: {
         headerBoxShadow: "0px 4px 30px 0px rgba(0, 0, 0, 0.10)",
+        cardBoxShadowHover: "0px 4px 30px 0px rgba(255, 0, 0, 0.25)",
       },
       colors: {
         primary: "#007ACC",
