@@ -1,4 +1,5 @@
 import { EXCUSES } from "../../data/Excuses.data";
+
 import Card from "../UI/Card/Card.component";
 import Heading from "../UI/Heading/Heading.component";
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
