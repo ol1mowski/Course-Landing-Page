@@ -4,6 +4,7 @@ import Excuses from "./components/Excuses/Excuses";
 import BlockSectionWave from "./components/BlockSectionWave/BlockSectionWave";
 import Benefits from "./components/Benefits/Benefits.component";
 import BlockSectionCode from "./components/BlockSectionCode/BlockSectionCode.component";
+import Lessons from "./components/Lessons/Lessons.component";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <BlockSectionWave />  
       <Benefits />
       <BlockSectionCode />
+      <Lessons />
     </>
   );
 }
