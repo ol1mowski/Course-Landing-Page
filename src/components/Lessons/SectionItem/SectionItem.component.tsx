@@ -26,7 +26,7 @@ const SectionItem = ({ title, duration, lessons }: SectionItemProps) => {
           <img
             src={`https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/${isExpanded ? 'slide-down_vafohn' : 'slide-up_vhn7cx'}.svg`}
             alt={isExpanded ? "Zwiń" : "Rozwiń"}
-            className="w-6 h-6 transition-transform duration-300"
+            className="w-12 sm:w-5 transition-transform duration-300 transform-gpu"
           />
         </div>
       </button>
