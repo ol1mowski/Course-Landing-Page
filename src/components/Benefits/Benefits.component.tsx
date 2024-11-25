@@ -16,10 +16,10 @@ const Benefits = () => {
             <Card key={benefit} text={benefit} type="benefit" />
           ))}
         </section>
+        <section className="mt-16">
+          <Heading>I wiele wiele więcej !</Heading>
+        </section>
       </SectionWrapper>
-      <section className="mt-16">
-        <Heading>I wiele wiele więcej !</Heading>
-      </section>
     </section>
   );
 };
