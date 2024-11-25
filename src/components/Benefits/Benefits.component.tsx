@@ -8,14 +8,18 @@ const Benefits = () => {
     <section className="relative top-96">
       <SectionWrapper>
         <Heading>
-        Dlatego To jest kurs, który <br /> da Ci <span className="text-primary">przewagę !</span>
-      </Heading>
-      <section className="flex w-fit h-fit items-center justify-center flex-wrap gap-16">
-        {BENEFITS.map((benefit) => (
-          <Card key={benefit} text={benefit} type="benefit" />
-        ))}
+          Dlatego To jest kurs, który <br /> da Ci{" "}
+          <span className="text-primary">przewagę !</span>
+        </Heading>
+        <section className="flex w-fit h-fit items-center justify-center flex-wrap gap-16">
+          {BENEFITS.map((benefit) => (
+            <Card key={benefit} text={benefit} type="benefit" />
+          ))}
         </section>
       </SectionWrapper>
+      <section className="mt-16">
+        <Heading>I wiele wiele więcej !</Heading>
+      </section>
     </section>
   );
 };
