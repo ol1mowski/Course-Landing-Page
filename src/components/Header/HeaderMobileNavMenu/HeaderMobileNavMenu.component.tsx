@@ -18,7 +18,7 @@ const HeaderMobileNavMenu = ({
 
   return (
     <section 
-      role="complementary" 
+      data-testid="mobile-menu"
       className="flex flex-col fixed inset-0 bg-white w-screen h-screen overflow-hidden z-50 animate-fade-in"
     >
       <button
