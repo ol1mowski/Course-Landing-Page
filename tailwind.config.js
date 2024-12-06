@@ -14,9 +14,20 @@ export default {
             transform: "scale(1)",
           },
         },
+        slideIn: {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(-50px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateX(0)",
+          },
+        }
       },
       animation: {
         "fade-in": "fadeIn 0.3s ease-out",
+        "slide-in": "slideIn 0.5s ease-out",
       },
       boxShadow: {
         headerBoxShadow: "0px 4px 30px 0px rgba(0, 0, 0, 0.10)",

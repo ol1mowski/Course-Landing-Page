@@ -5,6 +5,7 @@ import BlockSectionWave from "./components/BlockSectionWave/BlockSectionWave";
 import Benefits from "./components/Benefits/Benefits.component";
 import BlockSectionCode from "./components/BlockSectionCode/BlockSectionCode.component";
 import Lessons from "./components/Lessons/Lessons.component";
+import ScrollProgressList from "./components/ScrollProgressList/ScrollProgressList.component";
 
 function App() {
   return (
@@ -13,9 +14,9 @@ function App() {
       <Hero />
       <Excuses />
       <BlockSectionWave />  
-      <Benefits />
-      <BlockSectionCode />
+      <ScrollProgressList />
       <Lessons />
+      <BlockSectionCode />
     </>
   );
 }
