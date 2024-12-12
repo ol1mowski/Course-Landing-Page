@@ -7,6 +7,7 @@ import BlockSectionCode from "./components/BlockSectionCode/BlockSectionCode.com
 import Lessons from "./components/Lessons/Lessons.component";
 import ScrollProgressList from "./components/ScrollProgressList/ScrollProgressList.component";
 import Author from "./components/Author/Author.component";
+import CourseDescription from "./components/CourseDescription/CourseDescription.component";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Excuses />
       <BlockSectionWave />  
       <ScrollProgressList />
+      <CourseDescription />
       <Author />
       <Lessons />
       <BlockSectionCode />
