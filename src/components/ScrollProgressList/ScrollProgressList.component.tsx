@@ -32,6 +32,9 @@ const ScrollProgressList = () => {
       className="mt-96 relative min-h-screen py-32"
       aria-label="Lista kroków procesu nauki"
     >
+      <h2 className="text-4xl font-bold text-center mb-16">
+        Więc co musisz zrobić ?
+      </h2>
       <ProgressBar 
         scaleY={scaleY} 
         opacity={progressBarOpacity} 
