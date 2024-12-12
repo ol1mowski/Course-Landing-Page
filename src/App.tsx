@@ -12,6 +12,7 @@ import CourseBenefits from "./components/CourseBenefits/CourseBenefits.component
 import CourseComparison from "./components/CourseComparison/CourseComparison.component";
 import CourseTarget from "./components/CourseTarget/CourseTarget.component";
 import FreeLessons from "./components/FreeLessons/FreeLessons.component";
+import Bonuses from "./components/Bonuses/Bonuses.component";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <CourseComparison />
       <Author />
       <Lessons />
+      <Bonuses />
       <BlockSectionCode />
     </>
   );
