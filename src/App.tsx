@@ -13,6 +13,7 @@ import CourseComparison from "./components/CourseComparison/CourseComparison.com
 import CourseTarget from "./components/CourseTarget/CourseTarget.component";
 import FreeLessons from "./components/FreeLessons/FreeLessons.component";
 import Bonuses from "./components/Bonuses/Bonuses.component";
+import Offer from "./components/Offer/Offer.component";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Author />
       <Lessons />
       <Bonuses />
+      <Offer />
       <BlockSectionCode />
     </>
   );
