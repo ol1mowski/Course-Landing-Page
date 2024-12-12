@@ -11,6 +11,7 @@ import CourseDescription from "./components/CourseDescription/CourseDescription.
 import CourseBenefits from "./components/CourseBenefits/CourseBenefits.component";
 import CourseComparison from "./components/CourseComparison/CourseComparison.component";
 import CourseTarget from "./components/CourseTarget/CourseTarget.component";
+import FreeLessons from "./components/FreeLessons/FreeLessons.component";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <CourseDescription />
       <CourseBenefits />
       <CourseTarget />
+      <FreeLessons />
       <CourseComparison />
       <Author />
       <Lessons />
