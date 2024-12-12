@@ -1,20 +1,30 @@
-const Card = ({ text, type }: { text: string; type: string }) => {
+import { motion } from "framer-motion";
 
-    const classes = type === "excuse" ? "flex gap-4 flex-col w-fit h-full transition-all duration-500 cursor-pointer items-start justify-center shadow-headerBoxShadow p-8 rounded-xl md:flex-row hover:shadow-cardBoxExcusesShadowHover" : "flex gap-4 flex-col w-fit h-full transition-all duration-500 cursor-pointer items-start justify-center shadow-headerBoxShadow p-8 rounded-xl md:flex-row hover:shadow-cardBoxBenefitsShadowHover"
+type CardProps = {
+  text: string;
+  type: "excuse" | "target";
+};
+
+const Card = ({ text, type }: CardProps) => {
+  const cardStyles = {
+    excuse: "bg-white hover:shadow-cardBoxExcusesShadowHover",
+    target: "bg-white hover:shadow-cardBoxTargetShadowHover"
+  };
 
   return (
-    <div className={classes}>
-      <img
-        className="w-12 h-12"
-        src={
-          type === "excuse"
-            ? "https://res.cloudinary.com/dbbuav0rj/image/upload/v1732469080/Course-site/fail_hsyjvz.svg"
-            : "https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/check_xddkrs.svg"
-        }
-        alt="excuse"
-      />
-      <h3 className="text-2xl font-semibold">{text}</h3>
-    </div>
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className={`
+        ${cardStyles[type]}
+        w-[300px] h-[150px]
+        flex items-center justify-center
+        p-8 rounded-xl shadow-lg
+        transition-all duration-300
+        cursor-pointer
+      `}
+    >
+      <span className="text-center text-xl font-medium">{text}</span>
+    </motion.div>
   );
 };
 
