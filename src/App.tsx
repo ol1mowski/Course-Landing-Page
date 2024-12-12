@@ -2,7 +2,6 @@ import Header from "./components/Header/Header.component";
 import Hero from "./components/Hero/Hero";
 import Excuses from "./components/Excuses/Excuses";
 import BlockSectionWave from "./components/BlockSectionWave/BlockSectionWave";
-import Benefits from "./components/Benefits/Benefits.component";
 import BlockSectionCode from "./components/BlockSectionCode/BlockSectionCode.component";
 import Lessons from "./components/Lessons/Lessons.component";
 import ScrollProgressList from "./components/ScrollProgressList/ScrollProgressList.component";
@@ -14,6 +13,7 @@ import CourseTarget from "./components/CourseTarget/CourseTarget.component";
 import FreeLessons from "./components/FreeLessons/FreeLessons.component";
 import Bonuses from "./components/Bonuses/Bonuses.component";
 import Offer from "./components/Offer/Offer.component";
+import FAQ from "./components/FAQ/FAQ.component";
 
 function App() {
   return (
@@ -32,6 +32,7 @@ function App() {
       <Lessons />
       <Bonuses />
       <Offer />
+      <FAQ />
       <BlockSectionCode />
     </>
   );
