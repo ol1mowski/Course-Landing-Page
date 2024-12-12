@@ -1,6 +1,7 @@
 import { memo, useRef } from "react";
 
 import { motion, useInView } from "framer-motion";
+
 import type { ProgressStep } from "../../../data/ProgressSteps.data";
 
 type ProgressListItemProps = ProgressStep;

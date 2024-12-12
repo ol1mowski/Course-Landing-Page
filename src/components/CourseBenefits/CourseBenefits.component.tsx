@@ -1,6 +1,9 @@
 import { useRef } from "react";
+
 import { motion, useInView } from "framer-motion";
+
 import { COURSE_BENEFITS_DATA } from "../../data/CourseBenefits.data";
+
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
 import Heading from "../UI/Heading/Heading.component";
 import BenefitCard from "./BenefitCard/BenefitCard.component";
@@ -25,7 +28,7 @@ const CourseBenefits = () => {
         }}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="flex flex-col items-center gap-16 mt-32"
+        className="flex flex-col items-center gap-16"
       >
         <motion.div
           variants={{

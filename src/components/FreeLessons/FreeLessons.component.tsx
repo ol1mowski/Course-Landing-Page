@@ -1,6 +1,9 @@
 import { useRef } from "react";
+
 import { motion, useInView } from "framer-motion";
+
 import { FREE_LESSONS } from "../../data/FreeLessons.data";
+
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
 import Heading from "../UI/Heading/Heading.component";
 import VideoCard from "./VideoCard/VideoCard.component";
