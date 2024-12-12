@@ -9,6 +9,7 @@ import ScrollProgressList from "./components/ScrollProgressList/ScrollProgressLi
 import Author from "./components/Author/Author.component";
 import CourseDescription from "./components/CourseDescription/CourseDescription.component";
 import CourseBenefits from "./components/CourseBenefits/CourseBenefits.component";
+import CourseComparison from "./components/CourseComparison/CourseComparison.component";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <ScrollProgressList />
       <CourseDescription />
       <CourseBenefits />
+      <CourseComparison />
       <Author />
       <Lessons />
       <BlockSectionCode />
