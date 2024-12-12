@@ -13,7 +13,7 @@ const Benefits = () => {
         </Heading>
         <section className="flex w-fit h-fit items-center justify-center flex-wrap gap-16">
           {BENEFITS.map((benefit) => (
-            <Card key={benefit} text={benefit} type="benefit" />
+            <Card key={benefit} text={benefit} type="target" />
           ))}
         </section>
         <section className="mt-16">
