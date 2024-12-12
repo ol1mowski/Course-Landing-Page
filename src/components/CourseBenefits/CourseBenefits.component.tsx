@@ -25,7 +25,7 @@ const CourseBenefits = () => {
         }}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="flex flex-col items-center gap-16"
+        className="flex flex-col items-center gap-16 mt-32"
       >
         <motion.div
           variants={{
