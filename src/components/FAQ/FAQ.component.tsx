@@ -5,21 +5,23 @@ import SectionItem from "./SectionItem/SectionItem.component";
 
 const FAQ = () => {
   return (
-    <SectionWrapper>
-      <Heading>
-        Często zadawane <span className="text-primary">pytania</span>
-      </Heading>
-      <div className="flex flex-col gap-4 w-full max-w-4xl">
-        {FAQ_SECTIONS.map((section) => (
-          <SectionItem
-            key={section.id}
-            title={section.title}
-            questions={section.questions}
-          />
-        ))}
-      </div>
-    </SectionWrapper>
+    <section id="faq">
+      <SectionWrapper>
+        <Heading>
+          Często zadawane <span className="text-primary">pytania</span>
+        </Heading>
+        <div className="flex flex-col gap-4 w-full max-w-4xl">
+          {FAQ_SECTIONS.map((section) => (
+            <SectionItem
+              key={section.id}
+              title={section.title}
+              questions={section.questions}
+            />
+          ))}
+        </div>
+      </SectionWrapper>
+    </section>
   );
 };
 
-export default FAQ; 
+export default FAQ;

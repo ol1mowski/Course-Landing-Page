@@ -23,6 +23,7 @@ const Bonuses = () => {
             transition: { staggerChildren: 0.2 }
           }
         }}
+        id="bonus"
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         className="flex flex-col items-center gap-16"

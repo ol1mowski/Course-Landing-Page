@@ -14,7 +14,7 @@ const CourseTarget = () => {
   });
 
   return (
-    <section className="mt-72">
+    <section className="mt-72" id="dla-kogo">
       <SectionWrapper>
         <motion.div
           ref={containerRef}

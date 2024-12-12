@@ -14,8 +14,7 @@ const Offer = () => {
   });
 
   return (
-    <section className="relative py-20">
-      {/* Gradient background */}
+    <section className="relative py-20" id="oferta">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 -z-10" />
       
       <SectionWrapper>

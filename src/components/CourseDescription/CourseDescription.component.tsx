@@ -23,6 +23,7 @@ const CourseDescription = () => {
             transition: { staggerChildren: 0.3 },
           },
         }}
+        id="co-otrzymasz"
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         className="flex flex-col items-center gap-16"
