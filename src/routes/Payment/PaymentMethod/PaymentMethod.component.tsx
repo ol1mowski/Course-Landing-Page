@@ -8,7 +8,6 @@ type PaymentMethodProps = {
 };
 
 const PaymentMethod = ({
-  id,
   title,
   description,
   icon,

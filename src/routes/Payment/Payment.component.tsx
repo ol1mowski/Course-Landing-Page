@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { OFFER_DETAILS } from "../../data/Offer.data";
 import PaymentMethod from "./PaymentMethod/PaymentMethod.component";
-import CardForm from "./CardForm/CardForm.component";
 import OrderForm from "./OrderForm/OrderForm.component";
 
 type PaymentMethodType = "card" | "p24" | "blik";
@@ -21,51 +20,20 @@ const Payment = () => {
         >
           <div className="space-y-8">
             <OrderForm />
-            
+
             <section className="space-y-6">
               <h2 className="text-xl font-semibold">Metoda płatności</h2>
 
               <div className="space-y-4">
                 <PaymentMethod
-                  id="card"
-                  title="Karta płatnicza"
-                  description="Visa, Mastercard, American Express"
-                  icon="https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/card-icon.svg"
-                  selected={selectedMethod === "card"}
-                  onClick={() => setSelectedMethod("card")}
-                />
-
-                <PaymentMethod
                   id="p24"
                   title="Przelewy24"
-                  description="Szybki przelew przez Twój bank"
+                  description="Szybki płatność BLIK, karta płatnicza, przelew tradycyjny"
                   icon="https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/p24-icon.svg"
                   selected={selectedMethod === "p24"}
                   onClick={() => setSelectedMethod("p24")}
                 />
-
-                <PaymentMethod
-                  id="blik"
-                  title="BLIK"
-                  description="Szybka płatność kodem BLIK"
-                  icon="https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/blik-icon.svg"
-                  selected={selectedMethod === "blik"}
-                  onClick={() => setSelectedMethod("blik")}
-                />
               </div>
-
-              <AnimatePresence mode="wait">
-                {selectedMethod === "card" && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <CardForm />
-                  </motion.div>
-                )}
-              </AnimatePresence>
             </section>
           </div>
 
