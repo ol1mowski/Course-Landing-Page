@@ -1,21 +1,15 @@
+import { MENU_ITEMS } from "../../../data/MenuItems.data";
+
 const HeaderDesktopNavBar = () => {
   return (
-    <ul className="hidden lg:flex gap-10">
-      <a href="#for-who">
-        <li className="text-xl">Dla Kogo jest ten kurs ?</li>
-      </a>
-      <a href="#gain">
-        <li className="text-xl">Co Otrzymasz ?</li>
-      </a>
-      <a href="#bonus">
-        <li className="text-xl">Bonus</li>
-      </a>
-      <a href="#offer">
-        <li className="text-xl">Oferta</li>
-      </a>
-      <a href="#faq">
-        <li className="text-xl">FAQ</li>
-      </a>
+    <ul className="hidden xl:flex gap-10">
+      {MENU_ITEMS.map((item) => (
+        <a href={item.href} key={item.id}>
+          <li className="text-lg transition-colors duration-500 hover:text-primary">
+            {item.label}
+          </li>
+        </a>
+      ))}
     </ul>
   );
 };
