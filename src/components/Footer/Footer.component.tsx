@@ -4,7 +4,7 @@ import FooterSection from "./FooterSection/FooterSection.component";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#007acc] mt-32">
+    <footer className="bg-[#007acc] mt-96 rounded-t-3xl">
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <motion.div
@@ -20,7 +20,8 @@ const Footer = () => {
               className="h-12 mb-6 brightness-0 invert"
             />
             <p className="text-[#fefefe]/90 max-w-md">
-              Rozpocznij swoją przygodę z programowaniem już dziś. Dołącz do naszej społeczności i rozwijaj się razem z nami.
+              Rozpocznij swoją przygodę z programowaniem już dziś. Dołącz do
+              naszej społeczności i rozwijaj się razem z nami.
             </p>
           </motion.div>
 
@@ -47,4 +48,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

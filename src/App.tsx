@@ -2,7 +2,6 @@ import Header from "./components/Header/Header.component";
 import Hero from "./components/Hero/Hero";
 import Excuses from "./components/Excuses/Excuses";
 import BlockSectionWave from "./components/BlockSectionWave/BlockSectionWave";
-import BlockSectionCode from "./components/BlockSectionCode/BlockSectionCode.component";
 import Lessons from "./components/Lessons/Lessons.component";
 import ScrollProgressList from "./components/ScrollProgressList/ScrollProgressList.component";
 import Author from "./components/Author/Author.component";
@@ -34,7 +33,6 @@ function App() {
       <Bonuses />
       <Offer />
       <FAQ />
-      <BlockSectionCode />
       <Footer />
     </>
   );
