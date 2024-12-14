@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+
 import { OFFER_DETAILS } from "../../data/Offer.data";
+
 import PaymentMethod from "./PaymentMethod/PaymentMethod.component";
 import OrderForm from "./OrderForm/OrderForm.component";
 
