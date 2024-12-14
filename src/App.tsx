@@ -14,6 +14,7 @@ import FreeLessons from "./components/FreeLessons/FreeLessons.component";
 import Bonuses from "./components/Bonuses/Bonuses.component";
 import Offer from "./components/Offer/Offer.component";
 import FAQ from "./components/FAQ/FAQ.component";
+import Footer from "./components/Footer/Footer.component";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Offer />
       <FAQ />
       <BlockSectionCode />
+      <Footer />
     </>
   );
 }
