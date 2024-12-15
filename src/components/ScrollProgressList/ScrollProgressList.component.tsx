@@ -1,30 +1,16 @@
 import { useRef } from "react";
-
-import { useScroll, useSpring, useTransform } from "framer-motion";
-
+import { motion } from "framer-motion";
+import { containerVariants } from "../../animations/progressAnimations";
 import { PROGRESS_STEPS } from "../../data/ProgressSteps.data";
+import { useScrollProgress } from "../../hooks/useScrollProgress";
+
 import ProgressBar from "./ProgressBar/ProgressBar.component";
+import ProgressHeader from "./ProgressHeader/ProgressHeader.component";
 import ProgressListItem from "./ProgressListItem/ProgressListItem.component";
 
 const ScrollProgressList = () => {
   const containerRef = useRef<HTMLElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const progressBarOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.9, 1],
-    [1, 1, 0]
-  );
+  const { scaleY, progressBarOpacity } = useScrollProgress(containerRef);
 
   return (
     <section 
@@ -32,22 +18,26 @@ const ScrollProgressList = () => {
       className="mt-96 relative min-h-screen py-32"
       aria-label="Lista kroków procesu nauki"
     >
-      <h2 className="text-4xl font-bold text-center mb-16">
-        Więc co musisz zrobić ?
-      </h2>
-      <ProgressBar 
-        scaleY={scaleY} 
-        opacity={progressBarOpacity} 
-      />
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <ProgressHeader />
+        <ProgressBar 
+          scaleY={scaleY} 
+          opacity={progressBarOpacity} 
+        />
 
-      <div className="max-w-4xl mx-auto ml-[calc(15%+8rem)]">
-        {PROGRESS_STEPS.map((step) => (
-          <ProgressListItem
-            key={step.id}
-            {...step}
-          />
-        ))}
-      </div>
+        <div className="max-w-4xl mx-auto ml-[calc(15%+8rem)]">
+          {PROGRESS_STEPS.map((step) => (
+            <ProgressListItem
+              key={step.id}
+              {...step}
+            />
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 };
