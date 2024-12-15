@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { itemVariants } from "../../../animations/authorAnimations";
 
 type AuthorImageProps = {
   image: string;
@@ -7,14 +8,7 @@ type AuthorImageProps = {
 
 const AuthorImage = ({ image, name }: AuthorImageProps) => (
   <motion.div 
-    variants={{
-      hidden: { opacity: 0, y: 20 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: "easeOut" }
-      }
-    }}
+    variants={itemVariants}
     className="relative w-72 h-72 lg:w-96 lg:h-96"
   >
     <div className="absolute inset-0 bg-primary/10 rounded-full -z-10 translate-x-4 translate-y-4" />
