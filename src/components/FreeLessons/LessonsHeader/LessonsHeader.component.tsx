@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { headerVariants, descriptionVariants } from "../../../animations/lessonsAnimations";
+import { headerVariants, descriptionVariants } from "../../../animations/commonAnimations";
 import Heading from "../../UI/Heading/Heading.component";
 
 const LessonsHeader = () => (

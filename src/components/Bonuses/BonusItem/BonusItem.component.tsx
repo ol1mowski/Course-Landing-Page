@@ -1,23 +1,28 @@
 import { motion } from "framer-motion";
-import { itemVariants } from "../../../animations/bonusesAnimations";
+import { itemWithDelayVariants } from "../../../animations/commonAnimations";
 import type { Bonus } from "../../../data/Bonuses.data";
 
 type BonusItemProps = Bonus & {
   isReversed: boolean;
 };
 
-const BonusItem = ({ title, description, image, isReversed }: BonusItemProps) => {
+const BonusItem = ({
+  title,
+  description,
+  image,
+  isReversed,
+}: BonusItemProps) => {
   const contentOrder = isReversed ? "order-1 lg:order-2" : "order-1";
   const imageOrder = isReversed ? "order-2 lg:order-1" : "order-2";
 
   return (
     <motion.div
-      variants={itemVariants}
+      variants={itemWithDelayVariants}
       viewport={{ once: true, margin: "-100px" }}
       className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 py-12"
     >
       <div className={`flex-1 ${contentOrder}`}>
-        <motion.h3 
+        <motion.h3
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -26,7 +31,7 @@ const BonusItem = ({ title, description, image, isReversed }: BonusItemProps) =>
         >
           {title}
         </motion.h3>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -36,7 +41,7 @@ const BonusItem = ({ title, description, image, isReversed }: BonusItemProps) =>
           {description}
         </motion.p>
       </div>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
@@ -57,4 +62,4 @@ const BonusItem = ({ title, description, image, isReversed }: BonusItemProps) =>
   );
 };
 
-export default BonusItem; 
+export default BonusItem;

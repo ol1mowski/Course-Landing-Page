@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { cardVariants } from "../../../animations/targetAnimations";
+import { itemWithDelayVariants } from "../../../animations/commonAnimations";
 import Card from "../../UI/Card/Card.component";
 
 type TargetCardProps = {
@@ -9,7 +9,7 @@ type TargetCardProps = {
 
 const TargetCard = ({ text, index }: TargetCardProps) => (
   <motion.div
-    variants={cardVariants}
+    variants={itemWithDelayVariants}
     custom={index}
   >
     <Card 

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { headerVariants, descriptionVariants } from "../../../animations/descriptionAnimations";
+import { headerVariants, descriptionVariants } from "../../../animations/commonAnimations";
 import { COURSE_DESCRIPTION_DATA } from "../../../data/CourseDescription.data";
 import Heading from "../../UI/Heading/Heading.component";
 

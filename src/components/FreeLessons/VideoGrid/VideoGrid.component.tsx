@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { gridVariants } from "../../../animations/lessonsAnimations";
+import { gridVariants } from "../../../animations/commonAnimations";
 import { FREE_LESSONS } from "../../../data/FreeLessons.data";
 import VideoCard from "../VideoCard/VideoCard.component";
 

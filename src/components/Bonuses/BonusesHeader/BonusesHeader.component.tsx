@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { headerVariants } from "../../../animations/bonusesAnimations";
+import { headerVariants } from "../../../animations/commonAnimations";
 import Heading from "../../UI/Heading/Heading.component";
 
 const BonusesHeader = () => (

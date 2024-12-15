@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { containerVariants } from "../../animations/targetAnimations";
+import { containerVariants } from "../../animations/commonAnimations";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
 
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";

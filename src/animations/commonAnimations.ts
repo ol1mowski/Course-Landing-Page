@@ -35,16 +35,7 @@ export const descriptionVariants = {
   }
 };
 
-export const gridVariants = {
-  hidden: { 
-    opacity: 0 
-  },
-  visible: { 
-    opacity: 1 
-  }
-};
-
-export const cardVariants = {
+export const itemWithDelayVariants = {
   hidden: { 
     opacity: 0, 
     y: 20 
@@ -53,7 +44,17 @@ export const cardVariants = {
     opacity: 1,
     y: 0,
     transition: { 
+      duration: 0.5,
       delay: delay * 0.1 
     }
   })
+};
+
+export const gridVariants = {
+  hidden: { 
+    opacity: 0 
+  },
+  visible: { 
+    opacity: 1 
+  }
 }; 

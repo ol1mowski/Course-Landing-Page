@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { itemVariants } from "../../../animations/footerAnimations";
+import { itemWithDelayVariants } from "../../../animations/commonAnimations";
 
 const FooterBrand = () => (
   <motion.div
-    variants={itemVariants}
+    variants={itemWithDelayVariants}
     custom={0}
     className="col-span-1 lg:col-span-2"
   >

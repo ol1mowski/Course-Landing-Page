@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { containerVariants } from "../../animations/footerAnimations";
+import { containerVariants } from "../../animations/commonAnimations";
 import { FOOTER_SECTIONS } from "../../data/Footer.data";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
 

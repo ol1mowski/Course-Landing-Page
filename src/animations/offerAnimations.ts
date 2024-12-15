@@ -1,26 +1,8 @@
-export const containerVariants = {
-  hidden: { 
-    opacity: 0 
-  },
-  visible: {
-    opacity: 1,
-    transition: { 
-      staggerChildren: 0.2 
-    }
-  }
-};
+import { containerVariants, headerVariants } from './commonAnimations';
 
-export const headerVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: -20 
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0 
-  }
-};
+export { containerVariants, headerVariants };
 
+// Unikalny wariant dla benefitów
 export const benefitVariants = {
   hidden: { 
     opacity: 0, 
