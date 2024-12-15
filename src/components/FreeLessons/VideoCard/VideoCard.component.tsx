@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
+import { itemWithDelayVariants } from "../../../animations/commonAnimations";
 import type { FreeLesson } from "../../../data/FreeLessons.data";
 
-type VideoCardProps = FreeLesson;
+type VideoCardProps = FreeLesson & {
+  index: number;
+};
 
-const VideoCard = ({ title, duration, thumbnail, videoUrl }: VideoCardProps) => (
+const VideoCard = ({ title, duration, thumbnail, videoUrl, index }: VideoCardProps) => (
   <motion.div
+    variants={itemWithDelayVariants}
+    custom={index}
     whileHover={{ scale: 1.05 }}
     className="relative group cursor-pointer"
   >

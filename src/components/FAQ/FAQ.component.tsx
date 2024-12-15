@@ -1,4 +1,5 @@
 import { FAQ_SECTIONS } from "../../data/FAQ.data";
+
 import Heading from "../UI/Heading/Heading.component";
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
 import SectionItem from "./SectionItem/SectionItem.component";

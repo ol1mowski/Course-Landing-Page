@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import QuestionItem from "../QuestionItem/QuestionItem.component";
 
 type SectionItemProps = {

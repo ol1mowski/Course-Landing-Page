@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { benefitVariants } from "../../../animations/offerAnimations";
 
 type OfferBenefitProps = {
   icon: string;
@@ -8,10 +9,8 @@ type OfferBenefitProps = {
 
 const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => (
   <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
+    variants={benefitVariants}
+    custom={index}
     className="flex items-center gap-4 bg-white/50 backdrop-blur-sm rounded-lg p-4 hover:bg-white/80 transition-colors duration-300"
   >
     <span className="text-2xl">{icon}</span>
