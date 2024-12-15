@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { itemVariants } from "../../../animations/bonusesAnimations";
 import type { Bonus } from "../../../data/Bonuses.data";
 
 type BonusItemProps = Bonus & {
@@ -11,10 +12,8 @@ const BonusItem = ({ title, description, image, isReversed }: BonusItemProps) =>
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      variants={itemVariants}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
       className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 py-12"
     >
       <div className={`flex-1 ${contentOrder}`}>
