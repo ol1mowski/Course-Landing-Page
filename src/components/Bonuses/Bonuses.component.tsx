@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { BONUSES } from "../../data/Bonuses.data";
+
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
 import Heading from "../UI/Heading/Heading.component";
 import BonusItem from "./BonusItem/BonusItem.component";
