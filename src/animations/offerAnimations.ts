@@ -2,7 +2,6 @@ import { containerVariants, headerVariants } from './commonAnimations';
 
 export { containerVariants, headerVariants };
 
-// Unikalny wariant dla benefitów
 export const benefitVariants = {
   hidden: { 
     opacity: 0, 
