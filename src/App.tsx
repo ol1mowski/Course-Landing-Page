@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import PaymentPage from "./routes/Payment/Payment.component";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";

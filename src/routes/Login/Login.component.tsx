@@ -1,8 +1,9 @@
+import Login from "../../components/Login/Login.component"
 
-const Login = () => {
+const LoginRoute = () => {
   return (
     <Login />
   )
 }
 
-export default Login
+export default LoginRoute
