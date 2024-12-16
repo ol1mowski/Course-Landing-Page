@@ -1,6 +1,3 @@
-import { motion } from "framer-motion";
-import { itemWithDelayVariants } from "../../../animations/commonAnimations";
-
 type FooterSectionProps = {
   title: string;
   links: Array<{
@@ -12,9 +9,7 @@ type FooterSectionProps = {
 };
 
 const FooterSection = ({ title, links, index }: FooterSectionProps) => (
-  <motion.section 
-    variants={itemWithDelayVariants}
-    custom={index + 1}
+  <section 
     className="flex flex-col gap-4"
   >
     <h3 className="text-lg font-semibold text-[#fefefe]">{title}</h3>
@@ -30,7 +25,7 @@ const FooterSection = ({ title, links, index }: FooterSectionProps) => (
         </li>
       ))}
     </ul>
-  </motion.section>
+  </section>
 );
 
 export default FooterSection; 
