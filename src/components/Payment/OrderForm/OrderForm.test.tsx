@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { orderFormSchema } from './orderForm.schema';
 
-describe('OrderForm walidacja', () => {
-  it('powinien zaakceptować poprawne dane', () => {
+describe("OrderForm validation", () => {
+  it("should accept valid data", () => {
     const validData = {
       firstName: "Jan",
       lastName: "Kowalski",
@@ -17,13 +17,13 @@ describe('OrderForm walidacja', () => {
     expect(result.success).toBe(true);
   });
 
-  describe('Walidacja imienia', () => {
-    it('powinien odrzucić za krótkie imię', () => {
+  describe("Validation of first name", () => {
+    it("should reject too short first name", () => {
       const data = {
         firstName: "J",
         lastName: "Kowalski",
         email: "jan@example.com",
-        terms: true
+        terms: true,
       };
 
       const result = orderFormSchema.safeParse(data);
@@ -34,13 +34,13 @@ describe('OrderForm walidacja', () => {
     });
   });
 
-  describe('Walidacja emaila', () => {
-    it('powinien odrzucić nieprawidłowy format emaila', () => {
+  describe("Validation of email", () => {
+    it("should reject invalid email format", () => {
       const data = {
         firstName: "Jan",
         lastName: "Kowalski",
         email: "nieprawidlowy-email",
-        terms: true
+        terms: true,
       };
 
       const result = orderFormSchema.safeParse(data);
@@ -51,27 +51,27 @@ describe('OrderForm walidacja', () => {
     });
   });
 
-  describe('Walidacja telefonu', () => {
-    it('powinien zaakceptować pusty numer telefonu', () => {
+  describe("Validation of phone number", () => {
+    it("should accept empty phone number", () => {
       const data = {
         firstName: "Jan",
         lastName: "Kowalski",
         email: "jan@example.com",
         phone: "",
-        terms: true
+        terms: true,
       };
 
       const result = orderFormSchema.safeParse(data);
       expect(result.success).toBe(true);
     });
 
-    it('powinien odrzucić nieprawidłowy format telefonu', () => {
+    it("should reject invalid phone number format", () => {
       const data = {
         firstName: "Jan",
         lastName: "Kowalski",
         email: "jan@example.com",
-        phone: "123", 
-        terms: true
+        phone: "123",
+        terms: true,
       };
 
       const result = orderFormSchema.safeParse(data);
@@ -82,27 +82,27 @@ describe('OrderForm walidacja', () => {
     });
   });
 
-  describe('Walidacja NIP', () => {
-    it('powinien zaakceptować pusty NIP', () => {
+  describe("Validation of NIP", () => {
+    it("should accept empty NIP", () => {
       const data = {
         firstName: "Jan",
         lastName: "Kowalski",
         email: "jan@example.com",
         nip: "",
-        terms: true
+        terms: true,
       };
 
       const result = orderFormSchema.safeParse(data);
       expect(result.success).toBe(true);
     });
 
-    it('powinien odrzucić nieprawidłowy format NIP', () => {
+    it("should reject invalid NIP format", () => {
       const data = {
         firstName: "Jan",
         lastName: "Kowalski",
         email: "jan@example.com",
         nip: "123",
-        terms: true
+        terms: true,
       };
 
       const result = orderFormSchema.safeParse(data);
@@ -113,13 +113,13 @@ describe('OrderForm walidacja', () => {
     });
   });
 
-  describe('Walidacja regulaminu', () => {
-    it('powinien odrzucić niezaakceptowany regulamin', () => {
+  describe("Validation of terms", () => {
+    it("should reject unaccepted terms", () => {
       const data = {
         firstName: "Jan",
         lastName: "Kowalski",
         email: "jan@example.com",
-        terms: false
+        terms: false,
       };
 
       const result = orderFormSchema.safeParse(data);
