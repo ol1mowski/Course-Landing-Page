@@ -1,14 +1,29 @@
-import { describe, it, expect } from "vitest";
-
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 
 import Header from "../../../components/Header/Header.component";
 import HeaderMobileNavMenuComponent from "../../../components/Header/HeaderMobileNavMenu/HeaderMobileNavMenu.component";
 
+
+const originalConsoleWarn = console.warn;
+console.warn = (...args) => {
+  if (args[0]?.includes?.('React Router Future Flag Warning')) return;
+  originalConsoleWarn(...args);
+};
+
+const renderWithRouter = (component: React.ReactNode) => {
+  return render(
+    <BrowserRouter>
+      {component}
+    </BrowserRouter>
+  );
+};
+
 describe("Testing Header component", () => {
   it("should open mobile menu when clicking hamburger button", () => {
-    render(<Header />);
+    renderWithRouter(<Header />);
 
     const hamburgerButton = screen.getByAltText("Hamburger menu icon");
 
@@ -20,10 +35,9 @@ describe("Testing Header component", () => {
   });
 
   it("should close mobile menu when clicking hamburger button", () => {
-    
     const mockSetMobileMenuStatus = vi.fn();
 
-    render(
+    renderWithRouter(
       <HeaderMobileNavMenuComponent
         setMobileMenuStatus={mockSetMobileMenuStatus}
       />
