@@ -70,16 +70,6 @@ const LoginForm = () => {
             Zaloguj się
           </button>
         </div>
-
-        <div className="text-center text-sm">
-          <span className="text-gray-600">Nie masz jeszcze konta? </span>
-          <button
-            type="button"
-            className="font-medium text-primary hover:text-primary-dark transition-colors"
-          >
-            Zarejestruj się
-          </button>
-        </div>
       </form>
     </div>
   );
