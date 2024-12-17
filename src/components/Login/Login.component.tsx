@@ -3,12 +3,10 @@ import type { LoginFormData } from "./LoginForm/loginForm.schema";
 
 const Login = () => {
   const handleLogin = async (data: LoginFormData) => {
-    // Tutaj implementacja logowania
     console.log('Login attempt:', data);
   };
 
   const handleForgotPassword = async (email: string) => {
-    // Tutaj implementacja resetowania hasła
     console.log('Password reset for:', email);
   };
 
