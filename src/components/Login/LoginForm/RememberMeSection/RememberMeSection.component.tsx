@@ -13,6 +13,7 @@ const RememberMeSection = ({ rememberMe, onChange, onForgotPassword }: RememberM
         type="checkbox"
         checked={rememberMe}
         onChange={onChange}
+        data-testid="remember-me-checkbox"
         className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
       />
       <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
@@ -23,6 +24,7 @@ const RememberMeSection = ({ rememberMe, onChange, onForgotPassword }: RememberM
     <button
       type="button"
       onClick={onForgotPassword}
+      data-testid="forgot-password-button"
       className="text-sm font-medium text-primary hover:text-primary-dark transition-colors"
     >
       Nie pamiętam hasła

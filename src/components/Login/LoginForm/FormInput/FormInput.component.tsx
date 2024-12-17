@@ -37,13 +37,19 @@ const FormInput = memo(({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        data-testid={`${name}-input`}
         className={`block w-full px-4 py-3 rounded-lg border shadow-sm placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm ${
           error && touched ? 'border-red-500' : 'border-gray-300'
         }`}
         placeholder={placeholder}
       />
       {error && touched && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
+        <p 
+          data-testid={`${name}-error`}
+          className="mt-1 text-sm text-red-600"
+        >
+          {error}
+        </p>
       )}
     </div>
   </div>

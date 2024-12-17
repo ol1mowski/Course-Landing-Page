@@ -19,8 +19,6 @@ export const useLoginForm = ({ onLogin, onForgotPassword }: UseLoginFormProps) =
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const validateField = useCallback((field: string, value: string) => {
-    if (!touched[field]) return;
-
     const newErrors = { ...errors };
 
     switch (field) {
@@ -29,7 +27,7 @@ export const useLoginForm = ({ onLogin, onForgotPassword }: UseLoginFormProps) =
         if (!value) {
           newErrors.email = 'Email jest wymagany';
         } else if (!emailRegex.test(value)) {
-          newErrors.email = 'Nieprawid��owy format email';
+          newErrors.email = 'Nieprawidłowy format email';
         } else {
           delete newErrors.email;
         }
@@ -47,7 +45,32 @@ export const useLoginForm = ({ onLogin, onForgotPassword }: UseLoginFormProps) =
     }
 
     setErrors(newErrors);
-  }, [errors, touched]);
+    return newErrors;
+  }, [errors]);
+
+  const validateForm = useCallback(() => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.email) {
+      newErrors.email = 'Email jest wymagany';
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        newErrors.email = 'Nieprawidłowy format email';
+      }
+    }
+
+    if (!isResetMode) {
+      if (!formData.password) {
+        newErrors.password = 'Hasło jest wymagane';
+      } else if (formData.password.length < 6) {
+        newErrors.password = 'Hasło musi mieć minimum 6 znaków';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }, [formData.email, formData.password, isResetMode]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -68,18 +91,14 @@ export const useLoginForm = ({ onLogin, onForgotPassword }: UseLoginFormProps) =
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const allTouched = Object.keys(formData).reduce((acc, key) => ({
-      ...acc,
-      [key]: true
-    }), {});
-    setTouched(allTouched);
+    setTouched({
+      email: true,
+      password: !isResetMode,
+      rememberMe: false
+    });
 
-    validateField('email', formData.email);
-    if (!isResetMode) {
-      validateField('password', formData.password);
-    }
-
-    if (Object.keys(errors).length > 0) return;
+    const isValid = validateForm();
+    if (!isValid) return;
 
     setIsLoading(true);
 
