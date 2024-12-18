@@ -20,7 +20,7 @@ function App() {
           <Route path="/platnosc" element={<PaymentPage />} />
           <Route path="/panel" element={<Panel />} />
           <Route path="/panel/dane" element={<UserProfile />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/logowanie" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>
