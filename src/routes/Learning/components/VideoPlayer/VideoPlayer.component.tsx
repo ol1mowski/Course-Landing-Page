@@ -1,8 +1,29 @@
-import { memo } from 'react';
+import { memo, useRef, useEffect } from 'react';
 import { useVideo } from '../../hooks/useVideo.hook';
 
 const VideoPlayer = () => {
-  const { currentVideo } = useVideo();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { 
+    currentVideo, 
+    isPlaying,
+    handleVideoProgress, 
+    handleVideoEnd 
+  } = useVideo();
+
+  useEffect(() => {
+    if (videoRef.current && isPlaying) {
+      videoRef.current.play();
+    }
+  }, [isPlaying, currentVideo]);
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      handleVideoProgress(
+        videoRef.current.currentTime,
+        videoRef.current.duration
+      );
+    }
+  };
 
   if (!currentVideo) {
     return (
@@ -16,10 +37,13 @@ const VideoPlayer = () => {
     <div className="space-y-4">
       <div className="aspect-video bg-black rounded-lg overflow-hidden">
         <video
+          ref={videoRef}
           src={currentVideo.url}
           controls
           className="w-full h-full"
           poster="/video-placeholder.jpg"
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleVideoEnd}
         />
       </div>
       <div>
