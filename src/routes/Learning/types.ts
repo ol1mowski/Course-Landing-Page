@@ -11,4 +11,14 @@ export type Chapter = {
   title: string;
   videos: Video[];
   progress: number;
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  author: {
+    id: number;
+    name: string;
+  };
+  createdAt: string;
 }; 
