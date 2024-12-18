@@ -15,12 +15,12 @@ function App() {
       }}
     >
       <Routes>
+        <Route path="/logowanie" element={<Login />} />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/platnosc" element={<PaymentPage />} />
           <Route path="/panel" element={<Panel />} />
           <Route path="/panel/dane" element={<UserProfile />} />
-          <Route path="/logowanie" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>
