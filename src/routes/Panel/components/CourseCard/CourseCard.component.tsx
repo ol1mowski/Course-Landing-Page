@@ -30,6 +30,4 @@ const CourseCard = memo(({ title, progress }: CourseCardProps) => (
   </div>
 ));
 
-CourseCard.displayName = 'CourseCard';
-
 export default CourseCard; 

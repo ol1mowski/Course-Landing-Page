@@ -18,6 +18,4 @@ const CoursesList = memo(({ courses }: CoursesListProps) => (
   </div>
 ));
 
-CoursesList.displayName = 'CoursesList';
-
 export default CoursesList; 
