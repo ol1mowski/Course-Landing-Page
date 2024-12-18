@@ -1,8 +1,11 @@
 # **Online Course Platform**
 
 ![Screenshot 2024-12-14 at 14 15 52](https://github.com/user-attachments/assets/8d2c8ac3-04e2-462b-9159-e5f72dc73b53)
+<img width="1440" alt="Screenshot 2024-12-18 at 09 44 22" src="https://github.com/user-attachments/assets/b6576f86-4f17-431e-807b-f95c31cffcf6" />
+<img width="1440" alt="Screenshot 2024-12-18 at 09 44 39" src="https://github.com/user-attachments/assets/f62ede15-6d0d-4576-9e7e-3912ec6e2498" />
 
-![Uploading Screenshot 2024-12-14 at 14.16.12.png…]()
+<img width="1440" alt="Screenshot 2024-12-18 at 09 45 01" src="https://github.com/user-attachments/assets/91bfe0f1-58ae-464d-8163-162bd73b42e2" />
+
 
 
 A modern, responsive platform for hosting and managing online courses. This project combines cutting-edge web development technologies to deliver a seamless user experience, including a landing page for showcasing courses and an admin panel for content management.
