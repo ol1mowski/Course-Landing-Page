@@ -1,10 +1,11 @@
 import { memo } from 'react';
 import { useChapters } from '../../hooks/useChapters.hook';
+import { useVideo } from '../../hooks/useVideo.hook';
 import ChapterAccordion from './ChapterAccordion/ChapterAccordion.component';
-
 
 const VideoSidebar = () => {
   const { chapters, activeChapterId, handleChapterClick } = useChapters();
+  const { currentVideo, handleVideoSelect } = useVideo();
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4">
@@ -15,6 +16,8 @@ const VideoSidebar = () => {
             key={chapter.id}
             chapter={chapter}
             isActive={chapter.id === activeChapterId}
+            currentVideo={currentVideo}
+            onVideoSelect={handleVideoSelect}
             onClick={() => handleChapterClick(chapter.id)}
           />
         ))}
