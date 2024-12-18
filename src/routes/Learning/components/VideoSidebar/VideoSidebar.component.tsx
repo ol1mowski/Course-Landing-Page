@@ -1,6 +1,7 @@
 import { memo } from 'react';
-import ChapterAccordion from './ChapterAccordion/ChapterAccordion.component';
 import { useChapters } from '../../hooks/useChapters.hook';
+import ChapterAccordion from './ChapterAccordion/ChapterAccordion.component';
+
 
 const VideoSidebar = () => {
   const { chapters, activeChapterId, handleChapterClick } = useChapters();

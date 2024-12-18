@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import Panel from "./routes/Panel/Panel.component";
 import Login from "./routes/Login/Login.component";
 import UserProfile from "./routes/Panel/UserProfile/UserProfile.component";
+import Learning from "./routes/Learning/Learning.component";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/platnosc" element={<PaymentPage />} />
           <Route path="/panel" element={<Panel />} />
           <Route path="/panel/dane" element={<UserProfile />} />
+          <Route path="/nauka" element={<Learning />} />
         </Route>
       </Routes>
     </BrowserRouter>

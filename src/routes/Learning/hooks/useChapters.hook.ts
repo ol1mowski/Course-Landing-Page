@@ -22,6 +22,34 @@ const MOCK_CHAPTERS: Chapter[] = [
         completed: false
       }
     ]
+  },
+  {
+    id: 2,
+    title: "Podstawy programowania",
+    progress: 0,
+    videos: [
+      {
+        id: 3,
+        title: "Zmienne i typy danych",
+        url: "https://example.com/video3",
+        duration: 900,
+        completed: false
+      },
+      {
+        id: 4,
+        title: "Instrukcje warunkowe",
+        url: "https://example.com/video4",
+        duration: 1200,
+        completed: false
+      },
+      {
+        id: 5,
+        title: "Pętle",
+        url: "https://example.com/video5",
+        duration: 1500,
+        completed: false
+      }
+    ]
   }
 ];
 
