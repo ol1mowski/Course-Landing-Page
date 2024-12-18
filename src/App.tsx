@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import Panel from "./routes/Panel/Panel.component";
 import Login from "./routes/Login/Login.component";
+import UserProfile from "./routes/Panel/UserProfile/UserProfile.component";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/platnosc" element={<PaymentPage />} />
           <Route path="/panel" element={<Panel />} />
+          <Route path="/panel/dane" element={<UserProfile />} />
           <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
