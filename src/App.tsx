@@ -9,20 +9,20 @@ import Learning from "./routes/Learning/Learning.component";
 
 function App() {
   return (
-    <BrowserRouter 
-      future={{ 
+    <BrowserRouter
+      future={{
         v7_startTransition: true,
-        v7_relativeSplatPath: true 
+        v7_relativeSplatPath: true,
       }}
     >
       <Routes>
         <Route path="/logowanie" element={<Login />} />
+        <Route path="/nauka" element={<Learning />} />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/platnosc" element={<PaymentPage />} />
           <Route path="/panel" element={<Panel />} />
           <Route path="/panel/dane" element={<UserProfile />} />
-          <Route path="/nauka" element={<Learning />} />
         </Route>
       </Routes>
     </BrowserRouter>
