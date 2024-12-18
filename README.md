@@ -1,9 +1,10 @@
 # **Online Course Platform**
 
 ![Screenshot 2024-12-14 at 14 15 52](https://github.com/user-attachments/assets/8d2c8ac3-04e2-462b-9159-e5f72dc73b53)
+
 <img width="1440" alt="Screenshot 2024-12-18 at 09 44 22" src="https://github.com/user-attachments/assets/b6576f86-4f17-431e-807b-f95c31cffcf6" />
 <img width="1440" alt="Screenshot 2024-12-18 at 09 44 39" src="https://github.com/user-attachments/assets/f62ede15-6d0d-4576-9e7e-3912ec6e2498" />
-
+<img width="1440" alt="Screenshot 2024-12-16 at 06 55 05" src="https://github.com/user-attachments/assets/20876094-ad28-4b81-8cd8-0f5621039cf6" />
 <img width="1440" alt="Screenshot 2024-12-18 at 09 45 01" src="https://github.com/user-attachments/assets/91bfe0f1-58ae-464d-8163-162bd73b42e2" />
 
 
