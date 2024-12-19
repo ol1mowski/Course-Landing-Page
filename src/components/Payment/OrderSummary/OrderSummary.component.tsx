@@ -6,7 +6,11 @@ import SecurityBadges from "../SecurityBadges/SecurityBadges.component";
 import PriceRow from "./PriceRow/PriceRow.component";
 import PaymentButton from "./PaymentButton/PaymentButton.component";
 
-const OrderSummary = () => {
+type OrderSummaryProps = {
+  isProcessing?: boolean;
+};
+
+const OrderSummary = ({ isProcessing = false }: OrderSummaryProps) => {
   const savings = OFFER_DETAILS.regularPrice - OFFER_DETAILS.promoPrice;
 
   return (
@@ -43,7 +47,10 @@ const OrderSummary = () => {
           className="text-lg" 
         />
 
-        <PaymentButton amount={OFFER_DETAILS.promoPrice} />
+        <PaymentButton 
+          amount={OFFER_DETAILS.promoPrice} 
+          isProcessing={isProcessing}
+        />
         <SecurityBadges />
       </div>
     </motion.section>

@@ -11,12 +11,18 @@ import OrderSummary from "./OrderSummary/OrderSummary.component";
 
 const Payment = () => {
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>("p24");
+  const [isProcessing, setIsProcessing] = useState(false);
   const { ref, isInView } = useAnimationInView();
-  const [formData, setFormData] = useState<OrderFormData | null>(null);
 
-  const handlePayment = (data: OrderFormData) => {
-    setFormData(data);
-    console.log('ok', { ...data, paymentMethod: selectedMethod });
+  const handlePayment = async (data: OrderFormData) => {
+    setIsProcessing(true);
+    try {
+      // Symulacja przetwarzania płatności
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('ok', { ...data, paymentMethod: selectedMethod });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -38,7 +44,7 @@ const Payment = () => {
           </div>
 
           <div className="lg:sticky lg:top-8 h-fit">
-            <OrderSummary />
+            <OrderSummary isProcessing={isProcessing} />
           </div>
         </motion.div>
       </div>
