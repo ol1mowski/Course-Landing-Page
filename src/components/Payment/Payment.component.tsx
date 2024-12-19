@@ -24,9 +24,13 @@ const Payment = () => {
     
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
-      console.log('ok', { ...data, paymentMethod: selectedMethod });
+      const successToken = Date.now().toString();
+      localStorage.setItem('payment_success', successToken);
       navigate('/sukces', { 
-        state: { email: data.email }
+        state: { 
+          email: data.email,
+          token: successToken
+        }
       });
     } catch (error) {
       console.error('Payment failed:', error);

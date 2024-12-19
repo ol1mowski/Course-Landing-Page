@@ -1,11 +1,22 @@
 import { motion } from "framer-motion";
 import { Link, useLocation, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const PaymentSuccess = () => {
   const location = useLocation();
   const email = location.state?.email;
+  const token = location.state?.token;
+  const savedToken = localStorage.getItem('payment_success');
 
-  if (!email) {
+  const isValidPayment = token && savedToken && token === savedToken;
+
+  useEffect(() => {
+    if (isValidPayment) {
+      localStorage.removeItem('payment_success');
+    }
+  }, [isValidPayment]);
+
+  if (!isValidPayment) {
     return <Navigate to="/" replace />;
   }
 
