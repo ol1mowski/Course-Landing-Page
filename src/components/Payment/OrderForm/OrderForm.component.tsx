@@ -8,7 +8,11 @@ import type { OrderFormData } from "./orderForm.types";
 import FormField from "./FormField/FormField.component";
 import FormCheckbox from "./FormCheckbox/FormCheckbox.component";
 
-const OrderForm = () => {
+type OrderFormProps = {
+  onSubmit: (data: OrderFormData) => void;
+};
+
+const OrderForm = ({ onSubmit }: OrderFormProps) => {
   const {
     register,
     formState: { errors, dirtyFields },
@@ -32,12 +36,9 @@ const OrderForm = () => {
   const nip = watch("nip");
   const isCompanyFieldRequired = companyName || nip;
 
-  const onSubmit = (data: OrderFormData) => {
-    console.log(data);
-  };
-
   return (
     <motion.form
+      id="payment-form"
       variants={formVariants}
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-6 bg-white p-6 rounded-xl shadow-lg"
