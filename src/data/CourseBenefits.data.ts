@@ -4,26 +4,28 @@ export const COURSE_BENEFITS_DATA = {
     {
       id: 1,
       title: "Kompleksowe przygotowanie",
-      description: "Od podstaw programowania po zaawansowane techniki i najlepsze praktyki",
-      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/complete_icon.svg"
+      description:
+        "Od podstaw programowania po zaawansowane techniki i najlepsze praktyki",
+      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1734589038/Course-site/checklist_oycmal.webp",
     },
     {
       id: 2,
       title: "Społeczność",
-      description: "Dostęp do zamkniętej grupy, gdzie możesz wymieniać się wiedzą i doświadczeniami",
-      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/community_icon.svg"
+      description:
+        "Dostęp do zamkniętej grupy, gdzie możesz wymieniać się wiedzą i doświadczeniami",
+      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1734589036/Course-site/couminty_byeihd.webp",
     },
     {
       id: 3,
       title: "Wsparcie mentora",
       description: "Indywidualne konsultacje i pomoc w rozwiązywaniu problemów",
-      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/support_icon.svg"
+      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1734589033/Course-site/mentor_rfrcsj.webp",
     },
     {
       id: 4,
       title: "Praktyczne projekty",
       description: "Realne projekty, które możesz dodać do swojego portfolio",
-      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/projects_icon.svg"
-    }
-  ]
+      icon: "https://res.cloudinary.com/dbbuav0rj/image/upload/v1734589034/Course-site/advise_fuius0.webp",
+    },
+  ],
 }; 

@@ -15,7 +15,7 @@ const PaymentMethods = ({ selectedMethod, onMethodSelect }: PaymentMethodsProps)
         id="p24"
         title="Przelewy24"
         description="Szybki płatność BLIK, karta płatnicza, przelew tradycyjny"
-        icon="https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/p24-icon.svg"
+        icon="https://res.cloudinary.com/dbbuav0rj/image/upload/v1734590883/Course-site/Przelewy24_logo_hkd63d.svg"
         selected={selectedMethod === "p24"}
         onClick={() => onMethodSelect("p24")}
       />

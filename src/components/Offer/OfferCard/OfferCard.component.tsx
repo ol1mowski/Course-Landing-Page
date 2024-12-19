@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Button from "../../UI/Button/Button.component";
 import { OFFER_DETAILS } from "../../../data/Offer.data";
+import { Link } from "react-router-dom";
 
 const OfferCard = () => (
   <motion.div
@@ -16,7 +17,7 @@ const OfferCard = () => (
         alt="Logo"
         className="h-16 mb-8"
       />
-      
+
       <section className="space-y-4 mb-8">
         <div className="relative">
           <span className="text-gray-500 text-2xl line-through">
@@ -31,9 +32,9 @@ const OfferCard = () => (
         </div>
       </section>
 
-      <Button>
-        Dołącz do kursu
-      </Button>
+      <Link to={"/platnosc"}>
+        <Button>Dołącz do kursu</Button>
+      </Link>
 
       <p className="text-sm text-gray-500 mt-4">
         Jednorazowa płatność, dożywotni dostęp
@@ -42,4 +43,4 @@ const OfferCard = () => (
   </motion.div>
 );
 
-export default OfferCard; 
+export default OfferCard;
