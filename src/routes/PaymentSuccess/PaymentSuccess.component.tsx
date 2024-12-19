@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const PaymentSuccess = () => {
   return (
@@ -34,6 +35,24 @@ const PaymentSuccess = () => {
             Jeśli nie otrzymasz wiadomości w ciągu 5 minut, 
             sprawdź folder spam lub skontaktuj się z nami.
           </p>
+
+          <div className="space-y-4">
+            <a 
+              href="mailto:kontakt@example.com"
+              className="inline-block w-full sm:w-auto px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+            >
+              Kontakt z supportem
+            </a>
+            
+            <div className="mt-4">
+              <Link 
+                to="/"
+                className="text-gray-600 hover:text-primary transition-colors"
+              >
+                Powrót do strony głównej
+              </Link>
+            </div>
+          </div>
         </motion.div>
       </div>
     </main>
