@@ -1,21 +1,28 @@
+import { Link, useLocation } from "react-router-dom";
+import { MENU_ITEMS } from "../../../data/MenuItems.data";
+
+const PANEL_ITEMS = [
+  { id: 'courses', label: 'Moje kursy', href: '/panel' },
+  { id: 'profile', label: 'Moje dane', href: '/panel/dane' },
+  { id: 'logout', label: 'Wyloguj', href: '/wyloguj' }
+];
+
 const HeaderDesktopNavBar = () => {
+  const location = useLocation();
+  const isUserLoggedIn = location.pathname.startsWith('/panel');
+  const items = isUserLoggedIn ? PANEL_ITEMS : MENU_ITEMS;
+
   return (
-    <ul className="hidden lg:flex gap-10">
-      <a href="#for-who">
-        <li className="text-xl">Dla Kogo jest ten kurs ?</li>
-      </a>
-      <a href="#gain">
-        <li className="text-xl">Co Otrzymasz ?</li>
-      </a>
-      <a href="#bonus">
-        <li className="text-xl">Bonus</li>
-      </a>
-      <a href="#offer">
-        <li className="text-xl">Oferta</li>
-      </a>
-      <a href="#faq">
-        <li className="text-xl">FAQ</li>
-      </a>
+    <ul className="hidden xl:flex gap-10">
+      {items.map((item) => (
+        <Link to={item.href} key={item.id}>
+          <li className={`text-lg transition-colors duration-500 hover:text-primary ${
+            location.pathname === item.href ? 'text-primary' : ''
+          }`}>
+            {item.label}
+          </li>
+        </Link>
+      ))}
     </ul>
   );
 };
