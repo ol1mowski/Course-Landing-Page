@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { containerVariants } from "../../animations/paymentAnimations";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
 import type { PaymentMethodType } from "./Payment.types";
@@ -10,6 +11,7 @@ import PaymentMethods from "./PaymentMethods/PaymentMethods.component";
 import OrderSummary from "./OrderSummary/OrderSummary.component";
 
 const Payment = () => {
+  const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>("p24");
   const [isProcessing, setIsProcessing] = useState(false);
   const { ref, isInView } = useAnimationInView();
@@ -17,9 +19,11 @@ const Payment = () => {
   const handlePayment = async (data: OrderFormData) => {
     setIsProcessing(true);
     try {
-      // Symulacja przetwarzania płatności
       await new Promise(resolve => setTimeout(resolve, 2000));
       console.log('ok', { ...data, paymentMethod: selectedMethod });
+      navigate('/sukces');
+    } catch (error) {
+      console.error('Payment failed:', error);
     } finally {
       setIsProcessing(false);
     }
