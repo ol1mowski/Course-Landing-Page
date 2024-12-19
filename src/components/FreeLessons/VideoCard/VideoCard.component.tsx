@@ -21,7 +21,7 @@ const VideoCard = ({ title, duration, thumbnail, videoUrl, index }: VideoCardPro
       />
       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
         <img
-          src="https://res.cloudinary.com/dbbuav0rj/image/upload/v1732119121/Course-site/play-icon.svg"
+          src="https://res.cloudinary.com/dbbuav0rj/image/upload/v1734589034/Course-site/play_juxior.webp"
           alt="Play"
           className="w-16 h-16"
         />
