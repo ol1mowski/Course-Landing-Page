@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import LoginForm from '../../../components/Login/LoginForm/LoginForm.component';
+import LoginForm from './LoginForm.component';
 
 
 describe('LoginForm', () => {
