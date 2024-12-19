@@ -4,19 +4,13 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { containerVariants } from "../../animations/paymentAnimations";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
-import type { PaymentMethodType } from "./Payment.types";
+import type { PaymentFormsProps, PaymentMethodType } from "./Payment.types";
 import type { OrderFormData } from "./OrderForm/orderForm.types";
 
 import OrderForm from "./OrderForm/OrderForm.component";
 import PaymentMethods from "./PaymentMethods/PaymentMethods.component";
 import OrderSummary from "./OrderSummary/OrderSummary.component";
 import PaymentError from "./PaymentError/PaymentError.component";
-
-type PaymentFormsProps = {
-  onSubmit: (data: OrderFormData) => Promise<void>;
-  selectedMethod: PaymentMethodType;
-  onMethodSelect: (method: PaymentMethodType) => void;
-};
 
 const Payment = () => {
   const navigate = useNavigate();
