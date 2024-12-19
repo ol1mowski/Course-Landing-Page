@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { containerVariants } from "../../animations/paymentAnimations";
@@ -11,6 +11,12 @@ import PaymentMethods from "./PaymentMethods/PaymentMethods.component";
 import OrderSummary from "./OrderSummary/OrderSummary.component";
 import PaymentError from "./PaymentError/PaymentError.component";
 
+type PaymentFormsProps = {
+  onSubmit: (data: OrderFormData) => Promise<void>;
+  selectedMethod: PaymentMethodType;
+  onMethodSelect: (method: PaymentMethodType) => void;
+};
+
 const Payment = () => {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>("p24");
@@ -18,7 +24,7 @@ const Payment = () => {
   const [error, setError] = useState<string | null>(null);
   const { ref, isInView } = useAnimationInView();
 
-  const handlePayment = async (data: OrderFormData) => {
+  const handlePayment = useCallback(async (data: OrderFormData) => {
     setIsProcessing(true);
     setError(null);
     
@@ -38,16 +44,16 @@ const Payment = () => {
     } finally {
       setIsProcessing(false);
     }
-  };
+  }, [navigate]);
+
+  const handleMethodSelect = useCallback((method: PaymentMethodType) => {
+    setSelectedMethod(method);
+  }, []);
 
   return (
     <main className="min-h-screen bg-gray-50 py-20">
-      {error && (
-        <PaymentError 
-          message={error} 
-          onClose={() => setError(null)} 
-        />
-      )}
+      {error && <PaymentError message={error} onClose={() => setError(null)} />}
+      
       <div className="max-w-6xl mx-auto px-4">
         <motion.div
           ref={ref}
@@ -56,13 +62,11 @@ const Payment = () => {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-1 lg:grid-cols-2 gap-8"
         >
-          <div className="space-y-8">
-            <OrderForm onSubmit={handlePayment} />
-            <PaymentMethods
-              selectedMethod={selectedMethod}
-              onMethodSelect={setSelectedMethod}
-            />
-          </div>
+          <PaymentForms 
+            onSubmit={handlePayment}
+            selectedMethod={selectedMethod}
+            onMethodSelect={handleMethodSelect}
+          />
 
           <div className="lg:sticky lg:top-8 h-fit">
             <OrderSummary isProcessing={isProcessing} />
@@ -72,5 +76,19 @@ const Payment = () => {
     </main>
   );
 };
+
+const PaymentForms = ({ 
+  onSubmit, 
+  selectedMethod, 
+  onMethodSelect 
+}: PaymentFormsProps) => (
+  <div className="space-y-8">
+    <OrderForm onSubmit={onSubmit} />
+    <PaymentMethods
+      selectedMethod={selectedMethod}
+      onMethodSelect={onMethodSelect}
+    />
+  </div>
+);
 
 export default Payment; 
