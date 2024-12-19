@@ -7,6 +7,7 @@ import Login from "./routes/Login/Login.component";
 import UserProfile from "./routes/Panel/UserProfile/UserProfile.component";
 import Learning from "./routes/Learning/Learning.component";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop.component";
+import PaymentSuccess from "./routes/PaymentSuccess/PaymentSuccess.component";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/platnosc" element={<PaymentPage />} />
+          <Route path="/sukces" element={<PaymentSuccess />} />
           <Route path="/panel" element={<Panel />} />
           <Route path="/panel/dane" element={<UserProfile />} />
         </Route>
