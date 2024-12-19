@@ -1,7 +1,14 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 
 const PaymentSuccess = () => {
+  const location = useLocation();
+  const email = location.state?.email;
+
+  if (!email) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <main className="min-h-screen bg-gray-50 py-20">
       <div className="max-w-2xl mx-auto px-4">
@@ -30,8 +37,13 @@ const PaymentSuccess = () => {
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             Dziękujemy za zakup!
           </h1>
+          <p className="text-gray-600 mb-4">
+            Wysłaliśmy dane logowania na adres:
+          </p>
+          <p className="text-primary font-medium text-lg mb-8">
+            {email}
+          </p>
           <p className="text-gray-600 mb-8">
-            Wysłaliśmy dane logowania na podany adres email. 
             Jeśli nie otrzymasz wiadomości w ciągu 5 minut, 
             sprawdź folder spam lub skontaktuj się z nami.
           </p>

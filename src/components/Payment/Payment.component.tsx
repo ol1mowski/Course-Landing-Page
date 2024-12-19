@@ -25,7 +25,9 @@ const Payment = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
       console.log('ok', { ...data, paymentMethod: selectedMethod });
-      navigate('/sukces');
+      navigate('/sukces', { 
+        state: { email: data.email }
+      });
     } catch (error) {
       console.error('Payment failed:', error);
       setError('Wystąpił błąd podczas przetwarzania płatności. Spróbuj ponownie później.');
