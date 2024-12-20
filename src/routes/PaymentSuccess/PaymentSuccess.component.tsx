@@ -67,7 +67,7 @@ const PaymentSuccess = () => {
                 to="/logowanie"
                 className="text-gray-600 hover:text-primary transition-colors"
               >
-                Powrót do strony logowania
+                Przejdź do strony logowania
               </Link>
             </div>
           </div>
