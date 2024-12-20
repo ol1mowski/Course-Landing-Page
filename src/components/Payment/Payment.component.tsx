@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 import { containerVariants } from "../../animations/paymentAnimations";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
-import type { PaymentMethodType } from "./Payment.types";
+import type { PaymentFormsProps, PaymentMethodType } from "./Payment.types";
 import type { OrderFormData } from "./OrderForm/orderForm.types";
 import { usePayment } from "../../hooks/usePayment.hook";
 

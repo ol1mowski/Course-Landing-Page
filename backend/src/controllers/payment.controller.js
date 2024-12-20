@@ -15,10 +15,7 @@ export class PaymentController {
       
       res.status(201).json({
         success: true,
-        data: {
-          email: result.email,
-          password: result.password,
-        },
+        data: result
       });
     } catch (error) {
       console.error('Payment controller error:', error);

@@ -30,13 +30,15 @@ export const usePayment = () => {
     mutationFn: processPayment,
     onSuccess: (data) => {
       if (!data.success) {
+        console.log('No success flag in response');
         throw new Error('Payment processing failed');
       }
       navigate('/sukces', { 
         state: { 
           email: data.data.email,
           password: data.data.password
-        }
+        },
+        replace: true
       });
     },
     onError: (error) => {
