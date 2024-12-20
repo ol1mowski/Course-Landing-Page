@@ -45,7 +45,7 @@ const studentSchema = new mongoose.Schema({
       return ret;
     },
   },
-  collection: 'students'
+  collection: 'Students.Students'
 });
 
 studentSchema.pre('save', async function(next) {
@@ -64,4 +64,4 @@ studentSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-export const Student = mongoose.model('Students', studentSchema); 
+export const Student = mongoose.model('Student', studentSchema, 'Students'); 

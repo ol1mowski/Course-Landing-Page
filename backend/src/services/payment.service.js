@@ -1,12 +1,16 @@
 import { Student } from '../models/user.model.js';
 import { generateSecurePassword } from './password.service.js';
+import mongoose from 'mongoose';
 
 export class PaymentService {
   async processPayment({ email, firstName, lastName }) {
     try {
       const password = generateSecurePassword();
       
-      const existingUser = await Student.findOne({ email });
+      const existingUser = await mongoose.connection.db
+        .collection('Students')
+        .findOne({ email });
+
       if (existingUser) {
         throw new Error('User already exists');
       }
@@ -20,7 +24,7 @@ export class PaymentService {
       });
 
       await user.save();
-      console.log(`New student created: ${email}, name: ${firstName} ${lastName}`);
+      console.log(`\nNowy student dodany: ${email}, name: ${firstName} ${lastName}`);
 
       return {
         email,

@@ -29,13 +29,13 @@ export const usePayment = () => {
     onSuccess: (response) => {
 
       if (!response.success) {
-        throw new Error('Payment processing failed');
+        throw new Error('Nie udało się przetworzyć płatności');
       }
 
       const { email, password, paymentToken } = response.data;
 
       if (!email || !password || !paymentToken) {
-        throw new Error('Invalid response data');
+        throw new Error('Server error');
       }
 
       sessionStorage.setItem('paymentToken', paymentToken);
