@@ -3,7 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import env from './config/environment.js';
-import logger from './utils/logger.js';
 import paymentRoutes from './routes/payment.routes.js';
 import { connectDB } from './config/database.js';
 import { errorHandler, notFound } from './middleware/error.middleware.js';
@@ -27,10 +26,10 @@ const start = async () => {
     await connectDB();
     
     app.listen(env.PORT, () => {
-      logger.info(`Server is running on port ${env.PORT}`);
+      console.log(`Server is running on port ${env.PORT}`);
     });
   } catch (error) {
-    logger.error('Failed to start server:', error);
+    console.error('Failed to start server:', error);
     process.exit(1);
   }
 };

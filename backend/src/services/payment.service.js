@@ -1,6 +1,5 @@
 import { User } from '../models/user.model.js';
 import { generateSecurePassword } from './password.service.js';
-import logger from '../utils/logger.js';
 
 export class PaymentService {
   async processPayment(email) {
@@ -18,11 +17,11 @@ export class PaymentService {
       });
 
       await user.save();
-      logger.info(`New user created: ${email}`);
+      console.log(`New user created: ${email}`);
 
       return { email, password };
     } catch (error) {
-      logger.error('Payment processing error:', error);
+      console.log('Payment processing error:', error);
       throw error;
     }
   }

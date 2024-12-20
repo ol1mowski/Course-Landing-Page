@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-export const generateSecurePassword = (): string => {
+export const generateSecurePassword = () => {
   const length = 12;
   const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
   let password = '';

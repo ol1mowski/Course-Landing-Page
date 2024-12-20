@@ -1,6 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
-import logger from '../utils/logger';
 
 const paymentSchema = z.object({
   email: z.string().email('Invalid email format'),
@@ -9,12 +7,12 @@ const paymentSchema = z.object({
   terms: z.boolean().refine(val => val === true, 'Terms must be accepted'),
 });
 
-export const validatePaymentData = (req: Request, res: Response, next: NextFunction) => {
+export const validatePaymentData = (req, res, next) => {
   try {
     paymentSchema.parse(req.body);
     next();
   } catch (error) {
-    logger.error('Validation error:', error);
+    console.error('Validation error:', error);
     if (error instanceof z.ZodError) {
       return res.status(400).json({
         success: false,
