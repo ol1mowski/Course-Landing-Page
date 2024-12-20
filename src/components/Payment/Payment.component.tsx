@@ -20,6 +20,11 @@ const Payment = () => {
   const { ref, isInView } = useAnimationInView();
 
   const handlePayment = useCallback(async (data: OrderFormData) => {
+    if (!data.terms) {
+      setError('Musisz zaakceptować regulamin');
+      return;
+    }
+
     setIsProcessing(true);
     setError(null);
     
