@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-export interface IUser {
+export type IUser = {
   email: string;
   password: string;
   createdAt: Date;

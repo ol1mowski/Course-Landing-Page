@@ -7,13 +7,11 @@ export class PaymentService {
     try {
       const password = generateSecurePassword();
       
-      // Sprawdź czy użytkownik już istnieje
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         throw new Error('User already exists');
       }
 
-      // Utwórz nowego użytkownika
       const user = new User({
         email,
         password,
