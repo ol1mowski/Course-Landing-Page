@@ -29,7 +29,9 @@ const Payment = () => {
     setError(null);
     
     try {
+      // It's at the moment of payment processing we need to wait for 2 seconds for animation to finish
       await new Promise(resolve => setTimeout(resolve, 2000));
+      // It's dummy auth
       const successToken = Date.now().toString();
       localStorage.setItem('payment_success', successToken);
       navigate('/sukces', { 
