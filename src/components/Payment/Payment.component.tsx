@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
-import { useNavigate } from "react-router-dom";
 import { containerVariants } from "../../animations/paymentAnimations";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
-import type { PaymentFormsProps, PaymentMethodType } from "./Payment.types";
+import type { PaymentMethodType } from "./Payment.types";
 import type { OrderFormData } from "./OrderForm/orderForm.types";
+import { usePayment } from "../../hooks/usePayment.hook";
 
 import OrderForm from "./OrderForm/OrderForm.component";
 import PaymentMethods from "./PaymentMethods/PaymentMethods.component";
@@ -13,40 +13,13 @@ import OrderSummary from "./OrderSummary/OrderSummary.component";
 import PaymentError from "./PaymentError/PaymentError.component";
 
 const Payment = () => {
-  const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethodType>("p24");
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const { ref, isInView } = useAnimationInView();
+  const { processPayment, isProcessing, error, isError } = usePayment();
 
   const handlePayment = useCallback(async (data: OrderFormData) => {
-    if (!data.terms) {
-      setError('Musisz zaakceptować regulamin');
-      return;
-    }
-
-    setIsProcessing(true);
-    setError(null);
-    
-    try {
-      // It's at the moment of payment processing we need to wait for 2 seconds for animation to finish
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      // It's dummy auth
-      const successToken = Date.now().toString();
-      localStorage.setItem('payment_success', successToken);
-      navigate('/sukces', { 
-        state: { 
-          email: data.email,
-          token: successToken
-        }
-      });
-    } catch (error) {
-      console.error('Payment failed:', error);
-      setError('Wystąpił błąd podczas przetwarzania płatności. Spróbuj ponownie później.');
-    } finally {
-      setIsProcessing(false);
-    }
-  }, [navigate]);
+    processPayment(data);
+  }, [processPayment]);
 
   const handleMethodSelect = useCallback((method: PaymentMethodType) => {
     setSelectedMethod(method);
@@ -54,7 +27,7 @@ const Payment = () => {
 
   return (
     <main className="min-h-screen bg-gray-50 py-20">
-      {error && <PaymentError message={error} onClose={() => setError(null)} />}
+      {isError && error && <PaymentError message={error} onClose={() => window.location.reload()} />}
       
       <div className="max-w-6xl mx-auto px-4">
         <motion.div
