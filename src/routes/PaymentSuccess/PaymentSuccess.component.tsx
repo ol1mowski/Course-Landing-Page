@@ -1,9 +1,21 @@
 import { motion } from "framer-motion";
-import { Link, useLocation} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const PaymentSuccess = () => {
   const location = useLocation();
   const email = location.state?.email;
+  const paymentToken = location.state?.paymentToken;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      !paymentToken ||
+      paymentToken !== sessionStorage.getItem("paymentToken")
+    ) {
+      navigate("/", { replace: true });
+    }
+  }, [paymentToken, navigate]);
 
   return (
     <main className="min-h-screen bg-gray-50 py-20">
@@ -36,24 +48,22 @@ const PaymentSuccess = () => {
           <p className="text-gray-600 mb-4">
             Wysłaliśmy dane logowania na adres:
           </p>
-          <p className="text-primary font-medium text-lg mb-8">
-            {email}
-          </p>
+          <p className="text-primary font-medium text-lg mb-8">{email}</p>
           <p className="text-gray-600 mb-8">
-            Jeśli nie otrzymasz wiadomości w ciągu 5 minut, 
-            sprawdź folder spam lub skontaktuj się z nami.
+            Jeśli nie otrzymasz wiadomości w ciągu 5 minut, sprawdź folder spam
+            lub skontaktuj się z nami.
           </p>
 
           <div className="space-y-4">
-            <a 
+            <a
               href="mailto:kontakt@example.com"
               className="inline-block w-full sm:w-auto px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
             >
               Kontakt z supportem
             </a>
-            
+
             <div className="mt-4">
-              <Link 
+              <Link
                 to="/logowanie"
                 className="text-gray-600 hover:text-primary transition-colors"
               >
@@ -67,4 +77,4 @@ const PaymentSuccess = () => {
   );
 };
 
-export default PaymentSuccess; 
+export default PaymentSuccess;

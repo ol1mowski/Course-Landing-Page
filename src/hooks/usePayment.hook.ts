@@ -12,15 +12,13 @@ const processPayment = async (data: OrderFormData) => {
     body: JSON.stringify(data),
   });
 
+  const responseData = await response.json();
+
   if (!response.ok) {
-    const error = await response.json();
-    if (error.errors) {
-      throw new Error(error.errors[0].message);
-    }
-    throw new Error(error.error || 'Payment failed');
+    throw new Error(responseData.error || 'Payment failed');
   }
 
-  return response.json();
+  return responseData;
 };
 
 export const usePayment = () => {
@@ -28,15 +26,25 @@ export const usePayment = () => {
 
   const mutation = useMutation({
     mutationFn: processPayment,
-    onSuccess: (data) => {
-      if (!data.success) {
-        console.log('No success flag in response');
+    onSuccess: (response) => {
+
+      if (!response.success) {
         throw new Error('Payment processing failed');
       }
+
+      const { email, password, paymentToken } = response.data;
+
+      if (!email || !password || !paymentToken) {
+        throw new Error('Invalid response data');
+      }
+
+      sessionStorage.setItem('paymentToken', paymentToken);
+
       navigate('/sukces', { 
         state: { 
-          email: data.data.email,
-          password: data.data.password
+          email,
+          password,
+          paymentToken
         },
         replace: true
       });

@@ -22,7 +22,10 @@ export class PaymentService {
       await user.save();
       console.log(`New student created: ${email}, name: ${firstName} ${lastName}`);
 
-      return { email, password };
+      return {
+        email,
+        password,
+      };
     } catch (error) {
       console.error('Payment processing error:', error);
       throw error;

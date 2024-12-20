@@ -1,22 +1,30 @@
 import { paymentService } from '../services/payment.service.js';
+import crypto from 'crypto';
 
 export class PaymentController {
   async processPayment(req, res) {
     try {
       const { email, firstName, lastName } = req.body;
+      
+      const paymentToken = crypto.randomBytes(32).toString('hex');
 
       const result = await paymentService.processPayment({ 
         email, 
         firstName, 
         lastName 
       });
-      
-      console.log(`Payment processed successfully for: ${email}`);
-      
-      res.status(201).json({
+    
+
+      const response = {
         success: true,
-        data: result
-      });
+        data: {
+          email: result.email,
+          password: result.password,
+          paymentToken: paymentToken 
+        }
+      };
+
+      res.status(201).json(response);
     } catch (error) {
       console.error('Payment controller error:', error);
       
