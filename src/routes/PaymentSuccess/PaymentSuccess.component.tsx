@@ -69,10 +69,10 @@ const PaymentSuccess = () => {
             
             <div className="mt-4">
               <Link 
-                to="/"
+                to="/logowanie"
                 className="text-gray-600 hover:text-primary transition-colors"
               >
-                Powrót do strony głównej
+                Powrót do strony logowania
               </Link>
             </div>
           </div>
