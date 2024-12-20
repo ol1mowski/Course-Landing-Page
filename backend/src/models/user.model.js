@@ -1,17 +1,29 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
     unique: true,
     trim: true,
     lowercase: true,
+    index: true,
   },
   password: {
     type: String,
     required: true,
+    minlength: 8,
+  },
+  firstName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    trim: true,
   },
   createdAt: {
     type: Date,
@@ -20,17 +32,23 @@ const userSchema = new mongoose.Schema({
   lastLoginAt: {
     type: Date,
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  }
 }, {
   timestamps: true,
   toJSON: {
     transform: (_, ret) => {
       delete ret.password;
+      delete ret.__v;
       return ret;
     },
   },
+  collection: 'students'
 });
 
-userSchema.pre('save', async function(next) {
+studentSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   
   try {
@@ -42,8 +60,8 @@ userSchema.pre('save', async function(next) {
   }
 });
 
-userSchema.methods.comparePassword = async function(candidatePassword) {
+studentSchema.methods.comparePassword = async function(candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-export const User = mongoose.model('User', userSchema); 
+export const Student = mongoose.model('Students', studentSchema); 

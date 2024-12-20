@@ -3,9 +3,13 @@ import { paymentService } from '../services/payment.service.js';
 export class PaymentController {
   async processPayment(req, res) {
     try {
-      const { email } = req.body;
+      const { email, firstName, lastName } = req.body;
 
-      const result = await paymentService.processPayment(email);
+      const result = await paymentService.processPayment({ 
+        email, 
+        firstName, 
+        lastName 
+      });
       
       console.log(`Payment processed successfully for: ${email}`);
       
