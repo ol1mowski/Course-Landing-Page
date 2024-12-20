@@ -3,8 +3,9 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 
-import Header from "../../../components/Header/Header.component";
-import HeaderMobileNavMenuComponent from "../../../components/Header/HeaderMobileNavMenu/HeaderMobileNavMenu.component";
+import Header from "./Header.component";
+import HeaderMobileNavMenuComponent from "./HeaderMobileNavMenu/HeaderMobileNavMenu.component";
+
 
 
 const originalConsoleWarn = console.warn;
