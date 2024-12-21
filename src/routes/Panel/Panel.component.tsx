@@ -14,16 +14,7 @@ const Panel = () => {
       className="min-h-screen bg-gray-50 py-20"
     >
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Moje kursy</h2>
-          <button
-            onClick={() => logout()}
-            disabled={isLoading}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
-          >
-            {isLoading ? 'Wylogowywanie...' : 'Wyloguj się'}
-          </button>
-        </div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Moje kursy</h2>
         <CoursesList courses={courses} />
       </div>
     </motion.main>

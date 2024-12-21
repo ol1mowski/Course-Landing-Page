@@ -30,7 +30,7 @@ const Router = () => {
               <Panel />
             </ProtectedRoute>
           } />
-          <Route path="/panel/dane" element={
+          <Route path="/mojekonto/dane" element={
             <ProtectedRoute>
               <UserProfile />
             </ProtectedRoute>
