@@ -30,7 +30,11 @@ export class AuthController {
       const token = jwtService.generateToken({
         id: student._id,
         email: student.email,
-        rememberMe
+      }, rememberMe);
+
+      const refreshToken = jwtService.generateRefreshToken({
+        id: student._id,
+        email: student.email,
       });
 
       res.status(200).json({
@@ -40,7 +44,8 @@ export class AuthController {
           email: student.email,
           firstName: student.firstName,
           lastName: student.lastName,
-          token
+          token,
+          refreshToken
         }
       });
     } catch (error) {
@@ -77,6 +82,53 @@ export class AuthController {
       res.status(500).json({
         success: false,
         error: 'Błąd weryfikacji sesji'
+      });
+    }
+  }
+
+  async refreshToken(req, res) {
+    try {
+      const { refreshToken } = req.body;
+      
+      if (!refreshToken) {
+        return res.status(400).json({
+          success: false,
+          error: 'Brak tokenu odświeżania'
+        });
+      }
+
+      const decoded = jwtService.verifyRefreshToken(refreshToken);
+      if (!decoded) {
+        return res.status(401).json({
+          success: false,
+          error: 'Nieprawidłowy token odświeżania'
+        });
+      }
+
+      const student = await Student.findById(decoded.id);
+      if (!student) {
+        return res.status(401).json({
+          success: false,
+          error: 'Użytkownik nie istnieje'
+        });
+      }
+
+      const newToken = jwtService.generateToken({
+        id: student._id,
+        email: student.email,
+      });
+
+      res.status(200).json({
+        success: true,
+        data: {
+          token: newToken
+        }
+      });
+    } catch (error) {
+      console.error('Token refresh error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Błąd odświeżania tokenu'
       });
     }
   }
