@@ -132,6 +132,25 @@ export class AuthController {
       });
     }
   }
+
+  async logout(req, res) {
+    try {
+      const { refreshToken } = req.body;
+      
+      // Możemy dodać blacklistę tokenów w Redis/DB
+      // Na razie prosta implementacja
+      res.status(200).json({
+        success: true,
+        message: 'Wylogowano pomyślnie'
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Wystąpił błąd podczas wylogowywania'
+      });
+    }
+  }
 }
 
 export const authController = new AuthController(); 

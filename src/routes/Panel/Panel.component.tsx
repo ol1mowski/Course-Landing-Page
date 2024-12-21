@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import CoursesList from "./components/CoursesList/CoursesList.component";
 import { useCourses } from "./hooks/useCourses.hook";
+import { useLogout } from '../../hooks/useLogout.hook';
 
 const Panel = () => {
+  const { logout, isLoading } = useLogout();
   const { courses } = useCourses();
 
   return (
