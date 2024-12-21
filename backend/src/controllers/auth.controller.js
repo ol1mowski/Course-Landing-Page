@@ -51,6 +51,35 @@ export class AuthController {
       });
     }
   }
+
+  async verifySession(req, res) {
+    try {
+      const student = await Student.findById(req.user.id);
+      
+      if (!student) {
+        return res.status(401).json({
+          success: false,
+          error: 'Użytkownik nie istnieje'
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        data: {
+          id: student._id,
+          email: student.email,
+          firstName: student.firstName,
+          lastName: student.lastName
+        }
+      });
+    } catch (error) {
+      console.error('Session verification error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Błąd weryfikacji sesji'
+      });
+    }
+  }
 }
 
 export const authController = new AuthController(); 
