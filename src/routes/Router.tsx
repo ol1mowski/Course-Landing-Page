@@ -20,7 +20,7 @@ const Router = () => {
           <Route index element={<HomePage />} />
           <Route path="/platnosc" element={<PaymentPage />} />
           <Route path="/sukces" element={<PaymentSuccess />} />
-          <Route path="/panel" element={<Panel />} />
+          <Route path="/mojekonto" element={<Panel />} />
           <Route path="/panel/dane" element={<UserProfile />} />
         </Route>
       </Routes>
