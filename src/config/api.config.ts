@@ -5,5 +5,6 @@ export const API_CONFIG = {
     LOGIN: '/auth/login',
     VERIFY: '/auth/verify',
     REFRESH: '/auth/refresh',
+    LOGOUT: '/auth/logout',
   },
 } as const; 
