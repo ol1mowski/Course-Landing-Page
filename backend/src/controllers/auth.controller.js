@@ -151,6 +151,79 @@ export class AuthController {
       });
     }
   }
+
+  async getProfile(req, res) {
+    try {
+      const student = await Student.findById(req.user.id);
+      
+      if (!student) {
+        return res.status(404).json({
+          success: false,
+          error: 'Użytkownik nie istnieje'
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        data: {
+          firstName: student.firstName,
+          lastName: student.lastName,
+          email: student.email,
+          phone: student.phone || '',
+          company: student.company || '',
+          nip: student.nip || ''
+        }
+      });
+    } catch (error) {
+      console.error('Get profile error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Błąd podczas pobierania profilu'
+      });
+    }
+  }
+
+  async updateProfile(req, res) {
+    try {
+      const updates = req.body;
+      const student = await Student.findById(req.user.id);
+
+      if (!student) {
+        return res.status(404).json({
+          success: false,
+          error: 'Użytkownik nie istnieje'
+        });
+      }
+
+      // Aktualizuj tylko dozwolone pola
+      const allowedUpdates = ['firstName', 'lastName', 'phone', 'company', 'nip'];
+      allowedUpdates.forEach(field => {
+        if (updates[field] !== undefined) {
+          student[field] = updates[field];
+        }
+      });
+
+      await student.save();
+
+      res.status(200).json({
+        success: true,
+        data: {
+          firstName: student.firstName,
+          lastName: student.lastName,
+          email: student.email,
+          phone: student.phone || '',
+          company: student.company || '',
+          nip: student.nip || ''
+        }
+      });
+    } catch (error) {
+      console.error('Update profile error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Błąd podczas aktualizacji profilu'
+      });
+    }
+  }
 }
 
 export const authController = new AuthController(); 

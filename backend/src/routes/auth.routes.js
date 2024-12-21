@@ -8,5 +8,7 @@ router.post('/login', validateLoginData, authController.login);
 router.get('/verify', verifyToken, authController.verifySession);
 router.post('/logout', verifyToken, authController.logout);
 router.post('/refresh', authController.refreshToken);
+router.get('/me', verifyToken, authController.getProfile);
+router.patch('/profile', verifyToken, authController.updateProfile);
 
 export default router; 
