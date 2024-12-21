@@ -13,7 +13,6 @@ const MainLayout = () => {
 
   return (
     <>
-      {/* Header z nawigacją */}
       {isAuthenticated && (
         <header className="bg-white shadow-sm">
           <div className="max-w-6xl mx-auto px-4">
@@ -44,8 +43,6 @@ const MainLayout = () => {
           </div>
         </header>
       )}
-
-      {/* Główna zawartość */}
       <Outlet />
     </>
   );
