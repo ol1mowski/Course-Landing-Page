@@ -10,8 +10,10 @@ import ResetPasswordSuccess from './ResetPasswordSuccess/ResetPasswordSuccess.co
 import type { LoginFormData } from './loginForm.schema';
 
 type LoginFormProps = {
-  onLogin?: (data: LoginFormData) => Promise<void>;
-  onForgotPassword?: (email: string) => Promise<void>;
+  onLogin: (data: LoginFormData) => void;
+  isLoading?: boolean;
+  error?: string;
+  onForgotPassword: (email: string) => void;
 };
 
 const LoginForm = memo(({ onLogin, onForgotPassword }: LoginFormProps) => {

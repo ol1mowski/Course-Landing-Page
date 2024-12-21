@@ -19,7 +19,6 @@ export class PaymentController {
         success: true,
         data: {
           email: result.email,
-          password: result.password,
           paymentToken: paymentToken 
         }
       };
@@ -28,6 +27,13 @@ export class PaymentController {
     } catch (error) {
       console.error('Payment controller error:', error);
       
+      if (error.name === 'ValidationError') {
+        return res.status(400).json({
+          success: false,
+          error: 'Błąd walidacji danych'
+        });
+      }
+
       if (error.message === 'User already exists') {
         return res.status(409).json({
           success: false,

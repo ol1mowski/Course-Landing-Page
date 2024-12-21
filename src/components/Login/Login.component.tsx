@@ -1,10 +1,8 @@
 import LoginForm from "./LoginForm/LoginForm.component";
-import type { LoginFormData } from "./LoginForm/loginForm.schema";
+import { useAuth } from "../../hooks/useAuth.hook";
 
 const Login = () => {
-  const handleLogin = async (data: LoginFormData) => {
-    console.log('Login attempt:', data);
-  };
+  const { login, isLoading, error, isError } = useAuth();
 
   const handleForgotPassword = async (email: string) => {
     console.log('Password reset for:', email);
@@ -14,9 +12,17 @@ const Login = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <LoginForm 
-          onLogin={handleLogin}
+          onLogin={login}
+          isLoading={isLoading}
+          error={isError ? error : undefined}
           onForgotPassword={handleForgotPassword}
         />
+
+        {isError && error && (
+          <div className="mt-4 text-center text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-3">
+            {error}
+          </div>
+        )}
 
         <div className="mt-8 text-center text-sm text-gray-600">
           <p>
