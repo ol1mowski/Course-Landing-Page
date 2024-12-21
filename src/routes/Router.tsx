@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute.component";
 import PaymentPage from "./Payment/Payment.component";
 import MainLayout from "../layouts/MainLayout";
 import HomePage from "../pages/HomePage";
@@ -15,13 +16,25 @@ const Router = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/logowanie" element={<Login />} />
-        <Route path="/nauka" element={<Learning />} />
+        <Route path="/nauka" element={
+          <ProtectedRoute>
+            <Learning />
+          </ProtectedRoute>
+        } />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/platnosc" element={<PaymentPage />} />
           <Route path="/sukces" element={<PaymentSuccess />} />
-          <Route path="/mojekonto" element={<Panel />} />
-          <Route path="/panel/dane" element={<UserProfile />} />
+          <Route path="/mojekonto" element={
+            <ProtectedRoute>
+              <Panel />
+            </ProtectedRoute>
+          } />
+          <Route path="/panel/dane" element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          } />
         </Route>
       </Routes>
     </>
