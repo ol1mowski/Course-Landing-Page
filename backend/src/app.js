@@ -4,6 +4,7 @@ import helmet from 'helmet';
 
 import env from './config/environment.js';
 import paymentRoutes from './routes/payment.routes.js';
+import authRoutes from './routes/auth.routes.js';
 import { connectDB } from './config/database.js';
 import { errorHandler, notFound } from './middleware/error.middleware.js';
 
@@ -17,6 +18,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/payments', paymentRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
