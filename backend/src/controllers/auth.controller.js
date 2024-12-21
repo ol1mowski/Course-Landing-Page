@@ -1,10 +1,10 @@
 import { Student } from '../models/user.model.js';
-import bcrypt from 'bcrypt';
+import { jwtService } from '../services/jwt.service.js';
 
 export class AuthController {
   async login(req, res) {
     try {
-      const { email, password } = req.body;
+      const { email, password, rememberMe } = req.body;
 
       const student = await Student.findOne({ email });
 
@@ -24,9 +24,14 @@ export class AuthController {
         });
       }
 
-      // Aktualizacja ostatniego logowania
       student.lastLoginAt = new Date();
       await student.save();
+
+      const token = jwtService.generateToken({
+        id: student._id,
+        email: student.email,
+        rememberMe
+      });
 
       res.status(200).json({
         success: true,
@@ -34,7 +39,8 @@ export class AuthController {
           id: student._id,
           email: student.email,
           firstName: student.firstName,
-          lastName: student.lastName
+          lastName: student.lastName,
+          token
         }
       });
     } catch (error) {
