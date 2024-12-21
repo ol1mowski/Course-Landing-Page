@@ -46,7 +46,12 @@ export const useAuth = () => {
   });
 
   return {
-    login: mutation.mutate,
+    login: (data: LoginFormData) => {
+      return new Promise<void>((resolve) => {
+        mutation.mutate(data);
+        resolve();
+      });
+    },
     isLoading: mutation.isPending,
     error: mutation.error?.message || 'Wystąpił błąd podczas logowania',
     isError: mutation.isError,

@@ -1,5 +1,4 @@
 import LoginForm from "./LoginForm/LoginForm.component";
-import type { LoginFormData } from "./LoginForm/loginForm.schema";
 import { useAuth } from "../../hooks/useAuth.hook";
 
 const Login = () => {

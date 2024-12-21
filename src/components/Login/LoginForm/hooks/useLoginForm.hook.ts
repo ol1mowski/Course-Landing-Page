@@ -2,8 +2,8 @@ import { useState, useCallback } from 'react';
 import { LoginFormData } from '../loginForm.schema';
 
 type UseLoginFormProps = {
-  onLogin?: (data: LoginFormData) => Promise<void>;
-  onForgotPassword?: (email: string) => Promise<void>;
+  onLogin: (data: LoginFormData) => void;
+  onForgotPassword: (email: string) => void;
 };
 
 export const useLoginForm = ({ onLogin, onForgotPassword }: UseLoginFormProps) => {
