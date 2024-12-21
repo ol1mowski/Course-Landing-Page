@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { API_CONFIG } from '../../config/api.config';
 
@@ -11,37 +11,39 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const verifySession = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        
-        if (!token) {
-          setIsAuthenticated(false);
-          return;
-        }
-
-        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.VERIFY}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (response.ok) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
-        console.error('Session verification failed:', error);
+  const verifySession = useCallback(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
         setIsAuthenticated(false);
-      } finally {
         setIsVerifying(false);
+        return;
       }
-    };
 
-    verifySession();
+      const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.VERIFY}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsAuthenticated(data.success);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch (error) {
+      console.error('Session verification failed:', error);
+      setIsAuthenticated(false);
+    } finally {
+      setIsVerifying(false);
+    }
   }, []);
+
+  useEffect(() => {
+    verifySession();
+  }, [verifySession]);
 
   if (isVerifying) {
     return (
@@ -52,7 +54,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/logowanie" state={{ from: location }} replace />;
+    return <Navigate to="/logowanie" state={{ from: location.pathname }} replace />;
   }
 
   return <>{children}</>;

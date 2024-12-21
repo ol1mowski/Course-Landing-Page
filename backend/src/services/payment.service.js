@@ -28,7 +28,6 @@ export class PaymentService {
 
       return {
         email,
-        password,
       };
     } catch (error) {
       console.error('Payment processing error:', error);

@@ -53,6 +53,16 @@ export const useAuth = () => {
     },
     onError: (error) => {
       console.error('Login error:', error);
+      // Mapowanie błędów na przyjazne dla użytkownika komunikaty
+      let errorMessage = 'Wystąpił błąd podczas logowania';
+      
+      if (error.message.includes('Nieprawidłowy email lub hasło')) {
+        errorMessage = 'Nieprawidłowy email lub hasło';
+      } else if (error.message.includes('Network Error')) {
+        errorMessage = 'Problem z połączeniem. Spróbuj ponownie później.';
+      }
+      
+      return errorMessage;
     }
   });
 

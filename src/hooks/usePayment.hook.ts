@@ -27,23 +27,17 @@ export const usePayment = () => {
   const mutation = useMutation({
     mutationFn: processPayment,
     onSuccess: (response) => {
-
       if (!response.success) {
-        throw new Error('Nie udało się przetworzyć płatności');
+        throw new Error('Payment processing failed');
       }
 
-      const { email, password, paymentToken } = response.data;
+      const { email, paymentToken } = response.data;
 
-      if (!email || !password || !paymentToken) {
-        throw new Error('Server error');
-      }
-
-      sessionStorage.setItem('paymentToken', paymentToken);
+      localStorage.setItem('token', paymentToken);
 
       navigate('/sukces', { 
         state: { 
           email,
-          password,
           paymentToken
         },
         replace: true
