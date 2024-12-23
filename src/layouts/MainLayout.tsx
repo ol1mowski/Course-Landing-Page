@@ -1,13 +1,14 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
-import { useLogout } from '../hooks/useLogout.hook';
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/Footer/Footer.component";
 import Header from "../components/Header/Header.component";
 
 const MainLayout = () => {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/platnosc';
 
   return (
     <>
-      <Header />
+      {!hideHeader && <Header />}
       <Outlet />
       <Footer />
     </>
