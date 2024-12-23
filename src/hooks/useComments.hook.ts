@@ -23,12 +23,14 @@ type Comment = {
 };
 
 type CommentsResponse = {
-  comments: Comment[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    pages: number;
+  data: {
+    comments: Comment[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      pages: number;
+    };
   };
 };
 
@@ -37,7 +39,7 @@ export const useComments = (videoId: string) => {
   const COMMENTS_QUERY_KEY = ['comments', videoId];
   const COMMENTS_PER_PAGE = 10;
 
-  const fetchComments = async ({ pageParam = 1 }) => {
+  const fetchComments = async ({ pageParam = 1 }): Promise<CommentsResponse> => {
     const token = localStorage.getItem('token');
     const response = await fetch(
       `${API_CONFIG.BASE_URL}/comments/video/${videoId}?page=${pageParam}&limit=${COMMENTS_PER_PAGE}`,
@@ -62,14 +64,14 @@ export const useComments = (videoId: string) => {
     isFetchingNextPage,
     isLoading,
     error
-  } = useInfiniteQuery<CommentsResponse>({
+  } = useInfiniteQuery({
     queryKey: COMMENTS_QUERY_KEY,
     queryFn: fetchComments,
     getNextPageParam: (lastPage) => {
-      const { page, pages } = lastPage.pagination;
+      const { page, pages } = lastPage.data.pagination;
       return page < pages ? page + 1 : undefined;
     },
-    staleTime: 1000 * 60 * 5, // 5 minut
+    staleTime: 1000 * 60 * 5
   });
 
   const addCommentMutation = useMutation({
@@ -99,7 +101,7 @@ export const useComments = (videoId: string) => {
   });
 
   return {
-    comments: data?.pages.flatMap(page => page.comments) ?? [],
+    comments: data?.pages.flatMap(page => page.data.comments) ?? [],
     isLoading,
     error,
     hasNextPage,
