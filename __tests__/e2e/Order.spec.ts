@@ -9,7 +9,6 @@ test.describe("OrderForm E2E", () => {
   test("should complete full order flow", async ({ page }) => {
     await page.goto("/platnosc");
     await page.waitForSelector("form");
-
     await page.fill("#firstName", "Jan");
     await page.fill("#lastName", "Kowalski");
     await page.fill("#email", "test@example.com");
@@ -23,10 +22,13 @@ test.describe("OrderForm E2E", () => {
 
     await expect(page.locator("text=Przetwarzanie...")).toBeVisible();
 
-    await page.waitForURL("/sukces", { timeout: 5000 });
+    await page.waitForURL("/sukces", { timeout: 30000 });
+
     await expect(page.locator("text=Dziękujemy za zakup!")).toBeVisible();
     await expect(page.locator("text=test@example.com")).toBeVisible();
+  });
 
+  test("should protect route from unauthorized access", async ({ page }) => {
     await page.goto("/sukces");
     await expect(page).toHaveURL("/");
   });

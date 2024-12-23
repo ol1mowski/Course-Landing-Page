@@ -15,8 +15,8 @@ const PaymentSuccess = () => {
     ) {
       navigate("/", { replace: true });
     } else {
-      if (!localStorage.getItem('token')) {
-        localStorage.setItem('token', paymentToken);
+      if (!sessionStorage.getItem('token')) {
+        sessionStorage.setItem('token', paymentToken);
       }
     }
   }, [paymentToken, navigate]);

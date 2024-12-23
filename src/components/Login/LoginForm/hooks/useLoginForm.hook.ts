@@ -128,17 +128,22 @@ export const useLoginForm = ({ onLogin, onForgotPassword }: UseLoginFormProps) =
     setTouched({});
   }, []);
 
+  const handleRememberMeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, rememberMe: e.target.checked }));
+  }, []);
+
   return {
-    isLoading,
-    isResetMode,
-    resetEmailSent,
     formData,
     errors,
     touched,
-    handleChange,
+    isValid: Object.keys(errors).length === 0,
+    isResetMode,
+    showResetSuccess: resetEmailSent,
+    handleInputChange: handleChange,
     handleBlur,
     handleSubmit,
     handleForgotPassword,
-    handleBackToLogin
+    handleBackToLogin,
+    handleRememberMeChange
   };
 }; 

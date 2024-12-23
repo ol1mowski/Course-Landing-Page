@@ -33,7 +33,7 @@ export const usePayment = () => {
 
       const { email, paymentToken } = response.data;
 
-      localStorage.setItem('token', paymentToken);
+      sessionStorage.setItem('paymentToken', paymentToken);
 
       navigate('/sukces', { 
         state: { 

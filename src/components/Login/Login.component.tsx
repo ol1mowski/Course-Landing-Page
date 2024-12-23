@@ -14,7 +14,8 @@ const Login = () => {
         <LoginForm 
           onLogin={login}
           isLoading={isLoading}
-          error={isError ? error : undefined}
+          error={error}
+          isError={isError}
           onForgotPassword={handleForgotPassword}
         />
 
