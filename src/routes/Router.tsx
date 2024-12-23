@@ -9,6 +9,7 @@ import UserProfile from "./Panel/UserProfile/UserProfile.component";
 import Learning from "./Learning/Learning.component";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop.component";
 import PaymentSuccess from "./PaymentSuccess/PaymentSuccess.component";
+import NotFound from "../components/NotFound/NotFound.component";
 
 const Router = () => {
   return (
@@ -35,6 +36,7 @@ const Router = () => {
               <UserProfile />
             </ProtectedRoute>
           } />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </>
