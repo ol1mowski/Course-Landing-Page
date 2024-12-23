@@ -67,6 +67,7 @@ export const useComments = (videoId: string) => {
   } = useInfiniteQuery({
     queryKey: COMMENTS_QUERY_KEY,
     queryFn: fetchComments,
+    initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       const { page, pages } = lastPage.data.pagination;
       return page < pages ? page + 1 : undefined;
