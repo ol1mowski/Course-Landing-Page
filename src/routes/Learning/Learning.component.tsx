@@ -4,14 +4,30 @@ import { Link } from 'react-router-dom';
 import VideoSidebar from './components/VideoSidebar/VideoSidebar.component';
 import VideoPlayer from './components/VideoPlayer/VideoPlayer.component';
 import Comments from './components/Comments/Comments.component';
+import { useChapters } from './hooks/useChapters.hook';
+import ProgressBar from '../../components/Learning/ProgressBar/ProgressBar.component';
 
 const Learning = () => {
+  const { chapters } = useChapters();
+
+  const totalLessons = chapters.reduce((sum, chapter) => sum + chapter.videos.length, 0);
+  const completedLessons = chapters.reduce((sum, chapter) => 
+    sum + chapter.videos.filter(video => video.completed).length, 0
+  );
+  const progress = Math.round((completedLessons / totalLessons) * 100) || 0;
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="min-h-screen bg-gray-50"
     >
+      <ProgressBar
+        progress={progress}
+        totalLessons={totalLessons}
+        completedLessons={completedLessons}
+      />
+      
       <div className="bg-white shadow-sm">
         <div className="max-w-8xl mx-auto px-4">
           <div className="h-16 flex items-center">
