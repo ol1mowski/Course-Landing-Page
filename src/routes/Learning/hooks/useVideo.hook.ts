@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Video } from '../types';
 
 export const useVideo = () => {
@@ -6,7 +6,7 @@ export const useVideo = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  useState(() => {
+  useEffect(() => {
     setCurrentVideo({
       id: 1,
       _id: '1',
