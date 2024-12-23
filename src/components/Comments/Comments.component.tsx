@@ -1,21 +1,32 @@
 import { memo } from 'react';
-import { useVideo } from '../../hooks/useVideo.hook';
 import { useComments } from '../../hooks/useComments.hook';
 import CommentsList from './CommentsList/CommentsList.component';
+import { useVideo } from '../../routes/Learning/hooks/useVideo.hook';
 import CommentForm from './CommentForm/CommentForm.component';
+
 
 const Comments = memo(() => {
   const { currentVideo } = useVideo();
+  console.log('currentVideo:', currentVideo);
+
   const {
     comments,
     isLoading,
-    error,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
     addComment,
     isAddingComment
-  } = useComments(currentVideo?._id || '');
+  } = useComments(currentVideo?.id.toString() || '');
+
+  const handleAddComment = async (content: string) => {
+    console.log('Próba dodania komentarza:', content);
+    try {
+      await addComment(content);
+    } catch (error) {
+      console.error('Błąd dodawania komentarza:', error);
+    }
+  };
 
   if (!currentVideo) return null;
 
@@ -27,7 +38,7 @@ const Comments = memo(() => {
         </h2>
 
         <CommentForm 
-          onSubmit={addComment}
+          onSubmit={handleAddComment}
           isSubmitting={isAddingComment}
         />
       </div>

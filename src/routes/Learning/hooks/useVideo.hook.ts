@@ -6,6 +6,17 @@ export const useVideo = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  useState(() => {
+    setCurrentVideo({
+      id: 1,
+      _id: '1',
+      title: "Wprowadzenie do kursu",
+      url: "https://example.com/video1",
+      duration: 180,
+      completed: false
+    });
+  }, []);
+
   const handleVideoProgress = useCallback((time: number, duration: number) => {
     const progressPercent = (time / duration) * 100;
     setProgress(Math.round(progressPercent));
@@ -13,7 +24,6 @@ export const useVideo = () => {
 
   const handleVideoEnd = useCallback(() => {
     setIsPlaying(false);
-    // TODO: Mark video as completed and update progress
   }, []);
 
   const handleVideoSelect = useCallback((video: Video) => {

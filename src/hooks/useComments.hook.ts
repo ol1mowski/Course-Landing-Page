@@ -42,7 +42,7 @@ export const useComments = (videoId: string) => {
   const fetchComments = async ({ pageParam = 1 }): Promise<CommentsResponse> => {
     const token = localStorage.getItem('token');
     const response = await fetch(
-      `${API_CONFIG.BASE_URL}/comments/video/${videoId}?page=${pageParam}&limit=${COMMENTS_PER_PAGE}`,
+      `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/video/${videoId}?page=${pageParam}&limit=${COMMENTS_PER_PAGE}`,
       {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -77,9 +77,10 @@ export const useComments = (videoId: string) => {
 
   const addCommentMutation = useMutation({
     mutationFn: async (content: string) => {
+      console.log('Wysyłanie komentarza:', { content, videoId });
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `${API_CONFIG.BASE_URL}/comments/video/${videoId}`,
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/video/${videoId}`,
         {
           method: 'POST',
           headers: {
@@ -90,7 +91,9 @@ export const useComments = (videoId: string) => {
         }
       );
 
+      console.log('Response:', response);
       if (!response.ok) {
+        console.error('Błąd odpowiedzi:', await response.text());
         throw new Error('Nie udało się dodać komentarza');
       }
 

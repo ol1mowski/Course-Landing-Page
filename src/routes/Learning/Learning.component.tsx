@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import VideoSidebar from './components/VideoSidebar/VideoSidebar.component';
 import VideoPlayer from './components/VideoPlayer/VideoPlayer.component';
-import Comments from './components/Comments/Comments.component';
+import Comments from '../../components/Comments/Comments.component';
 import { useChapters } from './hooks/useChapters.hook';
+import { useVideo } from './hooks/useVideo.hook';
 import ProgressBar from '../../components/Learning/ProgressBar/ProgressBar.component';
 
 const Learning = () => {
   const { chapters } = useChapters();
+  const { currentVideo } = useVideo();
 
   const totalLessons = chapters.reduce((sum, chapter) => sum + chapter.videos.length, 0);
   const completedLessons = chapters.reduce((sum, chapter) => 
@@ -62,7 +64,7 @@ const Learning = () => {
           
           <div className="col-span-9 space-y-8">
             <VideoPlayer />
-            <Comments />
+            {currentVideo && <Comments />}
           </div>
         </div>
       </div>
