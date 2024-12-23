@@ -125,6 +125,51 @@ export const useComments = (videoId: string) => {
     }
   });
 
+  const deleteCommentMutation = useMutation({
+    mutationFn: async (commentId: string) => {
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/${commentId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Nie udało się usunąć komentarza');
+      }
+
+      return response.json();
+    },
+    onMutate: async (commentId) => {
+      await queryClient.cancelQueries({ queryKey: COMMENTS_QUERY_KEY });
+      const previousComments = queryClient.getQueryData(COMMENTS_QUERY_KEY);
+
+      queryClient.setQueryData(COMMENTS_QUERY_KEY, (old: any) => ({
+        pages: old.pages.map((page: any) => ({
+          ...page,
+          data: {
+            ...page.data,
+            comments: page.data.comments.filter((c: Comment) => c._id !== commentId)
+          }
+        }))
+      }));
+
+      return { previousComments };
+    },
+    onError: (_, __, context) => {
+      if (context?.previousComments) {
+        queryClient.setQueryData(COMMENTS_QUERY_KEY, context.previousComments);
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
+    }
+  });
+
   return {
     comments: data?.pages.flatMap(page => page.data.comments) ?? [],
     isLoading,
@@ -135,6 +180,8 @@ export const useComments = (videoId: string) => {
     addComment: addCommentMutation.mutate,
     isAddingComment: addCommentMutation.isPending,
     addReply: addReplyMutation.mutate,
-    isAddingReply: addReplyMutation.isPending
+    isAddingReply: addReplyMutation.isPending,
+    deleteComment: deleteCommentMutation.mutate,
+    isDeletingComment: deleteCommentMutation.isPending
   };
 }; 
