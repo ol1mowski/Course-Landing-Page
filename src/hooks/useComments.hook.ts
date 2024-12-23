@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { API_CONFIG } from '../config/api.config';
 
-type Comment = {
+export type Comment = {
   _id: string;
   content: string;
   author: {

@@ -33,7 +33,7 @@ const CommentItem = memo(({ comment }: CommentItemProps) => {
 
       {comment.replies.length > 0 && (
         <div className="mt-4 space-y-4 pl-4 border-l-2 border-gray-100">
-          {comment.replies.map((reply) => (
+          {comment.replies.map((reply: Comment['replies'][0]) => (
             <div key={reply._id} className="space-y-1">
               <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center text-sm">
