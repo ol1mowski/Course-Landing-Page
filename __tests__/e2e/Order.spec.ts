@@ -9,7 +9,6 @@ test.describe("OrderForm E2E", () => {
   test("should complete full order flow", async ({ page }) => {
     await page.goto("/platnosc");
     await page.waitForSelector("form");
-
     await page.fill("#firstName", "Jan");
     await page.fill("#lastName", "Kowalski");
     await page.fill("#email", "test@example.com");
