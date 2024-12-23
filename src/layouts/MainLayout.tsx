@@ -1,13 +1,16 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
-import { useLogout } from '../hooks/useLogout.hook';
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/Footer/Footer.component";
 import Header from "../components/Header/Header.component";
+import DashboardHeader from "../components/DashboardHeader/DashboardHeader.component";
 
 const MainLayout = () => {
+  const location = useLocation();
+  const hideHeader = location.pathname === '/platnosc';
+  const isDashboard = location.pathname.startsWith('/mojekonto');
 
   return (
     <>
-      <Header />
+      {!hideHeader && (isDashboard ? <DashboardHeader /> : <Header />)}
       <Outlet />
       <Footer />
     </>
