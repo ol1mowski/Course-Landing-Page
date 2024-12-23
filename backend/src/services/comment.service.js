@@ -83,7 +83,7 @@ export class CommentService {
     return comment.populate('replies.author', 'firstName lastName');
   }
 
-  private async invalidateVideoCache(videoId) {
+  async invalidateVideoCache(videoId) {
     const keys = await redisClient.keys(`comments:${videoId}:*`);
     if (keys.length) {
       await redisClient.del(keys);
