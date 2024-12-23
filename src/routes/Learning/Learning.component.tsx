@@ -16,7 +16,7 @@ const Learning = () => {
         <div className="max-w-8xl mx-auto px-4">
           <div className="h-16 flex items-center">
             <Link 
-              to="/panel" 
+              to="/mojekonto" 
               className="flex items-center text-gray-600 hover:text-primary transition-colors"
             >
               <svg 
