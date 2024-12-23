@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute.component";
 import PaymentPage from "./Payment/Payment.component";
 import MainLayout from "../layouts/MainLayout";
-import HomePage from "../pages/HomePage";
+import HomePage from "../pages/HomePage/HomePage";
 import Panel from "./Panel/Panel.component";
 import Login from "./Login/Login.component";
 import UserProfile from "./Panel/UserProfile/UserProfile.component";
