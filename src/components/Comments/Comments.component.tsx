@@ -7,7 +7,6 @@ import CommentForm from './CommentForm/CommentForm.component';
 
 const Comments = memo(() => {
   const { currentVideo } = useVideo();
-  console.log('currentVideo:', currentVideo);
 
   const {
     comments,
@@ -17,14 +16,13 @@ const Comments = memo(() => {
     fetchNextPage,
     addComment,
     isAddingComment
-  } = useComments(currentVideo?.id.toString() || '');
+  } = useComments(currentVideo?._id || '');
 
   const handleAddComment = async (content: string) => {
-    console.log('Próba dodania komentarza:', content);
     try {
       await addComment(content);
     } catch (error) {
-      console.error('Błąd dodawania komentarza:', error);
+        throw error;
     }
   };
 

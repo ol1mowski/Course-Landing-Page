@@ -77,7 +77,6 @@ export const useComments = (videoId: string) => {
 
   const addCommentMutation = useMutation({
     mutationFn: async (content: string) => {
-      console.log('Wysyłanie komentarza:', { content, videoId });
       const token = localStorage.getItem('token');
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/video/${videoId}`,
@@ -90,8 +89,6 @@ export const useComments = (videoId: string) => {
           body: JSON.stringify({ content })
         }
       );
-
-      console.log('Response:', response);
       if (!response.ok) {
         console.error('Błąd odpowiedzi:', await response.text());
         throw new Error('Nie udało się dodać komentarza');

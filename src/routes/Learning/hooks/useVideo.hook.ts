@@ -9,7 +9,7 @@ export const useVideo = () => {
   useEffect(() => {
     setCurrentVideo({
       id: 1,
-      _id: '1',
+      _id: '65f1f123a123b123c123d123',
       title: "Wprowadzenie do kursu",
       url: "https://example.com/video1",
       duration: 180,

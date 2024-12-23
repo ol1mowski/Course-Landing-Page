@@ -16,7 +16,6 @@ const commentSchema = new mongoose.Schema({
   },
   video: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Video',
     required: true,
     index: true
   },
