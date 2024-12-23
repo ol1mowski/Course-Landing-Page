@@ -48,14 +48,26 @@ export class CommentController {
       const { commentId } = req.params;
       const userId = req.user.id;
 
-      await commentService.deleteComment(commentId, userId);
+      const comment = await Comment.findOne({ 
+        _id: commentId,
+        author: userId 
+      });
+      
+      if (!comment) {
+        throw new ApiError(
+          'Nie znaleziono komentarza lub nie masz uprawnień do jego usunięcia', 
+          403
+        );
+      }
+
+      await comment.deleteOne();
 
       res.status(200).json({
         success: true,
         message: 'Komentarz został usunięty'
       });
     } catch (error) {
-      next(new ApiError(error.message, 500));
+      next(new ApiError(error.message, error.statusCode || 500));
     }
   }
 

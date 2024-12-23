@@ -20,9 +20,11 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-backend
 coverage
 *.lcov
+
+# Backend directory
+/backend/
 
 # nyc test coverage
 .nyc_output
