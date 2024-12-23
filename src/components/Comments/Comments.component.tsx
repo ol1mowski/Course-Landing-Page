@@ -7,6 +7,7 @@ import CommentForm from './CommentForm/CommentForm.component';
 
 const Comments = memo(() => {
   const { currentVideo } = useVideo();
+  const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
 
   const {
     comments,
@@ -17,14 +18,16 @@ const Comments = memo(() => {
     addComment,
     isAddingComment,
     addReply,
-    isAddingReply
+    isAddingReply,
+    deleteComment,
+    isDeletingComment
   } = useComments(currentVideo?._id || '');
 
   const handleAddComment = async (content: string) => {
     try {
       await addComment(content);
     } catch (error) {
-        throw error;
+      console.error('Error adding comment:', error);
     }
   };
 
@@ -32,7 +35,15 @@ const Comments = memo(() => {
     try {
       await addReply({ commentId, content });
     } catch (error) {
-      throw error;
+      console.error('Error adding reply:', error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await deleteComment(commentId);
+    } catch (error) {
+      console.error('Error deleting comment:', error);
     }
   };
 
@@ -59,6 +70,9 @@ const Comments = memo(() => {
         onLoadMore={fetchNextPage}
         onReply={handleAddReply}
         isAddingReply={isAddingReply}
+        onDelete={handleDeleteComment}
+        isDeletingComment={isDeletingComment}
+        currentUserId={currentUser._id}
       />
     </section>
   );
