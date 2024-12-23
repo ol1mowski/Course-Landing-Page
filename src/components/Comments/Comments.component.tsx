@@ -1,13 +1,17 @@
 import { memo } from 'react';
 import { useComments } from '../../hooks/useComments.hook';
+import { useToast } from '../../hooks/useToast.hook';
 import CommentsList from './CommentsList/CommentsList.component';
 import { useVideo } from '../../routes/Learning/hooks/useVideo.hook';
 import CommentForm from './CommentForm/CommentForm.component';
+import { CommentErrorBoundary } from './ErrorBoundary/CommentErrorBoundary.component';
+import { Toaster } from 'react-hot-toast';
 
 
 const Comments = memo(() => {
   const { currentVideo } = useVideo();
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+  const { showSuccess, showError } = useToast();
 
   const {
     comments,
@@ -20,7 +24,7 @@ const Comments = memo(() => {
     addReply,
     isAddingReply,
     deleteComment,
-    isDeletingComment
+    deletingCommentId
   } = useComments(currentVideo?._id || '');
 
   const handleAddComment = async (content: string) => {
@@ -42,39 +46,43 @@ const Comments = memo(() => {
   const handleDeleteComment = async (commentId: string) => {
     try {
       await deleteComment(commentId);
+      showSuccess('Komentarz został usunięty');
     } catch (error) {
-      console.error('Error deleting comment:', error);
+      showError('Nie udało się usunąć komentarza');
     }
   };
 
   if (!currentVideo) return null;
 
   return (
-    <section className="space-y-6">
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-6">
-          Komentarze ({comments.length})
-        </h2>
+    <CommentErrorBoundary>
+      <section className="space-y-6">
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-6">
+            Komentarze ({comments.length})
+          </h2>
 
-        <CommentForm 
-          onSubmit={handleAddComment}
-          isSubmitting={isAddingComment}
+          <CommentForm 
+            onSubmit={handleAddComment}
+            isSubmitting={isAddingComment}
+          />
+        </div>
+
+        <CommentsList
+          comments={comments}
+          isLoading={isLoading}
+          isFetchingNextPage={isFetchingNextPage}
+          hasNextPage={!!hasNextPage}
+          onLoadMore={fetchNextPage}
+          onReply={handleAddReply}
+          isAddingReply={isAddingReply}
+          onDelete={handleDeleteComment}
+          deletingCommentId={deletingCommentId || null}
+          currentUserId={currentUser._id}
         />
-      </div>
-
-      <CommentsList
-        comments={comments}
-        isLoading={isLoading}
-        isFetchingNextPage={isFetchingNextPage}
-        hasNextPage={!!hasNextPage}
-        onLoadMore={fetchNextPage}
-        onReply={handleAddReply}
-        isAddingReply={isAddingReply}
-        onDelete={handleDeleteComment}
-        isDeletingComment={isDeletingComment}
-        currentUserId={currentUser._id}
-      />
-    </section>
+      </section>
+      <Toaster />
+    </CommentErrorBoundary>
   );
 });
 

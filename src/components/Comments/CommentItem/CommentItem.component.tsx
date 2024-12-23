@@ -3,22 +3,25 @@ import { formatDistanceToNow } from 'date-fns';
 import { pl } from 'date-fns/locale';
 import type { Comment } from '../../../hooks/useComments.hook';
 import DeleteCommentModal from '../DeleteCommentModal/DeleteCommentModal.component';
+import { TrashIcon } from '../../UI/Icons/TrashIcon.component';
 
 type CommentItemProps = {
   comment: Comment;
   onReply: (commentId: string, content: string) => void;
   isAddingReply: boolean;
   onDelete: (commentId: string) => void;
-  isDeletingComment: boolean;
+  deletingCommentId: string | null;
   currentUserId: string;
 };
 
-const CommentItem = memo(({ comment, onReply, isAddingReply, onDelete, isDeletingComment, currentUserId }: CommentItemProps) => {
+const CommentItem = memo(({ comment, onReply, isAddingReply, onDelete, deletingCommentId, currentUserId }: CommentItemProps) => {
   const [isReplying, setIsReplying] = useState(false);
   const [replyContent, setReplyContent] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const isAuthor = currentUserId === comment.author._id;
+
+  const isDeleting = deletingCommentId === comment._id;
 
   const handleSubmitReply = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,11 +54,9 @@ const CommentItem = memo(({ comment, onReply, isAddingReply, onDelete, isDeletin
         {isAuthor && (
           <button
             onClick={() => setShowDeleteModal(true)}
-            className="text-gray-400 hover:text-red-600 transition-colors"
+            className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
+            <TrashIcon />
           </button>
         )}
       </header>
@@ -130,7 +131,7 @@ const CommentItem = memo(({ comment, onReply, isAddingReply, onDelete, isDeletin
           onDelete(comment._id);
           setShowDeleteModal(false);
         }}
-        isDeleting={isDeletingComment}
+        isDeleting={isDeleting}
       />
     </article>
   );

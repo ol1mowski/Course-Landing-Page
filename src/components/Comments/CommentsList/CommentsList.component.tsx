@@ -13,7 +13,7 @@ type CommentsListProps = {
   onReply: (commentId: string, content: string) => void;
   isAddingReply: boolean;
   onDelete: (commentId: string) => void;
-  isDeletingComment: boolean;
+  deletingCommentId: string | null;
   currentUserId: string;
 };
 
@@ -26,7 +26,7 @@ const CommentsList = memo(({
   onReply,
   isAddingReply,
   onDelete,
-  isDeletingComment,
+  deletingCommentId,
   currentUserId
 }: CommentsListProps) => {
   const { ref, inView } = useInView();
@@ -71,7 +71,7 @@ const CommentsList = memo(({
           onReply={onReply}
           isAddingReply={isAddingReply}
           onDelete={onDelete}
-          isDeletingComment={isDeletingComment}
+          deletingCommentId={deletingCommentId}
           currentUserId={currentUserId}
         />
       ))}
