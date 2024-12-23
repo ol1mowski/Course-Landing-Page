@@ -1,8 +1,8 @@
-import { memo, useCallback, useRef, useEffect } from 'react';
+import { memo, useRef, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import CommentItem from './CommentItem/CommentItem.component';
-import CommentSkeleton from './CommentSkeleton/CommentSkeleton.component';
 import type { Comment } from '../../../hooks/useComments.hook';
+import CommentSkeleton from '../CommentSkeleton/CommentSkeleton.component';
+import CommentItem from '../CommentItem/CommentItem.component';
 
 type CommentsListProps = {
   comments: Comment[];
