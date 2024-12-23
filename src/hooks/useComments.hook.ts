@@ -90,8 +90,32 @@ export const useComments = (videoId: string) => {
         }
       );
       if (!response.ok) {
-        console.error('Błąd odpowiedzi:', await response.text());
         throw new Error('Nie udało się dodać komentarza');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
+    }
+  });
+
+  const addReplyMutation = useMutation({
+    mutationFn: async ({ commentId, content }: { commentId: string; content: string }) => {
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/${commentId}/reply`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ content })
+        }
+      );
+      if (!response.ok) {
+        throw new Error('Nie udało się dodać odpowiedzi');
       }
 
       return response.json();
@@ -109,6 +133,8 @@ export const useComments = (videoId: string) => {
     isFetchingNextPage,
     fetchNextPage,
     addComment: addCommentMutation.mutate,
-    isAddingComment: addCommentMutation.isPending
+    isAddingComment: addCommentMutation.isPending,
+    addReply: addReplyMutation.mutate,
+    isAddingReply: addReplyMutation.isPending
   };
 }; 

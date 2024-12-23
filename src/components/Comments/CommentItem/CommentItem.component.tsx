@@ -1,13 +1,27 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { pl } from 'date-fns/locale';
 import type { Comment } from '../../../hooks/useComments.hook';
 
 type CommentItemProps = {
   comment: Comment;
+  onReply: (commentId: string, content: string) => void;
+  isAddingReply: boolean;
 };
 
-const CommentItem = memo(({ comment }: CommentItemProps) => {
+const CommentItem = memo(({ comment, onReply, isAddingReply }: CommentItemProps) => {
+  const [isReplying, setIsReplying] = useState(false);
+  const [replyContent, setReplyContent] = useState('');
+
+  const handleSubmitReply = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (replyContent.trim()) {
+      onReply(comment._id, replyContent);
+      setReplyContent('');
+      setIsReplying(false);
+    }
+  };
+
   const formattedDate = formatDistanceToNow(new Date(comment.createdAt), {
     addSuffix: true,
     locale: pl
@@ -54,6 +68,43 @@ const CommentItem = memo(({ comment }: CommentItemProps) => {
           ))}
         </div>
       )}
+
+      <div className="mt-4">
+        {!isReplying ? (
+          <button
+            onClick={() => setIsReplying(true)}
+            className="text-sm text-primary hover:text-primary-dark transition-colors"
+          >
+            Odpowiedz
+          </button>
+        ) : (
+          <form onSubmit={handleSubmitReply} className="space-y-3">
+            <textarea
+              value={replyContent}
+              onChange={(e) => setReplyContent(e.target.value)}
+              placeholder="Napisz odpowiedź..."
+              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+              disabled={isAddingReply}
+            />
+            <div className="flex space-x-2">
+              <button
+                type="submit"
+                disabled={!replyContent.trim() || isAddingReply}
+                className="px-3 py-1 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
+              >
+                {isAddingReply ? 'Wysyłanie...' : 'Odpowiedz'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsReplying(false)}
+                className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                Anuluj
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </article>
   );
 });

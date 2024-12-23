@@ -10,6 +10,8 @@ type CommentsListProps = {
   isFetchingNextPage: boolean;
   hasNextPage: boolean;
   onLoadMore: () => void;
+  onReply: (commentId: string, content: string) => void;
+  isAddingReply: boolean;
 };
 
 const CommentsList = memo(({ 
@@ -17,7 +19,9 @@ const CommentsList = memo(({
   isLoading, 
   isFetchingNextPage,
   hasNextPage,
-  onLoadMore 
+  onLoadMore,
+  onReply,
+  isAddingReply 
 }: CommentsListProps) => {
   const { ref, inView } = useInView();
   const prevCommentsLength = useRef(comments.length);
@@ -58,6 +62,8 @@ const CommentsList = memo(({
         <CommentItem 
           key={comment._id} 
           comment={comment} 
+          onReply={onReply}
+          isAddingReply={isAddingReply}
         />
       ))}
       

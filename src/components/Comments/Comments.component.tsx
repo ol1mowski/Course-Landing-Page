@@ -15,7 +15,9 @@ const Comments = memo(() => {
     isFetchingNextPage,
     fetchNextPage,
     addComment,
-    isAddingComment
+    isAddingComment,
+    addReply,
+    isAddingReply
   } = useComments(currentVideo?._id || '');
 
   const handleAddComment = async (content: string) => {
@@ -23,6 +25,14 @@ const Comments = memo(() => {
       await addComment(content);
     } catch (error) {
         throw error;
+    }
+  };
+
+  const handleAddReply = async (commentId: string, content: string) => {
+    try {
+      await addReply({ commentId, content });
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -47,6 +57,8 @@ const Comments = memo(() => {
         isFetchingNextPage={isFetchingNextPage}
         hasNextPage={!!hasNextPage}
         onLoadMore={fetchNextPage}
+        onReply={handleAddReply}
+        isAddingReply={isAddingReply}
       />
     </section>
   );
