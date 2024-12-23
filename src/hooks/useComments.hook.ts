@@ -1,0 +1,111 @@
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { API_CONFIG } from '../config/api.config';
+
+type Comment = {
+  _id: string;
+  content: string;
+  author: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+  };
+  replies: Array<{
+    _id: string;
+    content: string;
+    author: {
+      _id: string;
+      firstName: string;
+      lastName: string;
+    };
+    createdAt: string;
+  }>;
+  createdAt: string;
+};
+
+type CommentsResponse = {
+  comments: Comment[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    pages: number;
+  };
+};
+
+export const useComments = (videoId: string) => {
+  const queryClient = useQueryClient();
+  const COMMENTS_QUERY_KEY = ['comments', videoId];
+  const COMMENTS_PER_PAGE = 10;
+
+  const fetchComments = async ({ pageParam = 1 }) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(
+      `${API_CONFIG.BASE_URL}/comments/video/${videoId}?page=${pageParam}&limit=${COMMENTS_PER_PAGE}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Nie udało się pobrać komentarzy');
+    }
+
+    return response.json();
+  };
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    error
+  } = useInfiniteQuery<CommentsResponse>({
+    queryKey: COMMENTS_QUERY_KEY,
+    queryFn: fetchComments,
+    getNextPageParam: (lastPage) => {
+      const { page, pages } = lastPage.pagination;
+      return page < pages ? page + 1 : undefined;
+    },
+    staleTime: 1000 * 60 * 5, // 5 minut
+  });
+
+  const addCommentMutation = useMutation({
+    mutationFn: async (content: string) => {
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `${API_CONFIG.BASE_URL}/comments/video/${videoId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ content })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Nie udało się dodać komentarza');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
+    }
+  });
+
+  return {
+    comments: data?.pages.flatMap(page => page.comments) ?? [],
+    isLoading,
+    error,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+    addComment: addCommentMutation.mutate,
+    isAddingComment: addCommentMutation.isPending
+  };
+}; 
