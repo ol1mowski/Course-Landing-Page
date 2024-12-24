@@ -14,6 +14,7 @@ describe('LoginForm', () => {
       <LoginForm
         onLogin={mockOnLogin} 
         onForgotPassword={mockOnForgotPassword} 
+        isLoading={false}
       />
     );
   };
