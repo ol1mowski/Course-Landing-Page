@@ -13,7 +13,9 @@ const app = express();
 
 app.use(helmet());
 app.use(cors({
-  origin: env.CORS_ORIGIN,
+  origin: process.env.VERCEL_ENV === 'production' 
+    ? 'https://karierawit.vercel.app' 
+    : 'http://localhost:5173',
   credentials: true,
 }));
 app.use(express.json());
@@ -25,7 +27,7 @@ app.use('/api/comments', commentRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const start = async () => {
+if (process.env.VERCEL_ENV !== 'production') {
   try {
     await connectDB();
     
@@ -36,8 +38,6 @@ const start = async () => {
     console.error('Failed to start server:', error);
     process.exit(1);
   }
-};
-
-start();
+}
 
 export default app; 
