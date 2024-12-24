@@ -8,6 +8,7 @@ const MOCK_CHAPTERS: Chapter[] = [
     progress: 0,
     videos: [
       {
+        _id: '1',
         id: 1,
         title: "Powitanie w kursie",
         url: "https://example.com/video1",
@@ -15,6 +16,7 @@ const MOCK_CHAPTERS: Chapter[] = [
         completed: false
       },
       {
+        _id: '2',
         id: 2,
         title: "Jak korzystać z platformy",
         url: "https://example.com/video2",
@@ -29,6 +31,7 @@ const MOCK_CHAPTERS: Chapter[] = [
     progress: 0,
     videos: [
       {
+        _id: '3',
         id: 3,
         title: "Zmienne i typy danych",
         url: "https://example.com/video3",
@@ -36,6 +39,7 @@ const MOCK_CHAPTERS: Chapter[] = [
         completed: false
       },
       {
+        _id: '4',
         id: 4,
         title: "Instrukcje warunkowe",
         url: "https://example.com/video4",
@@ -43,6 +47,7 @@ const MOCK_CHAPTERS: Chapter[] = [
         completed: false
       },
       {
+        _id: '5',
         id: 5,
         title: "Pętle",
         url: "https://example.com/video5",

@@ -2,16 +2,26 @@ import { memo, useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { pl } from 'date-fns/locale';
 import type { Comment } from '../../../hooks/useComments.hook';
+import DeleteCommentModal from '../DeleteCommentModal/DeleteCommentModal.component';
+import { TrashIcon } from '../../UI/Icons/TrashIcon.component';
 
 type CommentItemProps = {
   comment: Comment;
   onReply: (commentId: string, content: string) => void;
   isAddingReply: boolean;
+  onDelete: (commentId: string) => void;
+  deletingCommentId: string | null;
+  currentUserId: string;
 };
 
-const CommentItem = memo(({ comment, onReply, isAddingReply }: CommentItemProps) => {
+const CommentItem = memo(({ comment, onReply, isAddingReply, onDelete, deletingCommentId, currentUserId }: CommentItemProps) => {
   const [isReplying, setIsReplying] = useState(false);
   const [replyContent, setReplyContent] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const isAuthor = currentUserId === comment.author._id;
+
+  const isDeleting = deletingCommentId === comment._id;
 
   const handleSubmitReply = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +51,14 @@ const CommentItem = memo(({ comment, onReply, isAddingReply }: CommentItemProps)
             <time className="text-sm text-gray-500">{formattedDate}</time>
           </div>
         </div>
+        {isAuthor && (
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
+          >
+            <TrashIcon />
+          </button>
+        )}
       </header>
       
       <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
@@ -105,6 +123,16 @@ const CommentItem = memo(({ comment, onReply, isAddingReply }: CommentItemProps)
           </form>
         )}
       </div>
+
+      <DeleteCommentModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={() => {
+          onDelete(comment._id);
+          setShowDeleteModal(false);
+        }}
+        isDeleting={isDeleting}
+      />
     </article>
   );
 });

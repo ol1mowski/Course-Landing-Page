@@ -12,6 +12,9 @@ type CommentsListProps = {
   onLoadMore: () => void;
   onReply: (commentId: string, content: string) => void;
   isAddingReply: boolean;
+  onDelete: (commentId: string) => void;
+  deletingCommentId: string | null;
+  currentUserId: string;
 };
 
 const CommentsList = memo(({ 
@@ -21,7 +24,10 @@ const CommentsList = memo(({
   hasNextPage,
   onLoadMore,
   onReply,
-  isAddingReply 
+  isAddingReply,
+  onDelete,
+  deletingCommentId,
+  currentUserId
 }: CommentsListProps) => {
   const { ref, inView } = useInView();
   const prevCommentsLength = useRef(comments.length);
@@ -64,6 +70,9 @@ const CommentsList = memo(({
           comment={comment} 
           onReply={onReply}
           isAddingReply={isAddingReply}
+          onDelete={onDelete}
+          deletingCommentId={deletingCommentId}
+          currentUserId={currentUserId}
         />
       ))}
       
