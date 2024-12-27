@@ -30,8 +30,6 @@ const CommentItem = memo(
     const isDeleting = deletingCommentId === comment._id;
     const isAuthor = comment.author._id === currentUserId;
     
-    console.log(isAuthor);
-    
 
     const handleSubmitReply = (e: React.FormEvent) => {
       e.preventDefault();
