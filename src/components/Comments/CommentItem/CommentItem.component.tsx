@@ -4,6 +4,7 @@ import { pl } from "date-fns/locale";
 import type { Comment } from "../../../hooks/useComments.hook";
 import DeleteCommentModal from "../DeleteCommentModal/DeleteCommentModal.component";
 import { TrashIcon } from "../../UI/Icons/TrashIcon.component";
+import { EditIcon } from "../../UI/Icons/EditIcon.component";
 
 type CommentItemProps = {
   comment: Comment;
@@ -12,6 +13,8 @@ type CommentItemProps = {
   onDelete: (commentId: string) => void;
   deletingCommentId: string | null;
   currentUserId: string;
+  onUpdate: (commentId: string, content: string) => void;
+  isUpdating: boolean;
 };
 
 const CommentItem = memo(
@@ -22,10 +25,14 @@ const CommentItem = memo(
     onDelete,
     deletingCommentId,
     currentUserId,
+    onUpdate,
+    isUpdating,
   }: CommentItemProps) => {
     const [isReplying, setIsReplying] = useState(false);
     const [replyContent, setReplyContent] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedContent, setEditedContent] = useState(comment.content);
 
     const isDeleting = deletingCommentId === comment._id;
     const isAuthor = comment.author._id === currentUserId;
@@ -37,6 +44,14 @@ const CommentItem = memo(
         onReply(comment._id, replyContent);
         setReplyContent("");
         setIsReplying(false);
+      }
+    };
+
+    const handleEditSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (editedContent.trim() && editedContent !== comment.content) {
+        onUpdate(comment._id, editedContent);
+        setIsEditing(false);
       }
     };
 
@@ -60,16 +75,58 @@ const CommentItem = memo(
             </div>
           </div>
           {isAuthor && (
-            <button
-              onClick={() => setShowDeleteModal(true)}
-              className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
-            >
-              <TrashIcon />
-            </button>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="text-gray-400 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-blue-50"
+              >
+                <EditIcon />
+              </button>
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
+              >
+                <TrashIcon />
+              </button>
+            </div>
           )}
         </header>
 
-        <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+        {isEditing ? (
+          <form onSubmit={handleEditSubmit} className="space-y-3">
+            <textarea
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+            />
+            <div className="flex space-x-2">
+              <button
+                type="submit"
+                disabled={!editedContent.trim() || editedContent === comment.content}
+                className="px-3 py-1 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
+              >
+                Zapisz
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsEditing(false);
+                  setEditedContent(comment.content);
+                }}
+                className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                Anuluj
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div>
+            <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+            {comment.updatedAt && comment.updatedAt !== comment.createdAt && (
+              <span className="text-xs text-gray-500 italic ml-1">(edytowano)</span>
+            )}
+          </div>
+        )}
 
         {comment.replies.length > 0 && (
           <div className="mt-4 space-y-4 pl-4 border-l-2 border-gray-100">

@@ -88,6 +88,33 @@ export class CommentController {
       next(new ApiError(error.message, 500));
     }
   }
+
+  async updateComment(req, res, next) {
+    try {
+      const { commentId } = req.params;
+      const { content } = req.body;
+      const userId = req.user.id;
+
+      const comment = await Comment.findOne({ 
+        _id: commentId,
+        author: userId
+      });
+      
+      if (!comment) {
+        throw new ApiError('Nie znaleziono komentarza lub brak uprawnień', 404);
+      }
+
+      comment.content = content;
+      await comment.save();
+
+      res.status(200).json({
+        success: true,
+        data: comment
+      });
+    } catch (error) {
+      next(new ApiError(error.message, error.statusCode || 500));
+    }
+  }
 }
 
 export const commentController = new CommentController(); 

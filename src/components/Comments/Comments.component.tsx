@@ -27,7 +27,9 @@ const Comments = memo(() => {
     addReply,
     isAddingReply,
     deleteComment,
-    deletingCommentId
+    deletingCommentId,
+    updateComment,
+    isUpdating
   } = useComments(currentVideo?._id || '');
 
   const handleAddComment = async (content: string) => {
@@ -52,6 +54,15 @@ const Comments = memo(() => {
       showSuccess('Komentarz został usunięty');
     } catch (error) {
       showError('Nie udało się usunąć komentarza');
+    }
+  };
+
+  const handleUpdateComment = async (commentId: string, content: string) => {
+    try {
+      await updateComment({ commentId, content });
+      showSuccess('Komentarz został zaktualizowany');
+    } catch (error) {
+      showError('Nie udało się zaktualizować komentarza');
     }
   };
 
@@ -82,6 +93,8 @@ const Comments = memo(() => {
           onDelete={handleDeleteComment}
           deletingCommentId={deletingCommentId || null}
           currentUserId={currentUserId}
+          onUpdate={handleUpdateComment}
+          isUpdating={isUpdating}
         />
       </section>
       <Toaster />
