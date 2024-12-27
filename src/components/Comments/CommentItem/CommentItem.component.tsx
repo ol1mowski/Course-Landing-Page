@@ -4,6 +4,7 @@ import { pl } from "date-fns/locale";
 import type { Comment } from "../../../hooks/useComments.hook";
 import DeleteCommentModal from "../DeleteCommentModal/DeleteCommentModal.component";
 import { TrashIcon } from "../../UI/Icons/TrashIcon.component";
+import { EditIcon } from "../../UI/Icons/EditIcon.component";
 
 type CommentItemProps = {
   comment: Comment;
@@ -60,12 +61,19 @@ const CommentItem = memo(
             </div>
           </div>
           {isAuthor && (
-            <button
-              onClick={() => setShowDeleteModal(true)}
-              className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
-            >
-              <TrashIcon />
-            </button>
+            <div className="flex space-x-2">
+              <button
+                className="text-gray-400 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-blue-50"
+              >
+                <EditIcon />
+              </button>
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
+              >
+                <TrashIcon />
+              </button>
+            </div>
           )}
         </header>
 
