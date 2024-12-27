@@ -141,31 +141,8 @@ export const useComments = (videoId: string) => {
       if (!response.ok) {
         throw new Error('Nie udało się usunąć komentarza');
       }
-
-      return response.json();
     },
-    onMutate: async (commentId) => {
-      await queryClient.cancelQueries({ queryKey: COMMENTS_QUERY_KEY });
-      const previousComments = queryClient.getQueryData(COMMENTS_QUERY_KEY);
-
-      queryClient.setQueryData(COMMENTS_QUERY_KEY, (old: any) => ({
-        pages: old.pages.map((page: any) => ({
-          ...page,
-          data: {
-            ...page.data,
-            comments: page.data.comments.filter((c: Comment) => c._id !== commentId)
-          }
-        }))
-      }));
-
-      return { previousComments };
-    },
-    onError: (_, __, context) => {
-      if (context?.previousComments) {
-        queryClient.setQueryData(COMMENTS_QUERY_KEY, context.previousComments);
-      }
-    },
-    onSettled: () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
     }
   });
@@ -182,6 +159,7 @@ export const useComments = (videoId: string) => {
     addReply: addReplyMutation.mutate,
     isAddingReply: addReplyMutation.isPending,
     deleteComment: deleteCommentMutation.mutate,
-    deletingCommentId: deleteCommentMutation.variables
+    deletingCommentId: deleteCommentMutation.variables ?? null,
+    isDeleting: deleteCommentMutation.isPending
   };
 }; 
