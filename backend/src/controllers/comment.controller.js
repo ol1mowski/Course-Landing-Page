@@ -46,18 +46,13 @@ export class CommentController {
   async deleteComment(req, res, next) {
     try {
       const { commentId } = req.params;
-      const userId = req.user.id;
 
       const comment = await Comment.findOne({ 
-        _id: commentId,
-        author: userId 
+        _id: commentId
       });
       
       if (!comment) {
-        throw new ApiError(
-          'Nie znaleziono komentarza lub nie masz uprawnień do jego usunięcia', 
-          403
-        );
+        throw new ApiError('Nie znaleziono komentarza', 404);
       }
 
       await comment.deleteOne();

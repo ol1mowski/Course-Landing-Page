@@ -19,8 +19,6 @@ const CommentItem = memo(({ comment, onReply, isAddingReply, onDelete, deletingC
   const [replyContent, setReplyContent] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const isAuthor = currentUserId === comment.author._id;
-
   const isDeleting = deletingCommentId === comment._id;
 
   const handleSubmitReply = (e: React.FormEvent) => {
@@ -51,14 +49,12 @@ const CommentItem = memo(({ comment, onReply, isAddingReply, onDelete, deletingC
             <time className="text-sm text-gray-500">{formattedDate}</time>
           </div>
         </div>
-        {isAuthor && (
-          <button
-            onClick={() => setShowDeleteModal(true)}
-            className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
-          >
-            <TrashIcon />
-          </button>
-        )}
+        <button
+          onClick={() => setShowDeleteModal(true)}
+          className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
+        >
+          <TrashIcon />
+        </button>
       </header>
       
       <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
