@@ -27,6 +27,8 @@ const CommentItem = memo(
     const [isReplying, setIsReplying] = useState(false);
     const [replyContent, setReplyContent] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedContent, setEditedContent] = useState(comment.content);
 
     const isDeleting = deletingCommentId === comment._id;
     const isAuthor = comment.author._id === currentUserId;
@@ -38,6 +40,14 @@ const CommentItem = memo(
         onReply(comment._id, replyContent);
         setReplyContent("");
         setIsReplying(false);
+      }
+    };
+
+    const handleEditSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (editedContent.trim() && editedContent !== comment.content) {
+        // TODO: Implementacja edycji na backendzie
+        setIsEditing(false);
       }
     };
 
@@ -63,6 +73,7 @@ const CommentItem = memo(
           {isAuthor && (
             <div className="flex space-x-2">
               <button
+                onClick={() => setIsEditing(true)}
                 className="text-gray-400 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-blue-50"
               >
                 <EditIcon />
@@ -77,7 +88,36 @@ const CommentItem = memo(
           )}
         </header>
 
-        <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+        {isEditing ? (
+          <form onSubmit={handleEditSubmit} className="space-y-3">
+            <textarea
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+            />
+            <div className="flex space-x-2">
+              <button
+                type="submit"
+                disabled={!editedContent.trim() || editedContent === comment.content}
+                className="px-3 py-1 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
+              >
+                Zapisz
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsEditing(false);
+                  setEditedContent(comment.content);
+                }}
+                className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
+              >
+                Anuluj
+              </button>
+            </div>
+          </form>
+        ) : (
+          <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+        )}
 
         {comment.replies.length > 0 && (
           <div className="mt-4 space-y-4 pl-4 border-l-2 border-gray-100">
