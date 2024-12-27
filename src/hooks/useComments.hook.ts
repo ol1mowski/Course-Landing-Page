@@ -20,6 +20,7 @@ export type Comment = {
     createdAt: string;
   }>;
   createdAt: string;
+  updatedAt?: string;
 };
 
 type CommentsResponse = {

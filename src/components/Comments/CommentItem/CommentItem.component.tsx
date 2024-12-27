@@ -120,7 +120,12 @@ const CommentItem = memo(
             </div>
           </form>
         ) : (
-          <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+          <div>
+            <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+            {comment.updatedAt && comment.updatedAt !== comment.createdAt && (
+              <span className="text-xs text-gray-500 italic ml-1">(edytowano)</span>
+            )}
+          </div>
         )}
 
         {comment.replies.length > 0 && (
