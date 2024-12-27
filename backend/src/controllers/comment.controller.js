@@ -1,3 +1,4 @@
+import { Comment } from '../models/comment.model.js';
 import { commentService } from '../services/comment.service.js';
 import { ApiError } from '../utils/ApiError.js';
 
@@ -50,14 +51,11 @@ export class CommentController {
 
       const comment = await Comment.findOne({ 
         _id: commentId,
-        author: userId 
+        author: userId
       });
       
       if (!comment) {
-        throw new ApiError(
-          'Nie znaleziono komentarza lub nie masz uprawnień do jego usunięcia', 
-          403
-        );
+        throw new ApiError('Nie znaleziono komentarza lub brak uprawnień', 404);
       }
 
       await comment.deleteOne();
