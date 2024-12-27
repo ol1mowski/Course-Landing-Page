@@ -141,6 +141,8 @@ export const useComments = (videoId: string) => {
       if (!response.ok) {
         throw new Error('Nie udało się usunąć komentarza');
       }
+
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
@@ -159,7 +161,7 @@ export const useComments = (videoId: string) => {
     addReply: addReplyMutation.mutate,
     isAddingReply: addReplyMutation.isPending,
     deleteComment: deleteCommentMutation.mutate,
-    deletingCommentId: deleteCommentMutation.variables ?? null,
+    deletingCommentId: deleteCommentMutation.isPending,
     isDeleting: deleteCommentMutation.isPending
   };
 }; 
