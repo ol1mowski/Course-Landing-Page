@@ -10,7 +10,10 @@ import { Toaster } from 'react-hot-toast';
 
 const Comments = memo(() => {
   const { currentVideo } = useVideo();
+  
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+  const currentUserId = currentUser.id;
+
   const { showSuccess, showError } = useToast();
 
   const {
@@ -78,7 +81,7 @@ const Comments = memo(() => {
           isAddingReply={isAddingReply}
           onDelete={handleDeleteComment}
           deletingCommentId={deletingCommentId || null}
-          currentUserId={currentUser._id}
+          currentUserId={currentUserId}
         />
       </section>
       <Toaster />

@@ -161,7 +161,7 @@ export const useComments = (videoId: string) => {
     addReply: addReplyMutation.mutate,
     isAddingReply: addReplyMutation.isPending,
     deleteComment: deleteCommentMutation.mutate,
-    deletingCommentId: deleteCommentMutation.isPending,
+    deletingCommentId: null,
     isDeleting: deleteCommentMutation.isPending
   };
 }; 
