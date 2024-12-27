@@ -149,6 +149,31 @@ export const useComments = (videoId: string) => {
     }
   });
 
+  const updateCommentMutation = useMutation({
+    mutationFn: async ({ commentId, content }: { commentId: string; content: string }) => {
+      const response = await fetch(
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/${commentId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify({ content })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Nie udało się zaktualizować komentarza');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
+    }
+  });
+
   return {
     comments: data?.pages.flatMap(page => page.data.comments) ?? [],
     isLoading,
@@ -162,6 +187,8 @@ export const useComments = (videoId: string) => {
     isAddingReply: addReplyMutation.isPending,
     deleteComment: deleteCommentMutation.mutate,
     deletingCommentId: null,
-    isDeleting: deleteCommentMutation.isPending
+    isDeleting: deleteCommentMutation.isPending,
+    updateComment: updateCommentMutation.mutate,
+    isUpdating: updateCommentMutation.isPending
   };
 }; 

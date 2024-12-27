@@ -13,6 +13,8 @@ type CommentItemProps = {
   onDelete: (commentId: string) => void;
   deletingCommentId: string | null;
   currentUserId: string;
+  onUpdate: (commentId: string, content: string) => void;
+  isUpdating: boolean;
 };
 
 const CommentItem = memo(
@@ -23,6 +25,8 @@ const CommentItem = memo(
     onDelete,
     deletingCommentId,
     currentUserId,
+    onUpdate,
+    isUpdating,
   }: CommentItemProps) => {
     const [isReplying, setIsReplying] = useState(false);
     const [replyContent, setReplyContent] = useState("");
@@ -46,7 +50,7 @@ const CommentItem = memo(
     const handleEditSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       if (editedContent.trim() && editedContent !== comment.content) {
-        // TODO: Implementacja edycji na backendzie
+        onUpdate(comment._id, editedContent);
         setIsEditing(false);
       }
     };

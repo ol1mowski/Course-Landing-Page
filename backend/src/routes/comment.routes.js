@@ -31,4 +31,10 @@ router.delete(
   commentController.deleteComment
 );
 
+router.patch(
+  '/:commentId',
+  verifyToken,
+  commentController.updateComment
+);
+
 export default router; 
