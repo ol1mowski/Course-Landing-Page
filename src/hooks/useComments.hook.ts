@@ -1,5 +1,9 @@
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { API_CONFIG } from '../config/api.config';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { API_CONFIG } from "../config/api.config";
 
 export type Comment = {
   _id: string;
@@ -37,22 +41,24 @@ type CommentsResponse = {
 
 export const useComments = (videoId: string) => {
   const queryClient = useQueryClient();
-  const COMMENTS_QUERY_KEY = ['comments', videoId];
+  const COMMENTS_QUERY_KEY = ["comments", videoId];
   const COMMENTS_PER_PAGE = 10;
 
-  const fetchComments = async ({ pageParam = 1 }): Promise<CommentsResponse> => {
-    const token = localStorage.getItem('token');
+  const fetchComments = async ({
+    pageParam = 1,
+  }): Promise<CommentsResponse> => {
+    const token = localStorage.getItem("token");
     const response = await fetch(
       `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/video/${videoId}?page=${pageParam}&limit=${COMMENTS_PER_PAGE}`,
       {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
     if (!response.ok) {
-      throw new Error('Nie udało się pobrać komentarzy');
+      throw new Error("Nie udało się pobrać komentarzy");
     }
 
     return response.json();
@@ -64,7 +70,7 @@ export const useComments = (videoId: string) => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-    error
+    error,
   } = useInfiniteQuery({
     queryKey: COMMENTS_QUERY_KEY,
     queryFn: fetchComments,
@@ -73,110 +79,122 @@ export const useComments = (videoId: string) => {
       const { page, pages } = lastPage.data.pagination;
       return page < pages ? page + 1 : undefined;
     },
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5,
   });
 
   const addCommentMutation = useMutation({
     mutationFn: async (content: string) => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/video/${videoId}`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ content })
+          body: JSON.stringify({ content }),
         }
       );
       if (!response.ok) {
-        throw new Error('Nie udało się dodać komentarza');
+        throw new Error("Nie udało się dodać komentarza");
       }
 
       return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
-    }
+    },
   });
 
   const addReplyMutation = useMutation({
-    mutationFn: async ({ commentId, content }: { commentId: string; content: string }) => {
-      const token = localStorage.getItem('token');
+    mutationFn: async ({
+      commentId,
+      content,
+    }: {
+      commentId: string;
+      content: string;
+    }) => {
+      const token = localStorage.getItem("token");
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/${commentId}/reply`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ content })
+          body: JSON.stringify({ content }),
         }
       );
       if (!response.ok) {
-        throw new Error('Nie udało się dodać odpowiedzi');
+        throw new Error("Nie udało się dodać odpowiedzi");
       }
 
       return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
-    }
+    },
   });
 
   const deleteCommentMutation = useMutation({
     mutationFn: async (commentId: string) => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/${commentId}`,
         {
-          method: 'DELETE',
+          method: "DELETE",
           headers: {
-            'Authorization': `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       if (!response.ok) {
-        throw new Error('Nie udało się usunąć komentarza');
+        throw new Error("Nie udało się usunąć komentarza");
       }
 
       return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
-    }
+    },
   });
 
   const updateCommentMutation = useMutation({
-    mutationFn: async ({ commentId, content }: { commentId: string; content: string }) => {
+    mutationFn: async ({
+      commentId,
+      content,
+    }: {
+      commentId: string;
+      content: string;
+    }) => {
       const response = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.COMMENTS}/${commentId}`,
         {
-          method: 'PATCH',
+          method: "PATCH",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({ content })
+          body: JSON.stringify({ content }),
         }
       );
 
       if (!response.ok) {
-        throw new Error('Nie udało się zaktualizować komentarza');
+        throw new Error("Nie udało się zaktualizować komentarza");
       }
 
       return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: COMMENTS_QUERY_KEY });
-    }
+    },
   });
 
   return {
-    comments: data?.pages.flatMap(page => page.data.comments) ?? [],
+    comments: data?.pages.flatMap((page) => page.data.comments) ?? [],
     isLoading,
     error,
     hasNextPage,
@@ -190,6 +208,6 @@ export const useComments = (videoId: string) => {
     deletingCommentId: null,
     isDeleting: deleteCommentMutation.isPending,
     updateComment: updateCommentMutation.mutate,
-    isUpdating: updateCommentMutation.isPending
+    isUpdating: updateCommentMutation.isPending,
   };
-}; 
+};

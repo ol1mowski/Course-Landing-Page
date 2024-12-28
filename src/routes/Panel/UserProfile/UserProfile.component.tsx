@@ -36,7 +36,7 @@ const UserProfile = () => {
     e.preventDefault();
     try {
       await updateProfile(formData);
-      showSuccess('Twoje dane zostały pomyślnie zaktualizowane! 🎉');
+      showSuccess('Twoje dane zostały pomyślnie zaktualizowane!');
       setIsEditing(false);
     } catch (error) {
       showError('Ups! Coś poszło nie tak podczas aktualizacji danych. Spróbuj ponownie.');
@@ -143,7 +143,7 @@ const UserProfile = () => {
             </div>
           </form>
         </div>
-    
+
         <div className="bg-red-100 border-2 border-red-500 rounded-lg p-6">
           <h3 className="text-lg font-bold text-red-700 mb-4">Usuwanie konta</h3>
           <p className="text-red-700 mb-4 font-medium">

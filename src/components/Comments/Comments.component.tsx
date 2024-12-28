@@ -5,7 +5,9 @@ import CommentsList from './CommentsList/CommentsList.component';
 import { useVideo } from '../../routes/Learning/hooks/useVideo.hook';
 import CommentForm from './CommentForm/CommentForm.component';
 import { CommentErrorBoundary } from './ErrorBoundary/CommentErrorBoundary.component';
-import { Toaster } from 'react-hot-toast';
+import { ErrorToast } from '../UI/Toast/ErrorToast.component';
+import { SuccessToast } from '../UI/Toast/SuccessToast.component';
+
 
 
 const Comments = memo(() => {
@@ -35,16 +37,18 @@ const Comments = memo(() => {
   const handleAddComment = async (content: string) => {
     try {
       await addComment(content);
+      showSuccess('Komentarz został dodany');
     } catch (error) {
-      console.error('Error adding comment:', error);
+      showError('Nie udało się dodać komentarza');
     }
   };
 
   const handleAddReply = async (commentId: string, content: string) => {
     try {
       await addReply({ commentId, content });
+      showSuccess('Odpowiedź została dodana');
     } catch (error) {
-      console.error('Error adding reply:', error);
+      showError('Nie udało się dodać odpowiedzi');
     }
   };
 
@@ -97,7 +101,8 @@ const Comments = memo(() => {
           isUpdating={isUpdating}
         />
       </section>
-      <Toaster />
+      <SuccessToast />
+      <ErrorToast />
     </CommentErrorBoundary>
   );
 });
