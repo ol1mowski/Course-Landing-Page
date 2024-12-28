@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useUserData, UserData } from './hooks/useUserData.hook';
+import { useUserProfile } from './hooks/useUserProfile.hook';
+import { useToast } from '../../../hooks/useToast.hook';
+import type { UserData } from './types';
 
 const UserProfile = () => {
-  const { userData, isLoading, error, updateUserData } = useUserData();
+  const { userData, isLoading, updateProfile, isUpdating } = useUserProfile();
+  const { showSuccess, showError } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [formData, setFormData] = useState<UserData>({
@@ -21,6 +23,29 @@ const UserProfile = () => {
     }
   }, [userData]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await updateProfile(formData);
+      showSuccess('Dane zostały zaktualizowane');
+      setIsEditing(false);
+    } catch (error) {
+      showError('Nie udało się zaktualizować danych');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    console.log('Deleting account...');
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -29,47 +54,17 @@ const UserProfile = () => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="bg-red-50 text-red-600 p-4 rounded-lg">
-          {error}
-        </div>
-      </div>
-    );
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev: UserData) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const success = await updateUserData(formData);
-    if (success) {
-      setIsEditing(false);
-    }
-  };
-
-  const handleDeleteAccount = async () => {
-    // TODO: Implement account deletion
-    console.log('Deleting account...');
-  };
-
   return (
     <section className="w-full mt-20">
       <section>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Moje dane</h2>
           <button
-            onClick={() => isEditing ? handleSubmit : setIsEditing(true)}
-            className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark transition-colors"
+            onClick={isEditing ? handleSubmit : () => setIsEditing(true)}
+            disabled={isUpdating}
+            className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
           >
-            {isEditing ? 'Zapisz zmiany' : 'Edytuj dane'}
+            {isEditing ? (isUpdating ? 'Zapisywanie...' : 'Zapisz zmiany') : 'Edytuj dane'}
           </button>
         </div>
 

@@ -1,45 +1,60 @@
-import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { API_CONFIG } from '../../../../config/api.config';
 import { UserData } from '../types';
 
-const MOCK_USER: UserData = {
-  firstName: "Jan",
-  lastName: "Kowalski",
-  email: "jan.kowalski@example.com",
-  phone: "123456789",
-  company: "IT Solutions Sp. z o.o.",
-  nip: "1234567890"
-};
-
 export const useUserProfile = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [userData, setUserData] = useState<UserData>(MOCK_USER);
+  const queryClient = useQueryClient();
+  const USER_PROFILE_KEY = ['userProfile'];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const { data: userData, isLoading } = useQuery({
+    queryKey: USER_PROFILE_KEY,
+    queryFn: async () => {
+      const response = await fetch(
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.ME}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      );
 
-  const handleSave = () => {
-    console.log('Saving user data:', userData);
-    setIsEditing(false);
-  };
+      if (!response.ok) {
+        throw new Error('Nie udało się pobrać danych użytkownika');
+      }
 
-  const handleDeleteAccount = () => {
-    console.log('Deleting account...');
-  };
+      return response.json();
+    }
+  });
+
+  const updateProfileMutation = useMutation({
+    mutationFn: async (data: Partial<UserData>) => {
+      const response = await fetch(
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.PROFILE}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify(data)
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Nie udało się zaktualizować danych');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: USER_PROFILE_KEY });
+    }
+  });
 
   return {
-    userData,
-    isEditing,
-    showDeleteConfirmation,
-    setIsEditing,
-    setShowDeleteConfirmation,
-    handleInputChange,
-    handleSave,
-    handleDeleteAccount
+    userData: userData?.data,
+    isLoading,
+    updateProfile: updateProfileMutation.mutate,
+    isUpdating: updateProfileMutation.isPending
   };
 }; 
