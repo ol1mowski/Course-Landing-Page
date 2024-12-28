@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner.component';
+import LoadingSpinner from '../../../UI/LoadingSpinner/LoadingSpinner.component';
 
 type SubmitButtonProps = {
   isLoading: boolean;
