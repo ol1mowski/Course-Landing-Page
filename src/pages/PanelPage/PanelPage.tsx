@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { useUserProfile } from '../../components/Panel/UserProfile/hooks/useUserProfile.hook';
-import UserProfile from '../../components/Panel/UserProfile/UserProfile.component';
+import { useUserProfile } from '../../components/UserProfile/hooks/useUserProfile.hook';
+import UserProfile from '../../components/UserProfile/UserProfile.component';
 
 
 

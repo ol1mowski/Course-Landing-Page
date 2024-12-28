@@ -1,17 +1,11 @@
 import { memo } from 'react';
-
-type DeleteAccountProps = {
-  showConfirmation: boolean;
-  onShowConfirmation: () => void;
-  onHideConfirmation: () => void;
-  onDelete: () => void;
-};
+import { DeleteAccountProps } from '../../types';
 
 const DeleteAccount = memo(({ 
   showConfirmation, 
   onShowConfirmation, 
   onHideConfirmation, 
-  onDelete 
+  onDelete,
 }: DeleteAccountProps) => (
   <div className="mt-8">
     <h3 className="text-xl font-bold text-gray-900 mb-4">Usuwanie konta</h3>
@@ -53,3 +47,4 @@ const DeleteAccount = memo(({
 ));
 
 export default DeleteAccount; 
+
