@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserProfile } from './hooks/useUserProfile.hook';
 import { useToast } from '../../../hooks/useToast.hook';
 import { API_CONFIG } from '../../../config/api.config';
 import { Toaster } from 'react-hot-toast';
 import type { UserData } from './types';
+import { UseMutateFunction } from '@tanstack/react-query';
 
-const UserProfile = () => {
+type UserProfileProps = {
+  userData: UserData | null;
+  isLoading: boolean;
+  updateProfile: UseMutateFunction<any, Error, Partial<UserData>>;
+  isUpdating: boolean;
+};
+
+const UserProfile = ({ userData, isLoading, updateProfile, isUpdating }: UserProfileProps) => {
   const navigate = useNavigate();
-  const { userData, isLoading, updateProfile, isUpdating } = useUserProfile();
   const { showSuccess, showError } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);

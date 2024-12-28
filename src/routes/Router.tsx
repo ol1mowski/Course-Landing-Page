@@ -3,13 +3,13 @@ import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute.componen
 import PaymentPage from "./Payment/Payment.component";
 import MainLayout from "../layouts/MainLayout";
 import HomePage from "../pages/HomePage/HomePage";
-import Panel from "./Panel/Panel.component";
 import Login from "./Login/Login.component";
-import UserProfile from "./Panel/UserProfile/UserProfile.component";
 import Learning from "./Learning/Learning.component";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop.component";
 import PaymentSuccess from "./PaymentSuccess/PaymentSuccess.component";
 import NotFound from "../components/NotFound/NotFound.component";
+import PanelPage from "../pages/PanelPage/PanelPage";
+import Panel from "../components/Panel/Panel.component";
 
 const Router = () => {
   return (
@@ -33,7 +33,7 @@ const Router = () => {
           } />
           <Route path="/mojekonto/dane" element={
             <ProtectedRoute>
-              <UserProfile />
+              <PanelPage />
             </ProtectedRoute>
           } />
           <Route path="*" element={<NotFound />} />
