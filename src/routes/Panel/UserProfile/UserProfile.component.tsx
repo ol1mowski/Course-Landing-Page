@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useUserProfile } from './hooks/useUserProfile.hook';
 import { useToast } from '../../../hooks/useToast.hook';
+import { Toaster } from 'react-hot-toast';
 import type { UserData } from './types';
 
 const UserProfile = () => {
@@ -35,10 +36,10 @@ const UserProfile = () => {
     e.preventDefault();
     try {
       await updateProfile(formData);
-      showSuccess('Dane zostały zaktualizowane');
+      showSuccess('Twoje dane zostały pomyślnie zaktualizowane! 🎉');
       setIsEditing(false);
     } catch (error) {
-      showError('Nie udało się zaktualizować danych');
+      showError('Ups! Coś poszło nie tak podczas aktualizacji danych. Spróbuj ponownie.');
     }
   };
 
@@ -142,8 +143,7 @@ const UserProfile = () => {
             </div>
           </form>
         </div>
-
-        {/* Sekcja usuwania konta */}
+    
         <div className="bg-red-100 border-2 border-red-500 rounded-lg p-6">
           <h3 className="text-lg font-bold text-red-700 mb-4">Usuwanie konta</h3>
           <p className="text-red-700 mb-4 font-medium">
@@ -179,6 +179,26 @@ const UserProfile = () => {
           )}
         </div>
       </section>
+      
+      <Toaster 
+        position="bottom-right"
+        toastOptions={{
+          success: {
+            duration: 3000,
+            style: {
+              background: '#10B981',
+              color: '#fff',
+            },
+          },
+          error: {
+            duration: 4000,
+            style: {
+              background: '#EF4444',
+              color: '#fff',
+            },
+          },
+        }}
+      />
     </section>
   );
 };
