@@ -30,7 +30,6 @@ export const useLogout = () => {
   const mutation = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      // Wyczyść dane użytkownika
       localStorage.removeItem('token');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('user');
@@ -40,7 +39,6 @@ export const useLogout = () => {
     },
     onError: (error) => {
       console.error('Logout error:', error);
-      // Nawet w przypadku błędu, wyczyść dane i przekieruj
       localStorage.clear();
       sessionStorage.clear();
       navigate('/logowanie');
