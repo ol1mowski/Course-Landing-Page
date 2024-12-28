@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUserProfile } from './hooks/useUserProfile.hook';
 import { useToast } from '../../../hooks/useToast.hook';
+import { API_CONFIG } from '../../../config/api.config';
 import { Toaster } from 'react-hot-toast';
 import type { UserData } from './types';
 
 const UserProfile = () => {
+  const navigate = useNavigate();
   const { userData, isLoading, updateProfile, isUpdating } = useUserProfile();
   const { showSuccess, showError } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [formData, setFormData] = useState<UserData>({
     firstName: '',
     lastName: '',
@@ -44,7 +48,34 @@ const UserProfile = () => {
   };
 
   const handleDeleteAccount = async () => {
-    console.log('Deleting account...');
+    try {
+      setIsDeletingAccount(true);
+      const response = await fetch(
+        `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.PROFILE}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Nie udało się usunąć konta');
+      }
+
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      showSuccess('Konto zostało usunięte');
+      
+      navigate('/logowanie');
+    } catch (error) {
+      showError('Nie udało się usunąć konta. Spróbuj ponownie.');
+    } finally {
+      setIsDeletingAccount(false);
+      setShowDeleteConfirmation(false);
+    }
   };
 
   if (isLoading) {
@@ -157,9 +188,10 @@ const UserProfile = () => {
               <div className="flex space-x-4">
                 <button
                   onClick={handleDeleteAccount}
-                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-800 transition-colors"
+                  disabled={isDeletingAccount}
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-800 transition-colors disabled:opacity-50"
                 >
-                  Tak, usuń konto
+                  {isDeletingAccount ? 'Usuwanie...' : 'Tak, usuń konto'}
                 </button>
                 <button
                   onClick={() => setShowDeleteConfirmation(false)}
