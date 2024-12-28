@@ -1,12 +1,7 @@
 import { memo } from 'react';
 import FormField from '../FormField/FormField.component';
-import { UserData } from '../../types';
+import { type UserDataFormProps } from '../../types';
 
-type UserDataFormProps = {
-  userData: UserData;
-  isEditing: boolean;
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
 
 const UserDataForm = memo(({ userData, isEditing, onInputChange }: UserDataFormProps) => (
   <div className="bg-white rounded-lg shadow-sm p-6">

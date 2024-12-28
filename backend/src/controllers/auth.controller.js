@@ -1,5 +1,6 @@
 import { Student } from '../models/user.model.js';
 import { jwtService } from '../services/jwt.service.js';
+import { Comment } from '../models/comment.model.js';
 
 export class AuthController {
   async login(req, res) {
@@ -195,7 +196,6 @@ export class AuthController {
         });
       }
 
-      // Aktualizuj tylko dozwolone pola
       const allowedUpdates = ['firstName', 'lastName', 'phone', 'company', 'nip'];
       allowedUpdates.forEach(field => {
         if (updates[field] !== undefined) {
@@ -221,6 +221,35 @@ export class AuthController {
       res.status(500).json({
         success: false,
         error: 'Błąd podczas aktualizacji profilu'
+      });
+    }
+  }
+
+  async deleteProfile(req, res) {
+    try {
+      const userId = req.user.id;
+      const student = await Student.findById(userId);
+
+      if (!student) {
+        return res.status(404).json({
+          success: false,
+          error: 'Użytkownik nie istnieje'
+        });
+      }
+
+      await Comment.deleteMany({ author: userId });
+      
+      await student.deleteOne();
+
+      res.status(200).json({
+        success: true,
+        message: 'Konto zostało usunięte'
+      });
+    } catch (error) {
+      console.error('Delete profile error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Błąd podczas usuwania konta'
       });
     }
   }

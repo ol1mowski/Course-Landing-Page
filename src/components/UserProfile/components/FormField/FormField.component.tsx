@@ -1,13 +1,5 @@
 import { memo } from 'react';
-
-type FormFieldProps = {
-  label: string;
-  name: string;
-  type?: string;
-  value: string;
-  disabled: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import { FormFieldProps } from '../../types';
 
 const FormField = memo(({ 
   label, 

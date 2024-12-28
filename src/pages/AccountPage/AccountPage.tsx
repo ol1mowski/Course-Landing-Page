@@ -1,5 +1,6 @@
 import { memo } from 'react';
-import Panel from '../../routes/Panel/Panel.component';
+import Panel from '../../components/Panel/Panel.component';
+
 
 const AccountPage = memo(() => (
   <Panel />

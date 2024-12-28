@@ -10,5 +10,6 @@ router.post('/logout', verifyToken, authController.logout);
 router.post('/refresh', authController.refreshToken);
 router.get('/me', verifyToken, authController.getProfile);
 router.patch('/profile', verifyToken, authController.updateProfile);
+router.delete('/profile', verifyToken, authController.deleteProfile);
 
 export default router; 
