@@ -72,7 +72,7 @@ test.describe('Login Flow', () => {
     await page.getByTestId('password-input').fill('wrongpassword');
     await page.getByTestId('submit-button').click();
 
-    await expect(page.getByText('Nieprawid��owy email lub hasło')).toBeVisible();
+    await expect(page.getByText('Nieprawidłowy email lub hasło')).toBeVisible();
     await expect(page).toHaveURL('/logowanie');
   });
 

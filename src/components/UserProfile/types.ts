@@ -23,6 +23,7 @@ export type UserFormProps = {
   onSubmit: (e: React.FormEvent) => void;
   onEdit: () => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errors?: Record<string, string>;
 };
 
 export type UserDataFormProps = {
@@ -38,6 +39,8 @@ export type FormFieldProps = {
   value: string;
   disabled: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  'data-testid'?: string;
+  error?: string;
 };
 
 export type DeleteAccountProps = {
