@@ -1,8 +1,12 @@
 import { memo } from 'react';
-import Learning from '../../routes/Learning/Learning.component';
+
+import { LearningProvider } from '../../contexts/LearningContext';
+import LearningComponent from '../../routes/Learning/Learning.component';
 
 const LearningPage = memo(() => (
-  <Learning />
+  <LearningProvider>
+    <LearningComponent />
+  </LearningProvider>
 ));
 
 export default LearningPage; 

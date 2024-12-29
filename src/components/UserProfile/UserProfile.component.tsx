@@ -17,7 +17,8 @@ const UserProfile = memo(({ userData, isLoading, updateProfile, isUpdating }: Us
     isEditing,
     setIsEditing,
     handleInputChange,
-    handleSubmit
+    handleSubmit,
+    errors
   } = useProfileForm(userData, updateProfile);
 
   const {
@@ -38,6 +39,7 @@ const UserProfile = memo(({ userData, isLoading, updateProfile, isUpdating }: Us
         onSubmit={handleSubmit}
         onEdit={() => setIsEditing(true)}
         onChange={handleInputChange}
+        errors={errors}
       />
 
       <DeleteAccount 
