@@ -77,12 +77,14 @@ const CommentItem = memo(
           {isAuthor && (
             <div className="flex space-x-2">
               <button
+                data-testid="edit-comment-button"
                 onClick={() => setIsEditing(true)}
                 className="text-gray-400 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-blue-50"
               >
                 <EditIcon />
               </button>
               <button
+                data-testid="delete-comment-button"
                 onClick={() => setShowDeleteModal(true)}
                 className="text-gray-400 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
               >
@@ -96,12 +98,14 @@ const CommentItem = memo(
           <form onSubmit={handleEditSubmit} className="space-y-3">
             <textarea
               value={editedContent}
+              data-testid="edit-comment-input"
               onChange={(e) => setEditedContent(e.target.value)}
               className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
             />
             <div className="flex space-x-2">
               <button
                 type="submit"
+                data-testid="save-edit-button"
                 disabled={!editedContent.trim() || editedContent === comment.content}
                 className="px-3 py-1 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
               >
@@ -114,6 +118,7 @@ const CommentItem = memo(
                   setEditedContent(comment.content);
                 }}
                 className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
+                data-testid="cancel-edit-button"
               >
                 Anuluj
               </button>
