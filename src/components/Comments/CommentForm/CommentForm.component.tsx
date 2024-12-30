@@ -1,59 +1,45 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
+import { CharacterCounter } from './components/CharacterCounter.component';
+import { CommentTextArea } from './components/CommentTextArea.component';
+import { SubmitButton } from './components/SubmitButton.component';
+import { useCommentForm } from './hooks/useCommentForm.hook';
 
 type CommentFormProps = {
-  onSubmit: (content: string) => void;
+  initialContent?: string;
+  onSubmit: (content: string) => Promise<void>;
+  onCancel?: () => void;
   isSubmitting: boolean;
+  submitLabel?: string;
+  cancelLabel?: string;
 };
 
-const MAX_COMMENT_LENGTH = 1000;
+const CommentForm = memo(({ 
+  initialContent = '',
+  onSubmit, 
+  onCancel,
+  isSubmitting,
+  submitLabel = 'Dodaj komentarz',
+  cancelLabel = 'Anuluj'
+}: CommentFormProps) => {
+  const { 
+    content, 
+    error, 
+    handleSubmit, 
+    handleChange, 
+    MAX_COMMENT_LENGTH 
+  } = useCommentForm(onSubmit, initialContent);
 
-const CommentForm = memo(({ onSubmit, isSubmitting }: CommentFormProps) => {
-  const [content, setContent] = useState('');
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!content.trim()) {
-      setError('Treść komentarza jest wymagana');
-      return;
-    }
-
-    if (content.length > MAX_COMMENT_LENGTH) {
-      setError(`Komentarz może mieć maksymalnie ${MAX_COMMENT_LENGTH} znaków`);
-      return;
-    }
-
-    setError(null);
-    onSubmit(content);
-    setContent('');
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newContent = e.target.value;
-    setContent(newContent);
-    
-    if (newContent.length > MAX_COMMENT_LENGTH) {
-      setError(`Komentarz może mieć maksymalnie ${MAX_COMMENT_LENGTH} znaków`);
-    } else {
-      setError(null);
-    }
-  };
+  const isDisabled = !content.trim() || content.length > MAX_COMMENT_LENGTH || isSubmitting;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="relative">
-        <textarea
+        <CommentTextArea
           value={content}
           onChange={handleChange}
-          placeholder="Dodaj komentarz..."
-          disabled={isSubmitting}
-          data-testid="comment-input"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary disabled:opacity-50 min-h-[100px] resize-y"
+          isDisabled={isSubmitting}
         />
-        <div className="absolute bottom-2 right-2 text-sm text-gray-500">
-          {content.length}/{MAX_COMMENT_LENGTH}
-        </div>
+        <CharacterCounter current={content.length} max={MAX_COMMENT_LENGTH} />
       </div>
       
       {error && (
@@ -62,15 +48,21 @@ const CommentForm = memo(({ onSubmit, isSubmitting }: CommentFormProps) => {
         </p>
       )}
 
-      <div className="flex justify-end">
-        <button
-          type="submit"
-          disabled={!content.trim() || content.length > MAX_COMMENT_LENGTH || isSubmitting}
-          data-testid="submit-comment-button"
-          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? 'Wysyłanie...' : 'Dodaj komentarz'}
-        </button>
+      <div className="flex justify-end space-x-2">
+        {onCancel && (
+          <button
+            type="button"
+            onClick={onCancel}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            {cancelLabel}
+          </button>
+        )}
+        <SubmitButton 
+          isDisabled={isDisabled} 
+          isSubmitting={isSubmitting}
+          label={submitLabel}
+        />
       </div>
     </form>
   );
