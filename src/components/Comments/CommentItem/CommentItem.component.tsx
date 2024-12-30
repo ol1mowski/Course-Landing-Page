@@ -160,6 +160,7 @@ const CommentItem = memo(
         <div className="mt-4">
           {!isReplying ? (
             <button
+              data-testid="reply-button"
               onClick={() => setIsReplying(true)}
               className="text-sm text-primary hover:text-primary-dark transition-colors"
             >
@@ -169,6 +170,7 @@ const CommentItem = memo(
             <form onSubmit={handleSubmitReply} className="space-y-3">
               <textarea
                 value={replyContent}
+                data-testid="reply-input"
                 onChange={(e) => setReplyContent(e.target.value)}
                 placeholder="Napisz odpowiedź..."
                 className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
@@ -178,6 +180,7 @@ const CommentItem = memo(
                 <button
                   type="submit"
                   disabled={!replyContent.trim() || isAddingReply}
+                  data-testid="submit-reply-button"
                   className="px-3 py-1 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
                 >
                   {isAddingReply ? "Wysyłanie..." : "Odpowiedz"}
@@ -186,6 +189,7 @@ const CommentItem = memo(
                   type="button"
                   onClick={() => setIsReplying(false)}
                   className="px-3 py-1 text-gray-600 hover:text-gray-800 transition-colors"
+                  data-testid="cancel-reply-button"
                 >
                   Anuluj
                 </button>

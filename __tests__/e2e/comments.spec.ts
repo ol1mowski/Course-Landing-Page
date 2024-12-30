@@ -24,7 +24,7 @@ test.describe("Comments Flow", () => {
     await page.getByRole("button", { name: "Dodaj komentarz" }).click();
 
     await expect(page.getByText(commentText)).toBeVisible({ timeout: 10000 });
-    await expect(page.locator(".success-toast")).toBeVisible({
+    await expect(page.locator(".success-toast").first()).toBeVisible({
       timeout: 10000,
     });
 
@@ -34,29 +34,26 @@ test.describe("Comments Flow", () => {
     await page.getByTestId("save-edit-button").click();
 
     await expect(page.getByText(editedText)).toBeVisible({ timeout: 10000 });
-    await expect(page.locator(".success-toast")).toBeVisible({
+    await expect(page.locator(".success-toast").first()).toBeVisible({
       timeout: 10000,
     });
+  });
 
-    // const replyText = "Test reply";
-    // await page.getByTestId("reply-button").first().click();
-    // await page.getByTestId("reply-input").fill(replyText);
-    // await page.getByTestId("submit-reply-button").click();
+  test("should handle reply to comment", async () => {
+    const replyText = "Test reply";
+    await page.getByTestId("reply-button").first().click();
+    await page.getByTestId("reply-input").fill(replyText);
+    await page.getByTestId("submit-reply-button").click();
+    await expect(page.getByText(replyText)).toBeVisible({ timeout: 10000 });
+  });
 
-    // await expect(page.getByText(replyText)).toBeVisible({ timeout: 10000 });
-    // await expect(page.locator(".success-toast")).toBeVisible({
-    //   timeout: 10000,
-    // });
-
-    // await page.getByTestId("delete-comment-button").first().click();
-    // await page.getByTestId("confirm-delete-button").click();
-
-    // await expect(page.getByText(editedText)).not.toBeVisible({
-    //   timeout: 10000,
-    // });
-    // await expect(page.locator(".success-toast")).toBeVisible({
-    //   timeout: 10000,
-    // });
+  test("should handle delete comment", async () => {
+    const commentText = "Edited comment";
+    await page.getByTestId("delete-comment-button").first().click();
+    await page.getByTestId("confirm-delete-button").click();
+    await expect(page.getByText(commentText)).not.toBeVisible({
+      timeout: 10000,
+    });
   });
 
   test("should validate comment input", async () => {
