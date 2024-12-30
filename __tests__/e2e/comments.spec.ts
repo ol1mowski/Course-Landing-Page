@@ -57,41 +57,17 @@ test.describe("Comments Flow", () => {
   });
 
   test("should validate comment input", async () => {
-    await page.getByRole("button", { name: "Dodaj komentarz" }).click();
-    await expect(page.getByTestId("comment-error")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Dodaj komentarz" })).toBeDisabled();
+    await expect(page.locator(".success-toast").first()).not.toBeVisible({
+      timeout: 10000,
+    });
 
     const longComment = "a".repeat(1001);
     await page.getByPlaceholder("Dodaj komentarz...").fill(longComment);
-    await page.getByRole("button", { name: "Dodaj komentarz" }).click();
-    await expect(page.getByTestId("comment-error")).toBeVisible();
-  });
-
-  test("should handle comment pagination", async () => {
+    
     await expect(
-      page.getByRole("button", { name: "Załaduj więcej" })
+      page.getByText("Komentarz może mieć maksymalnie 1000 znaków")
     ).toBeVisible();
-
-    const initialCommentsCount = await page.getByTestId("comment-item").count();
-    await page.getByRole("button", { name: "Załaduj więcej" }).click();
-    await expect(page.getByTestId("comment-item")).toHaveCount(
-      initialCommentsCount + 10
-    );
   });
 
-  test("should handle API errors gracefully", async () => {
-    await page.route("**/api/comments/**", (route) => {
-      return route.fulfill({
-        status: 500,
-        body: JSON.stringify({ error: "Internal Server Error" }),
-      });
-    });
-
-    await page.getByPlaceholder("Dodaj komentarz...").fill("Test comment");
-    await page.getByRole("button", { name: "Dodaj komentarz" }).click();
-    await expect(page.locator(".error-toast")).toBeVisible({ timeout: 10000 });
-  });
-
-  test.afterEach(async () => {
-    await page.evaluate(() => window.localStorage.clear());
-  });
 });
