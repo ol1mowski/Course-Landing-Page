@@ -34,6 +34,7 @@ const DeleteCommentModal = memo(({ isOpen, onClose, onConfirm, isDeleting }: Del
             </p>
             <div className="flex justify-end space-x-3">
               <button
+                data-testid="cancel-delete-button"
                 onClick={onClose}
                 disabled={isDeleting}
                 className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
@@ -41,6 +42,7 @@ const DeleteCommentModal = memo(({ isOpen, onClose, onConfirm, isDeleting }: Del
                 Anuluj
               </button>
               <button
+                data-testid="confirm-delete-button"
                 onClick={onConfirm}
                 disabled={isDeleting}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"

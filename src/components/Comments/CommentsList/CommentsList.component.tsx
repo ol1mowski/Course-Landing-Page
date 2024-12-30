@@ -1,8 +1,8 @@
-import { memo, useRef, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
-import type { Comment } from '../../../hooks/useComments.hook';
-import CommentSkeleton from '../CommentSkeleton/CommentSkeleton.component';
+import { memo } from 'react';
 import CommentItem from '../CommentItem/CommentItem.component';
+import CommentSkeleton from '../CommentSkeleton/CommentSkeleton.component';
+import { LoadMoreButton } from '../components/LoadMoreButton.component';
+import type { Comment } from '../../../types/comment.types';
 
 type CommentsListProps = {
   comments: Comment[];
@@ -10,48 +10,27 @@ type CommentsListProps = {
   isFetchingNextPage: boolean;
   hasNextPage: boolean;
   onLoadMore: () => void;
-  onReply: (commentId: string, content: string) => void;
+  onReply: (commentId: string, content: string) => Promise<void>;
   isAddingReply: boolean;
-  onDelete: (commentId: string) => void;
+  onDelete: (commentId: string) => Promise<void>;
   deletingCommentId: string | null;
   currentUserId: string;
-  onUpdate: (commentId: string, content: string) => void;
+  onUpdate: (commentId: string, content: string) => Promise<void>;
   isUpdating: boolean;
 };
 
-const CommentsList = memo(({ 
-  comments, 
-  isLoading, 
+const CommentsList = memo(({
+  comments,
+  isLoading,
   isFetchingNextPage,
   hasNextPage,
   onLoadMore,
-  onReply,
-  isAddingReply,
-  onDelete,
-  deletingCommentId,
-  currentUserId,
-  onUpdate,
-  isUpdating
+  ...commentItemProps
 }: CommentsListProps) => {
-  const { ref, inView } = useInView();
-  const prevCommentsLength = useRef(comments.length);
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      onLoadMore();
-    }
-  }, [inView, hasNextPage, isFetchingNextPage, onLoadMore]);
-
-  useEffect(() => {
-    if (comments.length !== prevCommentsLength.current) {
-      prevCommentsLength.current = comments.length;
-    }
-  }, [comments.length]);
-
   if (isLoading) {
     return (
       <div className="space-y-4">
-        {[...Array(3)].map((_, i) => (
+        {Array.from({ length: 3 }).map((_, i) => (
           <CommentSkeleton key={i} />
         ))}
       </div>
@@ -60,37 +39,28 @@ const CommentsList = memo(({
 
   if (!comments.length) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <p className="text-center text-gray-500">
         Brak komentarzy. Bądź pierwszy!
-      </div>
+      </p>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {comments.map((comment) => (
-        <CommentItem 
-          key={comment._id} 
-          comment={comment} 
-          onReply={onReply}
-          isAddingReply={isAddingReply}
-          onDelete={onDelete}
-          deletingCommentId={deletingCommentId}
-          currentUserId={currentUserId}
-          onUpdate={onUpdate}
-          isUpdating={isUpdating}
+        <CommentItem
+          key={comment._id}
+          comment={comment}
+          {...commentItemProps}
         />
       ))}
       
-      {isFetchingNextPage && (
-        <div className="space-y-4">
-          {[...Array(2)].map((_, i) => (
-            <CommentSkeleton key={i} />
-          ))}
-        </div>
+      {hasNextPage && (
+        <LoadMoreButton
+          onClick={onLoadMore}
+          isLoading={isFetchingNextPage}
+        />
       )}
-
-      <div ref={ref} className="h-4" />
     </div>
   );
 });

@@ -18,6 +18,7 @@ export const ErrorToast = () => (
           primary: '#fff',
           secondary: '#EF4444',
         },
+        className: 'error-toast',
       },
     }}
   />

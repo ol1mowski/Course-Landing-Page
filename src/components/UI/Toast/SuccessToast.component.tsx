@@ -18,6 +18,7 @@ export const SuccessToast = () => (
           primary: '#fff',
           secondary: '#10B981',
         },
+        className: 'success-toast',
       },
     }}
   />
