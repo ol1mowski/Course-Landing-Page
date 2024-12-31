@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
 
-type AuthorInfoProps = {
-  name: string;
-  role: string;
-  experience: string;
-};
+import type { AuthorInfoProps } from "../types/Author.types";
 
 const AuthorInfo = ({ name, role, experience }: AuthorInfoProps) => (
   <motion.div 

@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../../hooks/useToast.hook';
-import { API_CONFIG } from '../../../config/api.config';
 import type { UserData } from '../types';
 import type { UseMutateFunction } from '@tanstack/react-query';
 
@@ -9,7 +7,6 @@ export const useProfileForm = (
   userData: UserData | null,
   updateProfile: UseMutateFunction<any, Error, Partial<UserData>>
 ) => {
-  const navigate = useNavigate();
   const { showSuccess, showError } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserData>({

@@ -1,7 +1,9 @@
 import { memo } from 'react';
+
 import CommentItem from '../CommentItem/CommentItem.component';
 import CommentSkeleton from '../CommentSkeleton/CommentSkeleton.component';
 import { LoadMoreButton } from '../components/LoadMoreButton.component';
+
 import type { Comment } from '../../../types/comment.types';
 
 type CommentsListProps = {

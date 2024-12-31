@@ -1,8 +1,5 @@
 import { motion } from "framer-motion";
-
-type AuthorAchievementsProps = {
-  achievements: string[];
-};
+import type { AuthorAchievementsProps } from "../types/Author.types";
 
 const AuthorAchievements = ({ achievements }: AuthorAchievementsProps) => (
   <motion.div 
