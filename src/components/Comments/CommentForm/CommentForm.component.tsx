@@ -1,7 +1,9 @@
 import { memo } from 'react';
+
 import { CharacterCounter } from './components/CharacterCounter.component';
 import { CommentTextArea } from './components/CommentTextArea.component';
 import { SubmitButton } from './components/SubmitButton.component';
+
 import { useCommentForm } from './hooks/useCommentForm.hook';
 
 type CommentFormProps = {

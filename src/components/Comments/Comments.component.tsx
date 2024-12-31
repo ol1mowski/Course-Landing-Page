@@ -1,10 +1,13 @@
 import { memo } from 'react';
+
 import { useVideo } from '../../routes/Learning/hooks/useVideo.hook';
 import { useCommentsSection } from './hooks/useCommentsSection.hook';
 import { CommentErrorBoundary } from './ErrorBoundary/CommentErrorBoundary.component';
 import { CommentsHeader } from './components/CommentsHeader.component';
+
 import CommentForm from './CommentForm/CommentForm.component';
 import CommentsList from './CommentsList/CommentsList.component';
+
 import { SuccessToast } from '../UI/Toast/SuccessToast.component';
 import { ErrorToast } from '../UI/Toast/ErrorToast.component';
 
@@ -27,13 +30,17 @@ const Comments = memo(() => {
 
   if (!currentVideo) return null;
 
+  const { length } = comments;
+  const { id } = currentUser;
+  const { handleAddComment, handleAddReply, handleDeleteComment, handleUpdateComment } = handlers;
+
   return (
     <CommentErrorBoundary>
       <section className="space-y-6">
         <div className="bg-white rounded-lg shadow-sm p-6">
-          <CommentsHeader count={comments.length} />
+          <CommentsHeader count={length} />
           <CommentForm 
-            onSubmit={handlers.handleAddComment}
+            onSubmit={handleAddComment}
             isSubmitting={isAddingComment}
           />
         </div>
@@ -44,12 +51,12 @@ const Comments = memo(() => {
           isFetchingNextPage={isFetchingNextPage}
           hasNextPage={!!hasNextPage}
           onLoadMore={fetchNextPage}
-          onReply={handlers.handleAddReply}
+          onReply={handleAddReply}
           isAddingReply={isAddingReply}
-          onDelete={handlers.handleDeleteComment}
+          onDelete={handleDeleteComment}
           deletingCommentId={deletingCommentId || null}
-          currentUserId={currentUser.id}
-          onUpdate={handlers.handleUpdateComment}
+          currentUserId={id}
+          onUpdate={handleUpdateComment}
           isUpdating={isUpdating}
         />
       </section>
