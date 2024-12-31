@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { useVideo } from '../../routes/Learning/hooks/useVideo.hook';
+
 import { useCommentsSection } from './hooks/useCommentsSection.hook';
 import { CommentErrorBoundary } from './ErrorBoundary/CommentErrorBoundary.component';
 import { CommentsHeader } from './components/CommentsHeader.component';
@@ -10,6 +10,7 @@ import CommentsList from './CommentsList/CommentsList.component';
 
 import { SuccessToast } from '../UI/Toast/SuccessToast.component';
 import { ErrorToast } from '../UI/Toast/ErrorToast.component';
+import { useVideo } from '../Learning/hooks/useVideo.hook';
 
 const Comments = memo(() => {
   const { currentVideo } = useVideo();
