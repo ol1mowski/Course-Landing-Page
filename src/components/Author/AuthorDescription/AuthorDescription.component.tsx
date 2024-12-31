@@ -1,9 +1,6 @@
 import { motion } from "framer-motion";
 import { itemVariants } from "../../../animations/authorAnimations";
-
-type AuthorDescriptionProps = {
-  description: string;
-};
+import type { AuthorDescriptionProps } from "../types/Author.types";
 
 const AuthorDescription = ({ description }: AuthorDescriptionProps) => (
   <motion.p 

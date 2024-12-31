@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import { itemVariants } from "../../../animations/authorAnimations";
 
-type AuthorImageProps = {
-  image: string;
-  name: string;
-};
+import type { AuthorImageProps } from "../types/Author.types";
 
 const AuthorImage = ({ image, name }: AuthorImageProps) => (
   <motion.div 
