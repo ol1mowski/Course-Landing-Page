@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import Hero from "../../components/Hero/Hero";
 import Excuses from "../../components/Excuses/Excuses";
-import BlockSectionWave from "../../components/BlockSectionWave/BlockSectionWave";
 import ScrollProgressList from "../../components/ScrollProgressList/ScrollProgressList.component";
 import CourseDescription from "../../components/CourseDescription/CourseDescription.component";
 import CourseBenefits from "../../components/CourseBenefits/CourseBenefits.component";
@@ -18,7 +17,6 @@ const HomePage = memo(() => (
   <>
     <Hero />
     <Excuses />
-    <BlockSectionWave />
     <ScrollProgressList />
     <CourseDescription />
     <CourseBenefits />
