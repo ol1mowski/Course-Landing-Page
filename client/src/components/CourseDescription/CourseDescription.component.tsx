@@ -20,7 +20,7 @@ const CourseDescription = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative py-20 md:py-32 overflow-hidden"
+      className="relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-white to-blue-50/30 -z-10"></div>
       
