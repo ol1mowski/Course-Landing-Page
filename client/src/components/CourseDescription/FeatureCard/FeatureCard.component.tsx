@@ -13,28 +13,28 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-100, 100], [30, -30]);
-  const rotateY = useTransform(x, [-100, 100], [-30, 30]);
+  const rotateX = useTransform(y, [-100, 100], [45, -45]);
+  const rotateY = useTransform(x, [-100, 100], [-45, 45]);
 
-  const springConfig = { damping: 25, stiffness: 300 };
+  const springConfig = { damping: 20, stiffness: 250 };
   const rotateXSpring = useSpring(rotateX, springConfig);
   const rotateYSpring = useSpring(rotateY, springConfig);
 
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    const mouseX = e.clientX - centerX;
-    const mouseY = e.clientY - centerY;
+    const mouseX = (e.clientX - centerX) * 1.5;
+    const mouseY = (e.clientY - centerY) * 1.5;
     
     x.set(mouseX);
     y.set(mouseY);
   }
 
-  function handleMouseLeave() {
+  const handleMouseLeave = () => {
     x.set(0);
     y.set(0);
     setIsHovered(false);
@@ -44,8 +44,8 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
     hidden: { 
       opacity: 0, 
       y: 50,
-      rotateX: 15,
-      scale: 0.9
+      rotateX: 25,
+      scale: 0.85
     },
     visible: { 
       opacity: 1, 
@@ -53,7 +53,7 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
       rotateX: 0,
       scale: 1,
       transition: { 
-        duration: 0.6, 
+        duration: 0.8, 
         delay: index * 0.1, 
         ease: [0.22, 1, 0.36, 1]
       }
@@ -63,11 +63,11 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
   const iconVariants = {
     initial: { scale: 1 },
     hover: { 
-      scale: 1.2,
+      scale: 1.3,
       transition: {
         duration: 0.3,
         type: "spring",
-        stiffness: 400
+        stiffness: 500
       }
     }
   };
@@ -85,13 +85,13 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
       style={{
         rotateX: rotateXSpring,
         rotateY: rotateYSpring,
-        transformPerspective: 1000,
+        transformPerspective: 800,
         transformStyle: "preserve-3d",
       }}
-      className="relative p-6 rounded-2xl bg-white shadow-lg border border-gray-100 overflow-hidden group transition-all duration-300"
+      className="relative p-6 rounded-2xl bg-white shadow-lg border border-gray-100 overflow-hidden group transition-all duration-300 hover:shadow-xl"
     >
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-blue-50/10 to-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-blue-50/15 to-white/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
           zIndex: -1
         }}
@@ -105,7 +105,7 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
           className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/10"
           style={{
             transformStyle: "preserve-3d",
-            transform: "translateZ(30px)",
+            transform: "translateZ(50px)",
           }}
         >
           <span className="text-primary text-xl font-bold">
@@ -117,7 +117,7 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
           className="text-xl font-bold text-center text-gray-800"
           style={{
             transformStyle: "preserve-3d",
-            transform: "translateZ(20px)",
+            transform: "translateZ(35px)",
           }}
         >
           {title}
@@ -127,7 +127,7 @@ const FeatureCard = ({ title, description, index }: FeatureCardProps) => {
           className="text-gray-600 text-center"
           style={{
             transformStyle: "preserve-3d",
-            transform: "translateZ(10px)",
+            transform: "translateZ(20px)",
           }}
         >
           {description}
