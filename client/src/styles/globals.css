@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: rgb(0, 122, 204);
+  --primary-light: rgba(0, 122, 204, 0.1);
+  --primary-hover: rgb(0, 99, 166);
+}
+
+/* Animacje dla elementów obrotowych */
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+
+  .animate-spin-slow-reverse {
+    animation: spin-reverse 15s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-reverse {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+}
+
+/* Dodatkowe style dla komponentów */
+@layer components {
+  .benefit-card-shadow {
+    box-shadow: 0 10px 30px rgba(0, 122, 204, 0.1), 0 4px 10px rgba(0, 122, 204, 0.05);
+  }
+  
+  .benefit-card-shadow-active {
+    box-shadow: 0 20px 40px rgba(0, 122, 204, 0.15), 0 8px 16px rgba(0, 122, 204, 0.1);
+  }
+} 

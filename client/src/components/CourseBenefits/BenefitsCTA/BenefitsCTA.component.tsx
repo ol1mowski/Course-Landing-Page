@@ -14,7 +14,6 @@ const BenefitsCTA = () => {
       onMouseLeave={() => setIsHovered(false)}
       className="relative max-w-4xl w-full overflow-visible"
     >
-      {/* Główny kontener CTA */}
       <motion.div
         className="bg-gradient-to-r from-primary/95 to-primary/85 p-8 md:p-12 rounded-3xl shadow-xl relative z-10 overflow-hidden"
         animate={{
@@ -24,7 +23,6 @@ const BenefitsCTA = () => {
         }}
         transition={{ duration: 0.4 }}
       >
-        {/* Efekt świetlny */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <motion.div 
             className="absolute -inset-[10px] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.15)_20%,rgba(255,255,255,0.3)_60%,transparent_100%)]"
@@ -40,7 +38,6 @@ const BenefitsCTA = () => {
           />
         </div>
         
-        {/* Przepływające kształty */}
         <motion.div 
           className="absolute top-0 right-0 w-40 h-40 rounded-full bg-white/5 blur-3xl -z-10"
           animate={{
@@ -70,7 +67,6 @@ const BenefitsCTA = () => {
           }}
         />
         
-        {/* Interaktywne elementy geometryczne */}
         <div className="absolute -right-6 top-0 transform rotate-45 w-32 h-32 opacity-30 -z-10">
           <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <motion.path 
@@ -107,7 +103,6 @@ const BenefitsCTA = () => {
           </svg>
         </div>
         
-        {/* Treść z animacją */}
         <div className="relative z-10 text-center max-w-2xl mx-auto space-y-8">
           <motion.h3 
             className="text-3xl font-bold text-white"
@@ -163,7 +158,6 @@ const BenefitsCTA = () => {
         </div>
       </motion.div>
       
-      {/* Floating elements around CTA */}
       <motion.div 
         className="absolute top-0 -translate-y-1/2 left-1/4 w-10 h-10 rounded-full bg-primary/40 backdrop-blur-sm flex items-center justify-center text-white text-sm font-semibold z-20 border border-white/20"
         initial={{ scale: 0, opacity: 0 }}

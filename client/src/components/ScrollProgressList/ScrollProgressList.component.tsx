@@ -15,7 +15,7 @@ const ScrollProgressList = () => {
   return (
     <section 
       ref={containerRef}
-      className="mt-96 relative min-h-screen py-32"
+      className=" relative min-h-screen py-32"
       aria-label="Lista kroków procesu nauki"
     >
       <motion.div

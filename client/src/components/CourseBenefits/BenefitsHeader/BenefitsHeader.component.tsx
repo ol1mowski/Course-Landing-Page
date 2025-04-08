@@ -2,15 +2,12 @@ import { motion } from "framer-motion";
 import Heading from "../../UI/Heading/Heading.component";
 
 const BenefitsHeader = () => {
-  // Animacje dla tytułu
   const titleWords = ["Ten", "kurs", "to:"];
   
-  // Kolory podświetlenia z gradientem
   const highlightGradient = "bg-gradient-to-r from-primary via-primary/90 to-primary/80 bg-clip-text text-transparent";
   
   return (
     <div className="flex flex-col items-center relative overflow-hidden px-4">
-      {/* Pierścienie tła - dekoracyjne */}
       <div className="absolute inset-0 -z-10 opacity-10">
         <motion.div 
           className="absolute w-[400px] h-[400px] rounded-full border-2 border-primary/30 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -29,7 +26,6 @@ const BenefitsHeader = () => {
         />
       </div>
       
-      {/* Główny nagłówek */}
       <div className="text-center max-w-3xl mx-auto relative z-10 mb-3">
         <motion.div
           className="mb-8"
@@ -60,7 +56,6 @@ const BenefitsHeader = () => {
           </Heading>
         </motion.div>
         
-        {/* Podtytuł z animacją pisania */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,7 +68,6 @@ const BenefitsHeader = () => {
             i dadzą Ci przewagę nad konkurencją
           </p>
           
-          {/* Podkreślenie */}
           <motion.div 
             className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 h-0.5 bg-gradient-to-r from-transparent via-primary/40 to-transparent w-40"
             initial={{ width: 0, opacity: 0 }}
@@ -84,7 +78,6 @@ const BenefitsHeader = () => {
         </motion.div>
       </div>
       
-      {/* Licznik korzyści */}
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
