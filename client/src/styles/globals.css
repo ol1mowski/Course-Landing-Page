@@ -35,6 +35,21 @@
       transform: rotate(-360deg);
     }
   }
+  
+  /* Animacja meteoru */
+  @keyframes meteor {
+    0% { 
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+    70% { 
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(215deg) translateX(-500px);
+      opacity: 0;
+    }
+  }
 }
 
 /* Dodatkowe style dla komponentów */
@@ -45,5 +60,22 @@
   
   .benefit-card-shadow-active {
     box-shadow: 0 20px 40px rgba(0, 122, 204, 0.15), 0 8px 16px rgba(0, 122, 204, 0.1);
+  }
+  
+  /* Style dla CourseTarget */
+  .target-card-shadow {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .target-card-shadow-hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  }
+  
+  /* Efekt glassmorphism */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 } 
