@@ -4,41 +4,35 @@ import { FREE_LESSONS } from "../../data/FreeLessons.data";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
 import { Play, ArrowRight, Star } from "lucide-react";
 
-// Łącznik między sekcjami - element wizualny zapewniający płynne przejście
 const SectionConnector = () => {
   return (
     <div className="absolute top-0 left-0 right-0 h-40 -translate-y-full z-10 overflow-hidden pointer-events-none">
-      {/* Główny element łączący */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900" />
-      
-      {/* Fala dekoracyjna */}
-      <svg 
+      <svg
         className="absolute bottom-0 w-full text-blue-900"
-        viewBox="0 0 1440 96" 
-        fill="none" 
+        viewBox="0 0 1440 96"
+        fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path 
-          d="M0 0L48 10.7C96 21.3 192 42.7 288 53.3C384 64 480 64 576 53.3C672 42.7 768 21.3 864 16C960 10.7 1056 21.3 1152 26.7C1248 32 1344 32 1392 32H1440V96H1392C1344 96 1248 96 1152 96C1056 96 960 96 864 96C768 96 672 96 576 96C480 96 384 96 288 96C192 96 96 96 48 96H0V0Z" 
-          fill="currentColor" 
+        <path
+          d="M0 0L48 10.7C96 21.3 192 42.7 288 53.3C384 64 480 64 576 53.3C672 42.7 768 21.3 864 16C960 10.7 1056 21.3 1152 26.7C1248 32 1344 32 1392 32H1440V96H1392C1344 96 1248 96 1152 96C1056 96 960 96 864 96C768 96 672 96 576 96C480 96 384 96 288 96C192 96 96 96 48 96H0V0Z"
+          fill="currentColor"
         />
       </svg>
-      
-      {/* Orbity łączące */}
-      <motion.div 
+
+      <motion.div
         className="absolute left-1/4 bottom-0 w-[300px] h-[300px] rounded-full border border-primary/10"
         style={{ translateY: '50%' }}
         animate={{ rotate: 360 }}
         transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
       />
-      <motion.div 
+      <motion.div
         className="absolute right-1/4 bottom-0 w-[200px] h-[200px] rounded-full border border-primary/10"
         style={{ translateY: '50%' }}
         animate={{ rotate: -360 }}
         transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
       />
-      
-      {/* Świecące punkty */}
+
       {[...Array(5)].map((_, i) => (
         <motion.div
           key={`connector-star-${i}`}
@@ -48,7 +42,7 @@ const SectionConnector = () => {
             bottom: `${10 + Math.sin(i * 2) * 20}%`,
             boxShadow: '0 0 10px rgba(99, 102, 241, 0.6)'
           }}
-          animate={{ 
+          animate={{
             opacity: [0.4, 1, 0.4],
             scale: [0.8, 1.2, 0.8]
           }}
@@ -63,10 +57,9 @@ const SectionConnector = () => {
   );
 };
 
-// Komponent gwiazd w tle (taki sam jak w CourseTarget)
 const Stars = ({ count = 50 }: { count?: number }) => {
   const stars = Array(count).fill(0);
-  
+
   return (
     <>
       {stars.map((_, index) => {
@@ -74,7 +67,7 @@ const Stars = ({ count = 50 }: { count?: number }) => {
         const top = Math.random() * 100;
         const left = Math.random() * 100;
         const delay = Math.random() * 5;
-        
+
         return (
           <motion.div
             key={`star-${index}`}
@@ -86,7 +79,7 @@ const Stars = ({ count = 50 }: { count?: number }) => {
               left: `${left}%`,
               boxShadow: "0 0 3px rgba(255, 255, 255, 0.5)"
             }}
-            animate={{ 
+            animate={{
               opacity: [0.2, 1, 0.2],
               scale: [1, 1.2, 1]
             }}
@@ -103,7 +96,6 @@ const Stars = ({ count = 50 }: { count?: number }) => {
   );
 };
 
-// Komponent karty wideo z zaawansowanymi efektami
 interface VideoCardProps {
   id: number;
   title: string;
@@ -126,8 +118,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
   onClick
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
-  // Kolory gradientów karty
+
   const getGradient = () => {
     const gradients = [
       "from-purple-500/90 to-blue-600/90",
@@ -144,20 +135,20 @@ const VideoCard: React.FC<VideoCardProps> = ({
     <motion.div
       className="relative cursor-pointer group rounded-2xl overflow-hidden"
       initial={{ opacity: 0, y: 30 }}
-      animate={{ 
-        opacity: 1, 
+      animate={{
+        opacity: 1,
         y: 0,
         scale: isActive ? 1.05 : 1,
         zIndex: isActive ? 10 : 1,
       }}
-      transition={{ 
-        duration: 0.5, 
-        type: "spring", 
-        stiffness: 200, 
+      transition={{
+        duration: 0.5,
+        type: "spring",
+        stiffness: 200,
         damping: 20,
-        delay: index * 0.1 
+        delay: index * 0.1
       }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.03,
         zIndex: 5,
       }}
@@ -166,31 +157,31 @@ const VideoCard: React.FC<VideoCardProps> = ({
       onHoverEnd={() => setIsHovered(false)}
     >
       {/* Obramowanie gradientowe */}
-      <motion.div 
+      <motion.div
         className={`absolute inset-0 p-0.5 rounded-2xl bg-gradient-to-br ${getGradient()} z-10`}
-        animate={{ 
+        animate={{
           opacity: isActive || isHovered ? 1 : 0.5,
         }}
         transition={{ duration: 0.3 }}
       />
-      
+
       {/* Kontener zawartości */}
       <div className="relative overflow-hidden w-full h-full rounded-2xl z-20">
         {/* Miniaturka z efektem hover */}
         <div className="relative aspect-video overflow-hidden rounded-t-xl">
-          <motion.img 
-            src={thumbnail} 
+          <motion.img
+            src={thumbnail}
             alt={title}
             className="w-full h-full object-cover"
-            animate={{ 
+            animate={{
               scale: isHovered || isActive ? 1.05 : 1,
               filter: isHovered || isActive ? "brightness(0.7)" : "brightness(0.9)"
             }}
             transition={{ duration: 0.5 }}
           />
-          
+
           {/* Nakładka z przyciskiem odtwarzania */}
-          <motion.div 
+          <motion.div
             className="absolute inset-0 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered || isActive ? 1 : 0 }}
@@ -204,12 +195,12 @@ const VideoCard: React.FC<VideoCardProps> = ({
               <Play size={28} fill="white" />
             </motion.div>
           </motion.div>
-          
+
           {/* Czas trwania */}
           <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-lg">
             <span className="text-white text-sm font-medium">{duration}</span>
           </div>
-          
+
           {/* Gwiazdka dla aktywnego wideo */}
           {isActive && (
             <motion.div
@@ -222,32 +213,32 @@ const VideoCard: React.FC<VideoCardProps> = ({
             </motion.div>
           )}
         </div>
-        
+
         {/* Treść karty */}
         <div className={`p-5 rounded-b-xl bg-white dark:bg-gray-800 relative z-10`}>
           <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-primary transition-colors duration-300">
             {title}
           </h3>
-          
+
           {/* Przycisk z linkiem */}
           <motion.div
             className="flex items-center text-primary text-sm font-medium mt-3"
             initial={{ opacity: 0, x: -10 }}
-            animate={{ 
-              opacity: isHovered || isActive ? 1 : 0, 
-              x: isHovered || isActive ? 0 : -10 
+            animate={{
+              opacity: isHovered || isActive ? 1 : 0,
+              x: isHovered || isActive ? 0 : -10
             }}
             transition={{ duration: 0.3 }}
           >
             <span className="mr-1">Obejrzyj lekcję</span>
             <motion.div
-              animate={{ 
-                x: isHovered || isActive ? [0, 5, 0] : 0 
+              animate={{
+                x: isHovered || isActive ? [0, 5, 0] : 0
               }}
-              transition={{ 
-                repeat: isHovered || isActive ? Infinity : 0, 
-                repeatDelay: 1, 
-                duration: 0.5 
+              transition={{
+                repeat: isHovered || isActive ? Infinity : 0,
+                repeatDelay: 1,
+                duration: 0.5
               }}
             >
               <ArrowRight size={16} />
@@ -255,12 +246,12 @@ const VideoCard: React.FC<VideoCardProps> = ({
           </motion.div>
         </div>
       </div>
-      
+
       {/* Efekt cienia */}
       <motion.div
         className="absolute -inset-1 rounded-2xl bg-black/20 blur-md -z-10"
         initial={{ opacity: 0, y: 5 }}
-        animate={{ 
+        animate={{
           opacity: isHovered || isActive ? 0.4 : 0.2,
           y: isHovered || isActive ? 10 : 5,
           scale: isHovered || isActive ? 0.98 : 1
@@ -271,12 +262,10 @@ const VideoCard: React.FC<VideoCardProps> = ({
   );
 };
 
-// Komponent nagłówka sekcji
 const LessonsHeader: React.FC = () => {
   return (
     <div className="text-center relative mb-20">
-      {/* Dekoracyjny element animowany */}
-      <motion.div 
+      <motion.div
         className="absolute w-16 h-16 opacity-80 pointer-events-none -z-10 left-1/2 transform -translate-x-1/2"
         animate={{
           y: ['-10vh', '10vh'],
@@ -293,7 +282,7 @@ const LessonsHeader: React.FC = () => {
           borderRadius: '50%',
         }}
       />
-      
+
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -302,7 +291,7 @@ const LessonsHeader: React.FC = () => {
       >
         Zobacz <span className="bg-gradient-to-r from-cyan-400 via-primary to-blue-400 bg-clip-text text-transparent">darmowe lekcje</span>
       </motion.h2>
-      
+
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -311,9 +300,9 @@ const LessonsHeader: React.FC = () => {
       >
         Zapoznaj się z jakością naszych materiałów dzięki darmowym lekcjom
       </motion.p>
-      
+
       {/* Podkreślenie */}
-      <motion.div 
+      <motion.div
         className="h-1 w-20 bg-gradient-to-r from-primary/30 via-primary to-primary/30 rounded-full mx-auto mt-8"
         initial={{ width: 0, opacity: 0 }}
         animate={{ width: "5rem", opacity: 1 }}
@@ -323,11 +312,10 @@ const LessonsHeader: React.FC = () => {
   );
 };
 
-// Komponent wskaźników aktywnej karty
-const CardIndicators: React.FC<{ total: number, active: number | null, onSelect: (index: number) => void }> = ({ 
-  total, 
-  active, 
-  onSelect 
+const CardIndicators: React.FC<{ total: number, active: number | null, onSelect: (index: number) => void }> = ({
+  total,
+  active,
+  onSelect
 }) => {
   return (
     <div className="flex justify-center items-center space-x-3 mt-12">
@@ -336,7 +324,7 @@ const CardIndicators: React.FC<{ total: number, active: number | null, onSelect:
           key={`indicator-${index}`}
           className="w-3 h-3 rounded-full bg-white/30 focus:outline-none"
           initial={{ scale: 0.8 }}
-          animate={{ 
+          animate={{
             scale: active === index ? 1 : 0.8,
             backgroundColor: active === index ? 'rgb(99, 102, 241)' : 'rgba(255, 255, 255, 0.3)'
           }}
@@ -350,50 +338,43 @@ const CardIndicators: React.FC<{ total: number, active: number | null, onSelect:
   );
 };
 
-// Główny komponent sekcji
 const FreeLessons: React.FC = () => {
   const { ref, isInView } = useAnimationInView();
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(0);
-  
-  // Efekt scrollowania dla paralaksy
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
-  
-  // Transformacje dla efektu paralaksy
+
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  
-  // Automatyczna zmiana aktywnej karty
+
   const cardRotationInterval = useRef<NodeJS.Timeout | null>(null);
-  
+
   useEffect(() => {
-    // Automatyczna rotacja kart co 4 sekundy
     cardRotationInterval.current = setInterval(() => {
       setActiveCardIndex((prevIndex) => {
         if (prevIndex === null) return 0;
         return (prevIndex + 1) % FREE_LESSONS.length;
       });
     }, 4000);
-    
+
     return () => {
       if (cardRotationInterval.current) {
         clearInterval(cardRotationInterval.current);
       }
     };
   }, []);
-  
-  // Reset interwału po ręcznym kliknięciu
+
   const handleCardSelect = (index: number) => {
     if (cardRotationInterval.current) {
       clearInterval(cardRotationInterval.current);
     }
-    
+
     setActiveCardIndex(index);
-    
-    // Restart interwału po kliknięciu
+
     cardRotationInterval.current = setInterval(() => {
       setActiveCardIndex((prevIndex) => {
         if (prevIndex === null) return 0;
@@ -407,46 +388,40 @@ const FreeLessons: React.FC = () => {
       ref={containerRef}
       className="relative pt-32 pb-48 overflow-hidden bg-gradient-to-b from-blue-900 to-gray-900 text-white w-screen"
       id="darmowe-lekcje"
-      style={{ 
-        margin: "-1px calc(50% - 50vw) 0", // Zapobiega białym liniom między sekcjami
+      style={{
+        margin: "-1px calc(50% - 50vw) 0",
         width: "100vw",
         maxWidth: "100vw"
       }}
     >
-      {/* Element wizualny łączący sekcje */}
       <SectionConnector />
-      
-      {/* Tło kosmiczne */}
+
       <div className="absolute inset-0 -z-10 opacity-30">
         <Stars count={100} />
       </div>
-      
-      {/* Dekoracyjne kręgi */}
-      <motion.div 
+
+      <motion.div
         className="absolute w-[800px] h-[800px] rounded-full border border-white/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         animate={{ rotate: 360 }}
         transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
       />
-      <motion.div 
+      <motion.div
         className="absolute w-[500px] h-[500px] rounded-full border border-white/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         animate={{ rotate: -360 }}
         transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
       />
-      
-      {/* Główna zawartość */}
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div 
+        <motion.div
           ref={ref}
           style={{ y, opacity }}
           className="flex flex-col items-center justify-center"
         >
-          {/* Nagłówek */}
           <LessonsHeader />
-          
-          {/* Karty w układzie siatki dla desktop */}
+
           <div className="hidden lg:grid grid-cols-3 gap-8 w-full">
             {FREE_LESSONS.map((lesson, index) => (
-              <VideoCard 
+              <VideoCard
                 key={`grid-${lesson.id}`}
                 {...lesson}
                 index={index}
@@ -455,12 +430,11 @@ const FreeLessons: React.FC = () => {
               />
             ))}
           </div>
-          
-          {/* Karuzela dla tabletów */}
+
           <div className="hidden md:block lg:hidden w-full overflow-hidden">
-            <motion.div 
+            <motion.div
               className="flex transition-all duration-500 ease-out"
-              animate={{ 
+              animate={{
                 x: activeCardIndex !== null ? `-${activeCardIndex * 100}%` : 0
               }}
               transition={{ type: "spring", stiffness: 150, damping: 20 }}
@@ -468,7 +442,7 @@ const FreeLessons: React.FC = () => {
               {FREE_LESSONS.map((lesson, index) => (
                 <div key={`carousel-${lesson.id}`} className="min-w-full px-4">
                   <div className="max-w-md mx-auto">
-                    <VideoCard 
+                    <VideoCard
                       {...lesson}
                       index={index}
                       isActive={activeCardIndex === index}
@@ -478,17 +452,16 @@ const FreeLessons: React.FC = () => {
                 </div>
               ))}
             </motion.div>
-            <CardIndicators 
-              total={FREE_LESSONS.length} 
-              active={activeCardIndex} 
-              onSelect={handleCardSelect} 
+            <CardIndicators
+              total={FREE_LESSONS.length}
+              active={activeCardIndex}
+              onSelect={handleCardSelect}
             />
           </div>
-          
-          {/* Układ mobilny (widoczny tylko na małych ekranach) */}
+
           <div className="md:hidden flex flex-col space-y-8 w-full">
             {FREE_LESSONS.slice(0, 3).map((lesson, index) => (
-              <VideoCard 
+              <VideoCard
                 key={`mobile-${lesson.id}`}
                 {...lesson}
                 index={index}
@@ -496,8 +469,7 @@ const FreeLessons: React.FC = () => {
                 onClick={() => handleCardSelect(index)}
               />
             ))}
-            
-            {/* Przycisk "Zobacz więcej" */}
+
             <motion.button
               className="mx-auto mt-6 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-blue-600 text-white font-medium flex items-center space-x-2"
               whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(99, 102, 241, 0.5)" }}

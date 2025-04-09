@@ -251,7 +251,7 @@ const CourseTarget = () => {
       });
     }, 3000);
   };
-  
+
   return (
     <section 
       ref={containerRef} 
@@ -282,13 +282,13 @@ const CourseTarget = () => {
       
       {/* Główna zawartość */}
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div 
+        <motion.div
           style={{ y, opacity }}
           className="flex flex-col items-center justify-center"
         >
           {/* Nagłówek */}
           <div className="text-center relative mb-16">
-            <TargetHeader />
+          <TargetHeader />
             
             {/* Podkreślenie nagłówka */}
             <motion.div 
