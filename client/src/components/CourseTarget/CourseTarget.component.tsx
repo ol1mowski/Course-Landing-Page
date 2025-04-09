@@ -1,19 +1,17 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { COURSE_TARGET } from "../../data/CourseTarget.data";
 import TargetHeader from "./TargetHeader/TargetHeader.component";
 
-// Komponent karty celu - nowy design z interaktywnym UI
+// Komponent karty celu - nowy design
 const TargetCard = ({ 
   text, 
   index, 
-  angle, 
   isActive, 
   onSelect 
 }: { 
   text: string; 
   index: number; 
-  angle: number;
   isActive: boolean;
   onSelect: () => void;
 }) => {
@@ -62,49 +60,61 @@ const TargetCard = ({
     return icons[index % icons.length];
   };
 
-  // Stan aktywnej karty wpływa na wygląd
-  const cardState = isActive 
-    ? "z-20 scale-110 shadow-xl" 
-    : `shadow-lg ${isHovered ? "z-10 scale-105" : ""}`;
-
   return (
     <motion.div
-      className={`absolute transform transition-all duration-300 ${cardState}`}
-      style={{
-        transformOrigin: "center center",
-        rotate: `${angle}deg`,
-        translate: isActive ? "0 -100px" : "0 0",
-      }}
-      initial={{ 
-        opacity: 0,
-        rotate: angle - 20,
-      }}
+      className="w-full h-full relative"
+      initial={{ opacity: 0, y: 20 }}
       animate={{ 
-        opacity: 1,
-        rotate: angle,
-        transition: { duration: 0.7, delay: index * 0.1 }
+        opacity: 1, 
+        y: 0,
+        scale: isActive ? 1.08 : 1,
+        zIndex: isActive ? 10 : 1,
       }}
-      whileHover={{ scale: isActive ? 1.1 : 1.05 }}
+      transition={{ 
+        duration: 0.5, 
+        type: "spring", 
+        stiffness: 200, 
+        damping: 20,
+        delay: index * 0.1 
+      }}
+      whileHover={{ 
+        scale: isActive ? 1.1 : 1.05,
+        zIndex: 5,
+      }}
       onClick={onSelect}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
       <motion.div 
-        className={`w-64 h-auto p-0.5 rounded-2xl bg-gradient-to-br ${getGradient()}`}
+        className={`w-full h-full p-0.5 rounded-2xl bg-gradient-to-br ${getGradient()}`}
         animate={{ 
           boxShadow: isActive || isHovered
-            ? "0 20px 40px rgba(0, 0, 0, 0.2)" 
+            ? "0 20px 40px rgba(0, 0, 0, 0.3)" 
             : "0 10px 20px rgba(0, 0, 0, 0.1)"
         }}
       >
-        <div className="h-full px-5 py-7 bg-white rounded-[12px] transform transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-between">
-          {/* Ikona */}
-          <div className={`mb-3 p-3 rounded-lg text-white bg-gradient-to-br ${getGradient()}`}>
-            {getIcon()}
+        <div className="h-full px-5 py-6 bg-white dark:bg-gray-800 rounded-[13px] transform transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-between">
+          {/* Ikona z animowanym tłem */}
+          <div className="relative">
+            <motion.div 
+              className="absolute inset-0 rounded-lg opacity-50 blur-sm"
+              style={{ backgroundColor: isActive ? 'rgba(99, 102, 241, 0.2)' : 'transparent' }}
+              animate={{ 
+                scale: isHovered || isActive ? [1, 1.2, 1] : 1,
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: isHovered || isActive ? Infinity : 0,
+                repeatType: "reverse"
+              }}
+            />
+            <div className={`relative mb-3 p-3 rounded-lg text-white bg-gradient-to-br ${getGradient()}`}>
+              {getIcon()}
+            </div>
           </div>
           
           {/* Tekst */}
-          <p className="text-center text-base font-medium mb-2">{text}</p>
+          <p className="text-center text-base font-medium mb-2 text-gray-800 dark:text-white">{text}</p>
           
           {/* Podkreślenie */}
           <motion.div 
@@ -113,57 +123,19 @@ const TargetCard = ({
             animate={{ width: isActive || isHovered ? "80%" : "40%" }}
             transition={{ duration: 0.3 }}
           />
+          
+          {/* Świecące obramowanie przy aktywacji */}
+          {isActive && (
+            <motion.div
+              className="absolute inset-0 rounded-[13px] border-2 border-primary/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          )}
         </div>
       </motion.div>
     </motion.div>
-  );
-};
-
-// Komponent planety centralnej
-const CentralPlanet = () => {
-  return (
-    <div className="relative w-40 h-40 flex items-center justify-center">
-      <motion.div 
-        className="absolute w-full h-full rounded-full bg-gradient-to-br from-primary/30 to-blue-600/20"
-        animate={{ 
-          boxShadow: [
-            "0 0 20px rgba(0, 122, 204, 0.3)",
-            "0 0 30px rgba(0, 122, 204, 0.5)",
-            "0 0 20px rgba(0, 122, 204, 0.3)"
-          ]
-        }}
-        transition={{ 
-          duration: 3, 
-          repeat: Infinity, 
-          repeatType: "reverse" 
-        }}
-      />
-      
-      <motion.div 
-        className="absolute w-[70%] h-[70%] rounded-full bg-gradient-to-br from-primary/40 to-blue-500/30"
-        animate={{ rotate: 360 }}
-        transition={{ 
-          duration: 20, 
-          repeat: Infinity, 
-          ease: "linear" 
-        }}
-      />
-      
-      <motion.div 
-        className="absolute w-[40%] h-[40%] rounded-full bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white"
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ 
-          duration: 3, 
-          repeat: Infinity,
-          repeatType: "reverse"
-        }}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-10 h-10">
-          <path fillRule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 019.75 22.5a.75.75 0 01-.75-.75v-4.131A15.838 15.838 0 016.382 15H2.25a.75.75 0 01-.75-.75 6.75 6.75 0 017.815-6.666zM15 6.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clipRule="evenodd" />
-          <path d="M5.26 17.242a.75.75 0 10-.897-1.203 5.243 5.243 0 00-2.05 5.022.75.75 0 00.625.627 5.243 5.243 0 005.022-2.051.75.75 0 10-1.202-.897 3.744 3.744 0 01-3.008 1.51c0-1.23.592-2.323 1.51-3.008z" />
-        </svg>
-      </motion.div>
-    </div>
   );
 };
 
@@ -207,9 +179,32 @@ const Stars = ({ count = 50 }: { count?: number }) => {
   );
 };
 
+// Komponent wskaźników aktywnej karty
+const CardIndicators = ({ total, active, onSelect }: { total: number, active: number | null, onSelect: (index: number) => void }) => {
+  return (
+    <div className="flex justify-center items-center space-x-2 mt-12">
+      {Array.from({ length: total }).map((_, index) => (
+        <motion.button
+          key={`indicator-${index}`}
+          className="w-3 h-3 rounded-full bg-white/30 focus:outline-none"
+          initial={{ scale: 0.8 }}
+          animate={{ 
+            scale: active === index ? 1 : 0.8,
+            backgroundColor: active === index ? 'rgb(99, 102, 241)' : 'rgba(255, 255, 255, 0.3)'
+          }}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => onSelect(index)}
+          transition={{ duration: 0.2 }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const CourseTarget = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
+  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(0);
   
   // Efekt scrollowania dla paralaksy
   const { scrollYProgress } = useScroll({
@@ -221,33 +216,78 @@ const CourseTarget = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   
-  // Obliczanie kątów dla kart w orbitacji
-  const calculateAngles = (count: number) => {
-    const baseAngle = 360 / count;
-    return Array(count).fill(0).map((_, i) => baseAngle * i);
-  };
+  // Automatyczna zmiana aktywnej karty
+  const cardRotationInterval = useRef<NodeJS.Timeout | null>(null);
   
-  const angles = calculateAngles(COURSE_TARGET.length);
+  useEffect(() => {
+    // Automatyczna rotacja kart co 3 sekundy
+    cardRotationInterval.current = setInterval(() => {
+      setActiveCardIndex((prevIndex) => {
+        if (prevIndex === null) return 0;
+        return (prevIndex + 1) % COURSE_TARGET.length;
+      });
+    }, 3000);
+    
+    return () => {
+      if (cardRotationInterval.current) {
+        clearInterval(cardRotationInterval.current);
+      }
+    };
+  }, []);
+  
+  // Reset interwału po ręcznym kliknięciu
+  const handleCardSelect = (index: number) => {
+    if (cardRotationInterval.current) {
+      clearInterval(cardRotationInterval.current);
+    }
+    
+    setActiveCardIndex(index);
+    
+    // Restart interwału po kliknięciu
+    cardRotationInterval.current = setInterval(() => {
+      setActiveCardIndex((prevIndex) => {
+        if (prevIndex === null) return 0;
+        return (prevIndex + 1) % COURSE_TARGET.length;
+      });
+    }, 3000);
+  };
   
   return (
     <section 
       ref={containerRef} 
-      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-gray-900 to-blue-900 text-white" 
+      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-gray-900 to-blue-900 text-white w-screen" 
       id="dla-kogo"
+      style={{ 
+        margin: "0 calc(50% - 50vw)",
+        width: "100vw",
+        maxWidth: "100vw"
+      }}
     >
       {/* Tło kosmiczne */}
       <div className="absolute inset-0 -z-10 opacity-30">
         <Stars count={100} />
       </div>
       
+      {/* Dekoracyjne kręgi */}
+      <motion.div 
+        className="absolute w-[800px] h-[800px] rounded-full border border-white/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div 
+        className="absolute w-[500px] h-[500px] rounded-full border border-white/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+      />
+      
       {/* Główna zawartość */}
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div 
           style={{ y, opacity }}
           className="flex flex-col items-center justify-center"
         >
           {/* Nagłówek */}
-          <div className="text-center relative mb-24">
+          <div className="text-center relative mb-16">
             <TargetHeader />
             
             {/* Podkreślenie nagłówka */}
@@ -260,40 +300,50 @@ const CourseTarget = () => {
             />
           </div>
           
-          {/* Układ orbitalny */}
-          <div className="hidden md:flex relative h-[600px] w-full items-center justify-center mt-10">
-            {/* Orbity */}
-            <motion.div 
-              className="absolute w-[500px] h-[500px] rounded-full border border-white/10"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div 
-              className="absolute w-[380px] h-[380px] rounded-full border border-white/5"
-              animate={{ rotate: -360 }}
-              transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-            />
-            
-            {/* Centralna planeta */}
-            <div className="absolute z-20">
-              <CentralPlanet />
-            </div>
-            
-            {/* Karty w orbitacji */}
+          {/* Karty w układzie siatki dla desktop */}
+          <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10 relative">
             {COURSE_TARGET.map((target, index) => (
               <TargetCard 
-                key={`orbital-${target}`}
+                key={`grid-${target}`}
                 text={target}
                 index={index}
-                angle={angles[index]}
                 isActive={activeCardIndex === index}
-                onSelect={() => setActiveCardIndex(activeCardIndex === index ? null : index)}
+                onSelect={() => handleCardSelect(index)}
               />
             ))}
           </div>
           
+          {/* Karuzela dla tabletów */}
+          <div className="hidden sm:block md:hidden w-full overflow-hidden mt-8">
+            <motion.div 
+              className="flex transition-all duration-500 ease-out"
+              animate={{ 
+                x: activeCardIndex !== null ? `-${activeCardIndex * 100}%` : 0
+              }}
+              transition={{ type: "spring", stiffness: 150, damping: 20 }}
+            >
+              {COURSE_TARGET.map((target, index) => (
+                <div key={`carousel-${target}`} className="min-w-full px-4">
+                  <div className="max-w-xs mx-auto">
+                    <TargetCard 
+                      text={target}
+                      index={index}
+                      isActive={activeCardIndex === index}
+                      onSelect={() => handleCardSelect(index)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+            <CardIndicators 
+              total={COURSE_TARGET.length} 
+              active={activeCardIndex} 
+              onSelect={handleCardSelect} 
+            />
+          </div>
+          
           {/* Układ mobilny (widoczny tylko na małych ekranach) */}
-          <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="sm:hidden grid grid-cols-1 gap-6 w-full">
             {COURSE_TARGET.map((target, index) => (
               <motion.div 
                 key={`mobile-${target}`}
@@ -302,10 +352,11 @@ const CourseTarget = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
+                onClick={() => handleCardSelect(index)}
               >
                 <div className={`p-0.5 rounded-xl bg-gradient-to-br ${
                   index % 2 === 0 ? "from-blue-500/80 to-indigo-600/80" : "from-purple-500/80 to-pink-600/80"
-                }`}>
+                } ${activeCardIndex === index ? "scale-105 shadow-xl" : ""} transition-all duration-300`}>
                   <div className="px-5 py-6 bg-gray-800/90 backdrop-blur-sm rounded-[10px] relative overflow-hidden flex flex-col items-center justify-center">
                     <div className={`mb-3 p-3 rounded-lg text-white bg-gradient-to-br ${
                       index % 2 === 0 ? "from-blue-500 to-indigo-600" : "from-purple-500 to-pink-600"
