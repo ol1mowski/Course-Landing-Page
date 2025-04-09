@@ -412,12 +412,12 @@ const FreeLessons: React.FC = () => {
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div
-          ref={ref}
+      <motion.div
+        ref={ref}
           style={{ y, opacity }}
           className="flex flex-col items-center justify-center"
-        >
-          <LessonsHeader />
+      >
+        <LessonsHeader />
 
           <div className="hidden lg:grid grid-cols-3 gap-8 w-full">
             {FREE_LESSONS.map((lesson, index) => (
@@ -479,7 +479,7 @@ const FreeLessons: React.FC = () => {
               <ArrowRight size={16} />
             </motion.button>
           </div>
-        </motion.div>
+      </motion.div>
       </div>
     </section>
   );
