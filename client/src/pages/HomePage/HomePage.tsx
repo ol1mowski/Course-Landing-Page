@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import Hero from "../../components/Hero/Hero";
+import Hero from "../../components/Hero/Hero.component";
 import Excuses from "../../components/Excuses/Excuses";
 import ScrollProgressList from "../../components/ScrollProgressList/ScrollProgressList.component";
 import CourseDescription from "../../components/CourseDescription/CourseDescription.component";
