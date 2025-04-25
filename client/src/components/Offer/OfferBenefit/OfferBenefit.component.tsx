@@ -34,13 +34,13 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
   // Dynamiczne kolory w zależności od indeksu
   const getGradient = () => {
     const gradients = [
-      "from-blue-500/20 to-indigo-600/20",
-      "from-purple-500/20 to-fuchsia-600/20",
-      "from-cyan-500/20 to-blue-500/20",
-      "from-pink-500/20 to-rose-600/20",
-      "from-emerald-500/20 to-teal-600/20",
-      "from-amber-500/20 to-orange-600/20",
-      "from-violet-500/20 to-purple-600/20",
+      "from-blue-500/10 to-indigo-600/10",
+      "from-purple-500/10 to-fuchsia-600/10",
+      "from-cyan-500/10 to-blue-500/10",
+      "from-pink-500/10 to-rose-600/10",
+      "from-emerald-500/10 to-teal-600/10",
+      "from-amber-500/10 to-orange-600/10",
+      "from-violet-500/10 to-purple-600/10",
     ];
     return gradients[index % gradients.length];
   };
@@ -75,15 +75,16 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
       {/* Efekt blasku przy hover */}
       <motion.div
         className={`absolute inset-0 rounded-xl bg-gradient-to-r ${getBorderGradient()} opacity-0 blur-md -z-10`}
-        animate={{ opacity: isHovered ? 0.5 : 0 }}
+        animate={{ opacity: isHovered ? 0.3 : 0 }}
         transition={{ duration: 0.3 }}
       />
       
       {/* Główny kontener korzyści */}
       <motion.div
-        className={`relative flex items-center gap-4 p-5 rounded-xl backdrop-blur-sm border border-white/10 
+        className={`relative flex items-center gap-4 p-5 rounded-xl backdrop-blur-sm 
+                    border border-gray-200/50 shadow-sm
                     bg-gradient-to-r ${getGradient()} 
-                    hover:border-white/30 transition-all cursor-pointer overflow-hidden`}
+                    hover:border-primary/30 transition-all cursor-pointer overflow-hidden`}
         style={{ 
           transformStyle: "preserve-3d",
           rotateX: isHovered ? rotateX : 0,
@@ -98,7 +99,7 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
       >
         {/* Tło z efektem głębi */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-white/5 rounded-xl"
+          className="absolute inset-0 bg-gradient-to-br from-white/90 via-transparent to-white/90 rounded-xl"
           animate={{ opacity: isHovered ? 1 : 0.5 }}
           transition={{ duration: 0.3 }}
         />
@@ -113,7 +114,7 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
           {[...Array(5)].map((_, i) => (
             <motion.div
               key={`dot-${i}`}
-              className="absolute rounded-full bg-white"
+              className="absolute rounded-full bg-primary"
               style={{
                 width: 2 + Math.random() * 2,
                 height: 2 + Math.random() * 2,
@@ -135,13 +136,13 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
         
         {/* Ikona */}
         <motion.div
-          className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/10 backdrop-blur-md"
+          className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-md"
           style={{ transformStyle: "preserve-3d", z: 20 }}
           whileHover={{ rotate: 10, scale: 1.1 }}
           transition={{ type: "spring", stiffness: 300, damping: 15 }}
         >
           <motion.span 
-            className="text-3xl"
+            className="text-3xl text-primary"
             animate={{ 
               scale: isHovered ? [1, 1.2, 1] : 1,
               rotate: isHovered ? [0, 5, 0, -5, 0] : 0,
@@ -158,7 +159,7 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
           {/* Orbita wokół ikony */}
           {isHovered && (
             <motion.div
-              className="absolute inset-0 rounded-full border border-dashed border-white/40"
+              className="absolute inset-0 rounded-full border border-dashed border-primary/30"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ 
                 scale: 1.2, 
@@ -176,7 +177,7 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
         
         {/* Tekst korzyści */}
         <motion.span 
-          className="relative text-lg text-white font-medium"
+          className="relative text-lg text-gray-700 font-medium"
           style={{ transformStyle: "preserve-3d", z: 10 }}
           animate={{ 
             x: isHovered ? 5 : 0 

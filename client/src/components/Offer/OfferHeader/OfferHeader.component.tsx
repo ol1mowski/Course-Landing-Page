@@ -47,14 +47,14 @@ const OfferHeader = () => {
 
   return (
     <div className="relative">
-      {/* Dekoracyjna kometa */}
+      {/* Dekoracyjna "kometa" w jasnej wersji */}
       <motion.div
         className="absolute -top-16 -left-16 w-32 h-32 md:w-48 md:h-48"
         initial={{ x: -100, y: -100, opacity: 0 }}
         animate={{ 
           x: 20, 
           y: 20, 
-          opacity: [0, 1, 0.2],
+          opacity: [0, 0.6, 0.1],
         }}
         transition={{
           duration: 2,
@@ -66,10 +66,10 @@ const OfferHeader = () => {
       >
         <div className="relative w-full h-full">
           <motion.div 
-            className="absolute w-6 h-6 rounded-full bg-white/80 shadow-[0_0_20px_rgba(255,255,255,0.8)]"
+            className="absolute w-6 h-6 rounded-full bg-primary/60 shadow-[0_0_20px_rgba(0,122,204,0.5)]"
             animate={{
               scale: [1, 1.2, 1],
-              opacity: [0.8, 1, 0.8],
+              opacity: [0.6, 0.8, 0.6],
             }}
             transition={{
               duration: 2,
@@ -78,10 +78,10 @@ const OfferHeader = () => {
             }}
           />
           <motion.div 
-            className="absolute w-32 h-1 bg-gradient-to-r from-white/80 to-transparent transform origin-left rotate-45"
+            className="absolute w-32 h-1 bg-gradient-to-r from-primary/60 to-transparent transform origin-left rotate-45"
             animate={{
               width: [20, 60, 20],
-              opacity: [0.7, 1, 0.7],
+              opacity: [0.5, 0.7, 0.5],
             }}
             transition={{
               duration: 2,
@@ -98,7 +98,7 @@ const OfferHeader = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <Heading className="text-white">
+        <Heading className="text-gray-800">
           <motion.span
             variants={textVariants}
             initial="hidden"
@@ -116,7 +116,7 @@ const OfferHeader = () => {
             ))}
           </motion.span>
           <motion.span 
-            className="relative bg-gradient-to-r from-primary via-blue-400 to-primary text-transparent bg-clip-text"
+            className="relative text-primary"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.5 }}
@@ -132,7 +132,7 @@ const OfferHeader = () => {
         </Heading>
         
         <motion.p 
-          className="mt-6 text-xl text-gray-300/90 relative"
+          className="mt-6 text-xl text-gray-600 relative"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
@@ -149,7 +149,7 @@ const OfferHeader = () => {
       
       {/* Dekoracyjne elementy */}
       <motion.div 
-        className="absolute top-1/4 -right-12 w-24 h-24 rounded-full border border-white/10 opacity-60"
+        className="absolute top-1/4 -right-12 w-24 h-24 rounded-full border border-primary/20 opacity-60"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 0.6 }}
         transition={{ delay: 0.8, duration: 1 }}

@@ -12,7 +12,7 @@ const FloatingStars = () => {
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={`star-${i}`}
-          className="absolute w-1 h-1 rounded-full bg-yellow-300"
+          className="absolute w-1 h-1 rounded-full bg-primary"
           initial={{ 
             x: 0, 
             y: 0, 
@@ -34,7 +34,7 @@ const FloatingStars = () => {
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            boxShadow: "0 0 4px 1px rgba(250, 204, 21, 0.4)",
+            boxShadow: "0 0 4px 1px rgba(0, 122, 204, 0.4)",
           }}
         />
       ))}
@@ -79,7 +79,7 @@ const OfferCard = () => {
     >
       {/* Ozdobne elementy wokół karty */}
       <motion.div
-        className="absolute -top-10 -right-8 w-24 h-24 border border-blue-300/20 rounded-full"
+        className="absolute -top-10 -right-8 w-24 h-24 border border-primary/20 rounded-full"
         animate={{ 
           rotate: 360,
           scale: [1, 1.05, 1],
@@ -91,7 +91,7 @@ const OfferCard = () => {
       />
       
       <motion.div
-        className="absolute -bottom-5 -left-5 w-16 h-16 border border-purple-300/20 rounded-full"
+        className="absolute -bottom-5 -left-5 w-16 h-16 border border-blue-300/30 rounded-full"
         animate={{ 
           rotate: -360,
           scale: [1, 1.08, 1],
@@ -105,8 +105,8 @@ const OfferCard = () => {
       {/* Główna karta */}
       <motion.div
         ref={cardRef}
-        className="relative overflow-hidden bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-lg 
-                   rounded-2xl border border-gray-700 shadow-[0_0_50px_rgba(59,130,246,0.3)]"
+        className="relative overflow-hidden bg-gradient-to-br from-white to-blue-50/95 backdrop-blur-lg 
+                   rounded-2xl border border-blue-100 shadow-[0_8px_30px_rgba(0,122,204,0.15)]"
         style={{ 
           transformStyle: "preserve-3d",
           rotateX: isHovered ? rotateX : 0,
@@ -121,14 +121,14 @@ const OfferCard = () => {
       >
         {/* Efekt blasku przy hover */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent"
           animate={{ opacity: isHovered ? 0.5 : 0.2 }}
         />
         
         {/* Wzorki tła */}
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-56 h-56 bg-primary/20 rounded-full filter blur-3xl transform translate-x-20 -translate-y-20" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-700/20 rounded-full filter blur-3xl transform -translate-x-16 translate-y-16" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-300/20 rounded-full filter blur-3xl transform -translate-x-16 translate-y-16" />
         </div>
         
         {/* Zawartość karty */}
@@ -140,8 +140,8 @@ const OfferCard = () => {
             transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
           >
             <motion.div 
-              className="absolute -inset-1 rounded-full bg-primary/40 blur-lg"
-              animate={{ opacity: [0.4, 0.7, 0.4] }}
+              className="absolute -inset-1 rounded-full bg-primary/20 blur-lg"
+              animate={{ opacity: [0.2, 0.4, 0.2] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
             
@@ -189,9 +189,9 @@ const OfferCard = () => {
             
             {/* Aktualna cena */}
             <motion.div 
-              className="text-4xl font-bold bg-gradient-to-r from-primary via-blue-400 to-primary text-transparent bg-clip-text"
+              className="text-4xl font-bold text-primary"
               animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                color: ["#007ACC", "#0090E6", "#007ACC"]
               }}
               transition={{ duration: 5, repeat: Infinity }}
             >
@@ -200,7 +200,7 @@ const OfferCard = () => {
             
             {/* Darmowe aktualizacje */}
             <motion.div 
-              className="flex items-center justify-center gap-1 text-sm text-gray-400 mt-2"
+              className="flex items-center justify-center gap-1 text-sm text-gray-500 mt-2"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -229,7 +229,7 @@ const OfferCard = () => {
             </Link>
             
             <motion.div 
-              className="flex items-center justify-center gap-2 text-sm text-gray-400/90 mt-6"
+              className="flex items-center justify-center gap-2 text-sm text-gray-500 mt-6"
               animate={{ opacity: [0.8, 1, 0.8] }}
               transition={{ duration: 4, repeat: Infinity }}
             >
