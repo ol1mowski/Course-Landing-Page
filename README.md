@@ -56,6 +56,8 @@ A modern, responsive platform for hosting and managing online courses. This proj
 
 ## **Setup and Installation**
 
+### **Local Development**
+
 To run the project locally, follow these steps:
 
 1. **Clone the repository**:
@@ -75,6 +77,33 @@ To run the project locally, follow these steps:
    npm run dev
    ```
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+### **Docker Setup**
+
+Alternatywnie, możesz uruchomić aplikację za pomocą Dockera:
+
+1. **Zbuduj i uruchom kontenery**:
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Sprawdź logi aplikacji**:
+   ```bash
+   docker-compose logs -f app
+   ```
+
+3. **Zatrzymaj kontenery**:
+   ```bash
+   docker-compose down
+   ```
+
+4. **Przebuduj kontenery po zmianach w kodzie**:
+   ```bash
+   docker-compose build
+   docker-compose up -d
+   ```
+
+5. Aplikacja będzie dostępna pod adresem [http://localhost:3000](http://localhost:3000)
 
 ---
 

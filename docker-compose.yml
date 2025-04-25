@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app/server
+      - ./client:/app/client
+      - /app/client/node_modules
+      - /app/server/node_modules
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
