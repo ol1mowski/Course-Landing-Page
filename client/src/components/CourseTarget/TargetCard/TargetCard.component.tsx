@@ -14,7 +14,6 @@ const TargetCard = ({ text, index, isActive = false, onClick }: TargetCardProps)
   const [isHovered, setIsHovered] = useState(false);
   const controls = useAnimation();
 
-  // Generowanie unikalnego koloru dla każdej karty
   const getCardColor = (idx: number) => {
     const colors = [
       "from-purple-500 to-indigo-700",
@@ -27,7 +26,6 @@ const TargetCard = ({ text, index, isActive = false, onClick }: TargetCardProps)
     return colors[idx % colors.length];
   };
 
-  // Efekt lewitacji przy najechaniu
   React.useEffect(() => {
     if (isHovered || isActive) {
       controls.start({
@@ -68,7 +66,6 @@ const TargetCard = ({ text, index, isActive = false, onClick }: TargetCardProps)
           transform: "translateZ(0)"
         }}
       >
-        {/* Gwiazdy w tle */}
         {Array.from({ length: 5 }).map((_, i) => (
           <motion.div
             key={i}
@@ -90,19 +87,17 @@ const TargetCard = ({ text, index, isActive = false, onClick }: TargetCardProps)
           />
         ))}
 
-        {/* Orbita */}
         <motion.div
           className="absolute inset-1 rounded-lg border border-white/10"
           animate={{ rotate: 360 }}
-          transition={{ 
-            duration: 20, 
-            repeat: Infinity, 
-            ease: "linear" 
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
           }}
           style={{ opacity: 0.4 }}
         />
 
-        {/* Ikona gwiazdy */}
         {isActive && (
           <motion.div
             className="absolute -top-1 -right-1 text-yellow-300"
@@ -114,8 +109,7 @@ const TargetCard = ({ text, index, isActive = false, onClick }: TargetCardProps)
           </motion.div>
         )}
 
-        {/* Tekst */}
-        <motion.span 
+        <motion.span
           className="text-center text-white font-medium text-lg z-10"
           animate={{ scale: isActive ? 1.05 : 1 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -123,18 +117,16 @@ const TargetCard = ({ text, index, isActive = false, onClick }: TargetCardProps)
           {text}
         </motion.span>
 
-        {/* Efekt świecenia przy najechaniu */}
         <motion.div
           className="absolute inset-0 bg-white opacity-0 rounded-lg"
           animate={{ opacity: isHovered || isActive ? 0.15 : 0 }}
           transition={{ duration: 0.3 }}
         />
       </motion.div>
-      
-      {/* Cień 3D */}
+
       <motion.div
         className="absolute inset-0 bg-black/50 rounded-lg blur-md -z-10"
-        animate={{ 
+        animate={{
           y: isHovered || isActive ? 12 : 8,
           scale: isHovered || isActive ? 0.95 : 0.98,
           opacity: isHovered || isActive ? 0.6 : 0.4

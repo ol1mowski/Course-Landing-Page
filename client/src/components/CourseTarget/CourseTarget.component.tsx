@@ -1,35 +1,32 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { COURSE_TARGET } from "../../data/CourseTarget.data";
-import TargetHeader from "./TargetHeader/TargetHeader.component";
 
-// Komponent karty celu - nowy design
-const TargetCard = ({ 
-  text, 
-  index, 
-  isActive, 
-  onSelect 
-}: { 
-  text: string; 
-  index: number; 
+const TargetCard = ({
+  text,
+  index,
+  isActive,
+  onSelect
+}: {
+  text: string;
+  index: number;
   isActive: boolean;
   onSelect: () => void;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
-  // Kolory tła gradientowego
+
   const getGradient = () => {
     const gradients = [
-      "from-blue-500/90 to-indigo-600/90",
-      "from-teal-500/90 to-emerald-600/90",
-      "from-amber-500/90 to-orange-600/90",
-      "from-rose-500/90 to-pink-600/90",
-      "from-purple-500/90 to-violet-600/90",
-      "from-cyan-500/90 to-blue-600/90",
+      "from-primary to-indigo-600",
+      "from-blue-500 to-blue-700",
+      "from-indigo-500 to-indigo-700",
+      "from-violet-500 to-violet-700",
+      "from-purple-500 to-purple-700",
+      "from-sky-500 to-sky-700",
     ];
     return gradients[index % gradients.length];
   };
-  
+
   // Ikony dla każdej karty
   const getIcon = () => {
     const icons = [
@@ -64,20 +61,20 @@ const TargetCard = ({
     <motion.div
       className="w-full h-full relative"
       initial={{ opacity: 0, y: 20 }}
-      animate={{ 
-        opacity: 1, 
+      animate={{
+        opacity: 1,
         y: 0,
         scale: isActive ? 1.08 : 1,
         zIndex: isActive ? 10 : 1,
       }}
-      transition={{ 
-        duration: 0.5, 
-        type: "spring", 
-        stiffness: 200, 
+      transition={{
+        duration: 0.5,
+        type: "spring",
+        stiffness: 200,
         damping: 20,
-        delay: index * 0.1 
+        delay: index * 0.1
       }}
-      whileHover={{ 
+      whileHover={{
         scale: isActive ? 1.1 : 1.05,
         zIndex: 5,
       }}
@@ -85,49 +82,49 @@ const TargetCard = ({
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      <motion.div 
-        className={`w-full h-full p-0.5 rounded-2xl bg-gradient-to-br ${getGradient()}`}
-        animate={{ 
+      <motion.div
+        className={`w-full h-full rounded-2xl shadow-lg bg-white border-2 border-${isActive ? 'primary' : 'gray-100'}`}
+        animate={{
           boxShadow: isActive || isHovered
-            ? "0 20px 40px rgba(0, 0, 0, 0.3)" 
-            : "0 10px 20px rgba(0, 0, 0, 0.1)"
+            ? "0 20px 40px rgba(0, 0, 0, 0.15)"
+            : "0 5px 15px rgba(0, 0, 0, 0.05)"
         }}
       >
-        <div className="h-full px-5 py-6 bg-white dark:bg-gray-800 rounded-[13px] transform transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-between">
+        <div className="h-full px-5 py-6 rounded-2xl transform transition-all duration-300 relative overflow-hidden flex flex-col items-center justify-between">
           {/* Ikona z animowanym tłem */}
           <div className="relative">
-            <motion.div 
-              className="absolute inset-0 rounded-lg opacity-50 blur-sm"
+            <motion.div
+              className="absolute inset-0 rounded-full opacity-50 blur-sm"
               style={{ backgroundColor: isActive ? 'rgba(99, 102, 241, 0.2)' : 'transparent' }}
-              animate={{ 
+              animate={{
                 scale: isHovered || isActive ? [1, 1.2, 1] : 1,
               }}
-              transition={{ 
-                duration: 2, 
+              transition={{
+                duration: 2,
                 repeat: isHovered || isActive ? Infinity : 0,
                 repeatType: "reverse"
               }}
             />
-            <div className={`relative mb-3 p-3 rounded-lg text-white bg-gradient-to-br ${getGradient()}`}>
+            <div className={`relative mb-4 p-4 rounded-full text-white bg-gradient-to-r ${getGradient()}`}>
               {getIcon()}
             </div>
           </div>
-          
+
           {/* Tekst */}
-          <p className="text-center text-base font-medium mb-2 text-gray-800 dark:text-white">{text}</p>
-          
+          <p className="text-center text-base font-semibold mb-3 text-gray-700">{text}</p>
+
           {/* Podkreślenie */}
-          <motion.div 
-            className="h-0.5 bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+          <motion.div
+            className="h-1 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent"
             initial={{ width: 0 }}
             animate={{ width: isActive || isHovered ? "80%" : "40%" }}
             transition={{ duration: 0.3 }}
           />
-          
+
           {/* Świecące obramowanie przy aktywacji */}
           {isActive && (
             <motion.div
-              className="absolute inset-0 rounded-[13px] border-2 border-primary/50"
+              className="absolute inset-0 rounded-2xl border-2 border-primary"
               initial={{ opacity: 0 }}
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -139,10 +136,9 @@ const TargetCard = ({
   );
 };
 
-// Komponent gwiazd w tle
 const Stars = ({ count = 50 }: { count?: number }) => {
   const stars = Array(count).fill(0);
-  
+
   return (
     <>
       {stars.map((_, index) => {
@@ -150,20 +146,20 @@ const Stars = ({ count = 50 }: { count?: number }) => {
         const top = Math.random() * 100;
         const left = Math.random() * 100;
         const delay = Math.random() * 5;
-        
+
         return (
           <motion.div
             key={`star-${index}`}
-            className="absolute rounded-full bg-white"
+            className="absolute rounded-full bg-primary/30"
             style={{
               width: size,
               height: size,
               top: `${top}%`,
               left: `${left}%`,
-              boxShadow: "0 0 3px rgba(255, 255, 255, 0.5)"
+              boxShadow: "0 0 3px rgba(99, 102, 241, 0.3)"
             }}
-            animate={{ 
-              opacity: [0.2, 1, 0.2],
+            animate={{
+              opacity: [0.2, 0.7, 0.2],
               scale: [1, 1.2, 1]
             }}
             transition={{
@@ -179,18 +175,17 @@ const Stars = ({ count = 50 }: { count?: number }) => {
   );
 };
 
-// Komponent wskaźników aktywnej karty
 const CardIndicators = ({ total, active, onSelect }: { total: number, active: number | null, onSelect: (index: number) => void }) => {
   return (
     <div className="flex justify-center items-center space-x-2 mt-12">
       {Array.from({ length: total }).map((_, index) => (
         <motion.button
           key={`indicator-${index}`}
-          className="w-3 h-3 rounded-full bg-white/30 focus:outline-none"
+          className="w-3 h-3 rounded-full bg-gray-300 focus:outline-none"
           initial={{ scale: 0.8 }}
-          animate={{ 
+          animate={{
             scale: active === index ? 1 : 0.8,
-            backgroundColor: active === index ? 'rgb(99, 102, 241)' : 'rgba(255, 255, 255, 0.3)'
+            backgroundColor: active === index ? 'rgb(99, 102, 241)' : 'rgba(209, 213, 219, 1)'
           }}
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
@@ -205,45 +200,39 @@ const CardIndicators = ({ total, active, onSelect }: { total: number, active: nu
 const CourseTarget = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(0);
-  
-  // Efekt scrollowania dla paralaksy
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
-  
-  // Transformacje dla efektu paralaksy
+
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  
-  // Automatyczna zmiana aktywnej karty
+
   const cardRotationInterval = useRef<NodeJS.Timeout | null>(null);
-  
+
   useEffect(() => {
-    // Automatyczna rotacja kart co 3 sekundy
     cardRotationInterval.current = setInterval(() => {
       setActiveCardIndex((prevIndex) => {
         if (prevIndex === null) return 0;
         return (prevIndex + 1) % COURSE_TARGET.length;
       });
     }, 3000);
-    
+
     return () => {
       if (cardRotationInterval.current) {
         clearInterval(cardRotationInterval.current);
       }
     };
   }, []);
-  
-  // Reset interwału po ręcznym kliknięciu
+
   const handleCardSelect = (index: number) => {
     if (cardRotationInterval.current) {
       clearInterval(cardRotationInterval.current);
     }
-    
+
     setActiveCardIndex(index);
-    
-    // Restart interwału po kliknięciu
+
     cardRotationInterval.current = setInterval(() => {
       setActiveCardIndex((prevIndex) => {
         if (prevIndex === null) return 0;
@@ -253,33 +242,33 @@ const CourseTarget = () => {
   };
 
   return (
-    <section 
-      ref={containerRef} 
-      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-gray-900 to-blue-900 text-white w-screen" 
+    <section
+      ref={containerRef}
+      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-white to-blue-50 text-gray-800 w-screen"
       id="dla-kogo"
-      style={{ 
+      style={{
         margin: "0 calc(50% - 50vw)",
         width: "100vw",
         maxWidth: "100vw"
       }}
     >
-      {/* Tło kosmiczne */}
+      {/* Tło z efektem */}
       <div className="absolute inset-0 -z-10 opacity-30">
         <Stars count={100} />
       </div>
-      
+
       {/* Dekoracyjne kręgi */}
-      <motion.div 
-        className="absolute w-[800px] h-[800px] rounded-full border border-white/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      <motion.div
+        className="absolute w-[800px] h-[800px] rounded-full border border-primary/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         animate={{ rotate: 360 }}
         transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
       />
-      <motion.div 
-        className="absolute w-[500px] h-[500px] rounded-full border border-white/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full border border-primary/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         animate={{ rotate: -360 }}
         transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
       />
-      
+
       {/* Główna zawartość */}
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
@@ -287,23 +276,30 @@ const CourseTarget = () => {
           className="flex flex-col items-center justify-center"
         >
           {/* Nagłówek */}
-          <div className="text-center relative mb-16">
-          <TargetHeader />
-            
+          <div className="text-center relative mb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-0">
+              Dla kogo jest ten kurs?
+            </h2>
+
             {/* Podkreślenie nagłówka */}
-            <motion.div 
-              className="h-1 w-20 bg-gradient-to-r from-primary/30 via-primary to-primary/30 rounded-full mx-auto mt-6"
+            <motion.div
+              className="h-1 w-20 bg-gradient-to-r from-primary/30 via-primary to-primary/30 rounded-full mx-auto mt-4"
               initial={{ width: 0, opacity: 0 }}
               whileInView={{ width: "5rem", opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.8 }}
             />
           </div>
-          
+
+          {/* Podtytuł z lepszym kontrastem */}
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-8 font-medium">
+            Ten kurs jest idealny dla osób, które chcą rozwinąć swoje umiejętności w następujących obszarach:
+          </p>
+
           {/* Karty w układzie siatki dla desktop */}
-          <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10 relative">
+          <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-10 mt-4 relative">
             {COURSE_TARGET.map((target, index) => (
-              <TargetCard 
+              <TargetCard
                 key={`grid-${target}`}
                 text={target}
                 index={index}
@@ -312,12 +308,11 @@ const CourseTarget = () => {
               />
             ))}
           </div>
-          
-          {/* Karuzela dla tabletów */}
+
           <div className="hidden sm:block md:hidden w-full overflow-hidden mt-8">
-            <motion.div 
+            <motion.div
               className="flex transition-all duration-500 ease-out"
-              animate={{ 
+              animate={{
                 x: activeCardIndex !== null ? `-${activeCardIndex * 100}%` : 0
               }}
               transition={{ type: "spring", stiffness: 150, damping: 20 }}
@@ -325,7 +320,7 @@ const CourseTarget = () => {
               {COURSE_TARGET.map((target, index) => (
                 <div key={`carousel-${target}`} className="min-w-full px-4">
                   <div className="max-w-xs mx-auto">
-                    <TargetCard 
+                    <TargetCard
                       text={target}
                       index={index}
                       isActive={activeCardIndex === index}
@@ -335,17 +330,16 @@ const CourseTarget = () => {
                 </div>
               ))}
             </motion.div>
-            <CardIndicators 
-              total={COURSE_TARGET.length} 
-              active={activeCardIndex} 
-              onSelect={handleCardSelect} 
+            <CardIndicators
+              total={COURSE_TARGET.length}
+              active={activeCardIndex}
+              onSelect={handleCardSelect}
             />
           </div>
-          
-          {/* Układ mobilny (widoczny tylko na małych ekranach) */}
+
           <div className="sm:hidden grid grid-cols-1 gap-6 w-full">
             {COURSE_TARGET.map((target, index) => (
-              <motion.div 
+              <motion.div
                 key={`mobile-${target}`}
                 className="relative"
                 initial={{ opacity: 0, y: 30 }}
@@ -354,13 +348,10 @@ const CourseTarget = () => {
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 onClick={() => handleCardSelect(index)}
               >
-                <div className={`p-0.5 rounded-xl bg-gradient-to-br ${
-                  index % 2 === 0 ? "from-blue-500/80 to-indigo-600/80" : "from-purple-500/80 to-pink-600/80"
-                } ${activeCardIndex === index ? "scale-105 shadow-xl" : ""} transition-all duration-300`}>
-                  <div className="px-5 py-6 bg-gray-800/90 backdrop-blur-sm rounded-[10px] relative overflow-hidden flex flex-col items-center justify-center">
-                    <div className={`mb-3 p-3 rounded-lg text-white bg-gradient-to-br ${
-                      index % 2 === 0 ? "from-blue-500 to-indigo-600" : "from-purple-500 to-pink-600"
-                    }`}>
+                <div className={`rounded-xl bg-white shadow-md border border-gray-100 ${activeCardIndex === index ? "scale-105 shadow-xl border-primary" : ""} transition-all duration-300`}>
+                  <div className="px-5 py-6 rounded-xl relative overflow-hidden flex flex-col items-center justify-center">
+                    <div className={`mb-3 p-3 rounded-full text-white bg-gradient-to-r ${index % 2 === 0 ? "from-primary to-indigo-600" : "from-violet-500 to-purple-700"
+                      }`}>
                       {index % 2 === 0 ? (
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                           <path fillRule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z" clipRule="evenodd" />
@@ -371,10 +362,10 @@ const CourseTarget = () => {
                         </svg>
                       )}
                     </div>
-                    
-                    <p className="text-center text-base font-medium mb-2 text-white">{target}</p>
-                    
-                    <div className="h-0.5 w-2/5 bg-gradient-to-r from-transparent via-white/60 to-transparent mt-2" />
+
+                    <p className="text-center text-base font-semibold mb-2 text-gray-700">{target}</p>
+
+                    <div className="h-1 w-2/5 rounded-full bg-gradient-to-r from-transparent via-primary to-transparent mt-2" />
                   </div>
                 </div>
               </motion.div>
