@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useState } from "react";
+import { CheckCircle } from "lucide-react";
 
 type OfferBenefitProps = {
   icon: string;
@@ -30,33 +31,6 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
     y.set(0);
     setIsHovered(false);
   };
-  
-  // Dynamiczne kolory w zależności od indeksu
-  const getGradient = () => {
-    const gradients = [
-      "from-blue-500/10 to-indigo-600/10",
-      "from-purple-500/10 to-fuchsia-600/10",
-      "from-cyan-500/10 to-blue-500/10",
-      "from-pink-500/10 to-rose-600/10",
-      "from-emerald-500/10 to-teal-600/10",
-      "from-amber-500/10 to-orange-600/10",
-      "from-violet-500/10 to-purple-600/10",
-    ];
-    return gradients[index % gradients.length];
-  };
-  
-  const getBorderGradient = () => {
-    const gradients = [
-      "from-blue-500 to-indigo-600",
-      "from-purple-500 to-fuchsia-600",
-      "from-cyan-500 to-blue-500",
-      "from-pink-500 to-rose-600",
-      "from-emerald-500 to-teal-600",
-      "from-amber-500 to-orange-600",
-      "from-violet-500 to-purple-600",
-    ];
-    return gradients[index % gradients.length];
-  };
 
   return (
     <motion.div
@@ -72,19 +46,19 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
         damping: 15,
       }}
     >
-      {/* Efekt blasku przy hover */}
+      {/* Efekt blasku przy hover - delikatny niebieski */}
       <motion.div
-        className={`absolute inset-0 rounded-xl bg-gradient-to-r ${getBorderGradient()} opacity-0 blur-md -z-10`}
-        animate={{ opacity: isHovered ? 0.3 : 0 }}
+        className="absolute inset-0 rounded-xl bg-blue-100 opacity-0 blur-md -z-10"
+        animate={{ opacity: isHovered ? 0.2 : 0 }}
         transition={{ duration: 0.3 }}
       />
       
       {/* Główny kontener korzyści */}
       <motion.div
-        className={`relative flex items-center gap-4 p-5 rounded-xl backdrop-blur-sm 
-                    border border-gray-200/50 shadow-sm
-                    bg-gradient-to-r ${getGradient()} 
-                    hover:border-primary/30 transition-all cursor-pointer overflow-hidden`}
+        className="relative flex items-center gap-4 p-5 rounded-xl backdrop-blur-sm 
+                  border border-gray-200/50 shadow-sm
+                  bg-white hover:bg-blue-50/50
+                  hover:border-blue-200 transition-all cursor-pointer overflow-hidden"
         style={{ 
           transformStyle: "preserve-3d",
           rotateX: isHovered ? rotateX : 0,
@@ -97,95 +71,68 @@ const OfferBenefit = ({ icon, text, index }: OfferBenefitProps) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Tło z efektem głębi */}
+        {/* Tło z efektem głębi - delikatny niebieski gradient */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-white/90 via-transparent to-white/90 rounded-xl"
+          className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-white rounded-xl"
           animate={{ opacity: isHovered ? 1 : 0.5 }}
           transition={{ duration: 0.3 }}
         />
         
-        {/* Dekoracyjne kropki */}
+        {/* Ikona Check w kółku */}
         <motion.div
-          className="absolute top-0 right-0 h-16 w-16 opacity-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 0.2 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={`dot-${i}`}
-              className="absolute rounded-full bg-primary"
-              style={{
-                width: 2 + Math.random() * 2,
-                height: 2 + Math.random() * 2,
-                top: Math.random() * 100 + "%",
-                left: Math.random() * 100 + "%",
-              }}
-              animate={{ 
-                opacity: [0.3, 1, 0.3],
-                scale: [1, 1.5, 1], 
-              }}
-              transition={{ 
-                duration: 1 + Math.random() * 2,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-          ))}
-        </motion.div>
-        
-        {/* Ikona */}
-        <motion.div
-          className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 backdrop-blur-md"
+          className="relative flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 border border-blue-100"
           style={{ transformStyle: "preserve-3d", z: 20 }}
-          whileHover={{ rotate: 10, scale: 1.1 }}
+          whileHover={{ rotate: 5, scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300, damping: 15 }}
         >
-          <motion.span 
-            className="text-3xl text-primary"
+          <motion.div
             animate={{ 
-              scale: isHovered ? [1, 1.2, 1] : 1,
-              rotate: isHovered ? [0, 5, 0, -5, 0] : 0,
+              scale: isHovered ? [1, 1.1, 1] : 1,
             }}
             transition={{ 
               duration: 0.8, 
-              repeat: isHovered ? Infinity : 0,
+              repeat: isHovered ? 1 : 0,
               repeatType: "reverse",
             }}
           >
-            {icon}
-          </motion.span>
+            <CheckCircle size={22} className="text-blue-500" />
+          </motion.div>
           
-          {/* Orbita wokół ikony */}
+          {/* Subtelna orbita wokół ikony */}
           {isHovered && (
             <motion.div
-              className="absolute inset-0 rounded-full border border-dashed border-primary/30"
+              className="absolute inset-0 rounded-full border border-dashed border-blue-200"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ 
-                scale: 1.2, 
-                opacity: 0.6,
+                scale: 1.1, 
+                opacity: 0.4,
                 rotate: 360
               }}
               transition={{ 
                 scale: { duration: 0.3 },
                 opacity: { duration: 0.3 },
-                rotate: { duration: 8, repeat: Infinity, ease: "linear" }
+                rotate: { duration: 10, repeat: Infinity, ease: "linear" }
               }}
             />
           )}
         </motion.div>
         
-        {/* Tekst korzyści */}
-        <motion.span 
-          className="relative text-lg text-gray-700 font-medium"
-          style={{ transformStyle: "preserve-3d", z: 10 }}
-          animate={{ 
-            x: isHovered ? 5 : 0 
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          {text}
-        </motion.span>
+        {/* Ikonka domyślna jako dodatkowy element */}
+        <div className="flex items-center gap-3 flex-1">
+          <span className="text-2xl text-blue-500 opacity-80">{icon}</span>
+          
+          {/* Tekst korzyści */}
+          <motion.span 
+            className="relative text-lg text-gray-700 font-medium"
+            style={{ transformStyle: "preserve-3d", z: 10 }}
+            animate={{ 
+              x: isHovered ? 3 : 0 
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {text}
+          </motion.span>
+        </div>
       </motion.div>
     </motion.div>
   );
