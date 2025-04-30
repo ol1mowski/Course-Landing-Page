@@ -3,8 +3,8 @@ import { containerVariants } from "../../animations/comparisonAnimations";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
 
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
-import ComparisonHeader from "./ComparisonHeader/ComparisonHeader.component";
-import ComparisonTable from "./ComparisonTable/ComparisonTable.component";
+import ComparisonHeader from "./components/ComparisonHeader.component";
+import ComparisonTable from "./components/ComparisonTable.component";
 
 const CourseComparison = () => {
   const { ref, isInView } = useAnimationInView();

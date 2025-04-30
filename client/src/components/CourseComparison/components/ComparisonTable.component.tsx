@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { tableVariants } from "../../../animations/comparisonAnimations";
 import { COURSE_COMPARISON_DATA } from "../../../data/CourseComparison.data";
 
-import ComparisonRow from "../ComparisonRow/ComparisonRow.component";
+import ComparisonRow from "./ComparisonRow.component";
 
 const ComparisonTable = () => (
   <motion.div
