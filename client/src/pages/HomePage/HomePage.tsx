@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import Hero from "../../components/Hero/Hero.component";
-import Excuses from "../../components/Excuses/Excuses";
+import Excuses from "../../components/Excuses/Excuses.component";
 import ScrollProgressList from "../../components/ScrollProgressList/ScrollProgressList.component";
 import CourseDescription from "../../components/CourseDescription/CourseDescription.component";
 import CourseBenefits from "../../components/CourseBenefits/CourseBenefits.component";

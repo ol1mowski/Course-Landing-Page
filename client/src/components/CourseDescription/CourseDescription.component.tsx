@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { useAnimationInView } from "../../hooks/useAnimationInView";
 
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
 import DescriptionHeader from "./DescriptionHeader/DescriptionHeader.component";
