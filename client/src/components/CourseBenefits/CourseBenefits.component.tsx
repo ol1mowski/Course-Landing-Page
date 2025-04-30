@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useParallaxScrolling } from "./hooks/useParallaxScrolling.hook";
 import { useActiveCard } from "./hooks/useActiveCard.hook";
 import { BackgroundGradient } from "./components/BackgroundGradient.component";
