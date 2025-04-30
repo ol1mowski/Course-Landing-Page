@@ -1,41 +1,10 @@
-import { motion } from "framer-motion";
 import SectionWrapper from "../UI/SectionWrapper/SectionWrapper.component";
-import OfferHeader from "./OfferHeader/OfferHeader.component";
-import OfferBenefits from "./OfferBenefits/OfferBenefits.component";
-import OfferCard from "./OfferCard/OfferCard.component";
-import { WavyBottom } from "./BackgroundEffects";
 import { useParallaxEffect } from "./hooks/useParallaxEffect";
 import { useOfferAnimations } from "./hooks/useOfferAnimations";
+import { BackgroundElements } from "./components/BackgroundElements.component";
+import { OfferContent } from "./components/OfferContent.component";
 
-const LightBlueBackground = () => (
-  <div className="absolute inset-0 -z-20">
-    {/* Jasne i niebieskie tło */}
-    <div className="absolute inset-0 bg-gradient-to-b from-blue-50 to-white"></div>
-    
-    {/* Delikatne niebieskie linie */}
-    <div className="absolute inset-0">
-      {[...Array(3)].map((_, i) => (
-        <div 
-          key={`line-${i}`} 
-          className="absolute h-px w-full left-0 bg-gradient-to-r from-transparent via-blue-100 to-transparent"
-          style={{ top: `${i * 25 + 20}%` }}
-        />
-      ))}
-    </div>
-  </div>
-);
-
-// Bardzo subtelny niebieski wzór
-const LightBluePattern = () => (
-  <div className="absolute inset-0 -z-10 opacity-10">
-    <div className="h-full w-full" style={{ 
-      backgroundImage: 'radial-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px)',
-      backgroundSize: '50px 50px' 
-    }} />
-  </div>
-);
-
-const Offer = () => {
+const Offer: React.FC = () => {
   const { containerRef, y, opacity, scale } = useParallaxEffect();
   const {
     mainContainerAnimation,
@@ -54,33 +23,18 @@ const Offer = () => {
         maxWidth: "100vw"
       }}
     >
-      <LightBlueBackground />
-      <LightBluePattern />
+      <BackgroundElements />
 
       <SectionWrapper>
-        <motion.div
-          style={{ y, opacity, scale }}
-          className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-14"
-          {...mainContainerAnimation}
-        >
-          <motion.div
-            className="w-full lg:w-1/2 space-y-10"
-            {...leftColumnAnimation}
-          >
-            <OfferHeader />
-            <OfferBenefits />
-          </motion.div>
-
-          <motion.div
-            className="w-full lg:w-1/2 flex justify-center items-center lg:pl-8"
-            {...rightColumnAnimation}
-          >
-            <OfferCard />
-          </motion.div>
-        </motion.div>
+        <OfferContent 
+          mainContainerAnimation={mainContainerAnimation}
+          leftColumnAnimation={leftColumnAnimation}
+          rightColumnAnimation={rightColumnAnimation}
+          y={y}
+          opacity={opacity}
+          scale={scale}
+        />
       </SectionWrapper>
-
-      <WavyBottom />
     </section>
   );
 };
