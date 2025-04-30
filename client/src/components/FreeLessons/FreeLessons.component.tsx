@@ -3,13 +3,14 @@ import { useEffect, useState, useRef } from "react";
 import { FREE_LESSONS } from "../../data/FreeLessons.data";
 import { useAnimationInView } from "../../hooks/useAnimationInView";
 import { Play, ArrowRight, Star } from "lucide-react";
+import Heading from "../UI/Heading/Heading.component";
 
 const SectionConnector = () => {
   return (
     <div className="absolute top-0 left-0 right-0 h-40 -translate-y-full z-10 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50" />
       <svg
-        className="absolute bottom-0 w-full text-blue-900"
+        className="absolute bottom-0 w-full text-gray-50"
         viewBox="0 0 1440 96"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -57,12 +58,12 @@ const SectionConnector = () => {
   );
 };
 
-const Stars = ({ count = 50 }: { count?: number }) => {
-  const stars = Array(count).fill(0);
+const LightAccents = ({ count = 50 }: { count?: number }) => {
+  const accents = Array(count).fill(0);
 
   return (
     <>
-      {stars.map((_, index) => {
+      {accents.map((_, index) => {
         const size = Math.random() * 2 + 1;
         const top = Math.random() * 100;
         const left = Math.random() * 100;
@@ -70,17 +71,17 @@ const Stars = ({ count = 50 }: { count?: number }) => {
 
         return (
           <motion.div
-            key={`star-${index}`}
-            className="absolute rounded-full bg-white"
+            key={`accent-${index}`}
+            className="absolute rounded-full bg-primary"
             style={{
               width: size,
               height: size,
               top: `${top}%`,
               left: `${left}%`,
-              boxShadow: "0 0 3px rgba(255, 255, 255, 0.5)"
+              boxShadow: "0 0 3px rgba(99, 102, 241, 0.5)"
             }}
             animate={{
-              opacity: [0.2, 1, 0.2],
+              opacity: [0.2, 0.5, 0.2],
               scale: [1, 1.2, 1]
             }}
             transition={{
@@ -123,7 +124,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
     const gradients = [
       "from-purple-500/90 to-blue-600/90",
       "from-blue-500/90 to-cyan-600/90",
-      "from-emerald-500/90 to-teal-600/90",
+      "from-primary/90 to-indigo-600/90",
       "from-amber-500/90 to-orange-600/90",
       "from-rose-500/90 to-pink-600/90",
       "from-indigo-500/90 to-violet-600/90",
@@ -133,7 +134,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
 
   return (
     <motion.div
-      className="relative cursor-pointer group rounded-2xl overflow-hidden"
+      className="relative cursor-pointer group rounded-2xl overflow-hidden shadow-lg"
       initial={{ opacity: 0, y: 30 }}
       animate={{
         opacity: 1,
@@ -175,7 +176,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
             className="w-full h-full object-cover"
             animate={{
               scale: isHovered || isActive ? 1.05 : 1,
-              filter: isHovered || isActive ? "brightness(0.7)" : "brightness(0.9)"
+              filter: isHovered || isActive ? "brightness(0.8)" : "brightness(0.95)"
             }}
             transition={{ duration: 0.5 }}
           />
@@ -188,7 +189,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white"
+              className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-white shadow-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -197,14 +198,14 @@ const VideoCard: React.FC<VideoCardProps> = ({
           </motion.div>
 
           {/* Czas trwania */}
-          <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-lg">
+          <div className="absolute bottom-3 right-3 bg-primary/80 backdrop-blur-sm px-3 py-1 rounded-lg">
             <span className="text-white text-sm font-medium">{duration}</span>
           </div>
 
           {/* Gwiazdka dla aktywnego wideo */}
           {isActive && (
             <motion.div
-              className="absolute top-3 left-3 text-yellow-300"
+              className="absolute top-3 left-3 text-yellow-400"
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -215,8 +216,8 @@ const VideoCard: React.FC<VideoCardProps> = ({
         </div>
 
         {/* Treść karty */}
-        <div className={`p-5 rounded-b-xl bg-white dark:bg-gray-800 relative z-10`}>
-          <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white group-hover:text-primary transition-colors duration-300">
+        <div className={`p-5 rounded-b-xl bg-white shadow-sm relative z-10`}>
+          <h3 className="text-lg font-semibold mb-2 text-gray-800 group-hover:text-primary transition-colors duration-300">
             {title}
           </h3>
 
@@ -249,10 +250,10 @@ const VideoCard: React.FC<VideoCardProps> = ({
 
       {/* Efekt cienia */}
       <motion.div
-        className="absolute -inset-1 rounded-2xl bg-black/20 blur-md -z-10"
+        className="absolute -inset-1 rounded-2xl bg-primary/5 blur-md -z-10"
         initial={{ opacity: 0, y: 5 }}
         animate={{
-          opacity: isHovered || isActive ? 0.4 : 0.2,
+          opacity: isHovered || isActive ? 0.2 : 0.1,
           y: isHovered || isActive ? 10 : 5,
           scale: isHovered || isActive ? 0.98 : 1
         }}
@@ -277,26 +278,21 @@ const LessonsHeader: React.FC = () => {
           ease: 'easeInOut'
         }}
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(124, 58, 237, 0.8), rgba(0, 0, 0, 0))',
+          backgroundImage: 'radial-gradient(circle, rgba(99, 102, 241, 0.4), rgba(255, 255, 255, 0))',
           filter: 'blur(15px)',
           borderRadius: '50%',
         }}
       />
 
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-4xl md:text-5xl font-bold mb-4 text-white"
-      >
-        Zobacz <span className="bg-gradient-to-r from-cyan-400 via-primary to-blue-400 bg-clip-text text-transparent">darmowe lekcje</span>
-      </motion.h2>
+      <Heading>
+        Zobacz <span className="text-primary">darmowe lekcje</span>
+      </Heading>
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="text-lg max-w-3xl mx-auto text-white/90"
+        className="text-lg max-w-3xl mx-auto text-gray-600"
       >
         Zapoznaj się z jakością naszych materiałów dzięki darmowym lekcjom
       </motion.p>
@@ -322,11 +318,11 @@ const CardIndicators: React.FC<{ total: number, active: number | null, onSelect:
       {Array.from({ length: total }).map((_, index) => (
         <motion.button
           key={`indicator-${index}`}
-          className="w-3 h-3 rounded-full bg-white/30 focus:outline-none"
+          className="w-3 h-3 rounded-full bg-gray-300 focus:outline-none"
           initial={{ scale: 0.8 }}
           animate={{
             scale: active === index ? 1 : 0.8,
-            backgroundColor: active === index ? 'rgb(99, 102, 241)' : 'rgba(255, 255, 255, 0.3)'
+            backgroundColor: active === index ? 'rgb(99, 102, 241)' : 'rgba(209, 213, 219, 0.8)'
           }}
           whileHover={{ scale: 1.2 }}
           whileTap={{ scale: 0.9 }}
@@ -386,7 +382,7 @@ const FreeLessons: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative pt-32 pb-48 overflow-hidden bg-gradient-to-b from-blue-900 to-gray-900 text-white w-screen"
+      className="relative pt-32 pb-48 overflow-hidden bg-gradient-to-b from-gray-50 to-white text-gray-900 w-screen"
       id="darmowe-lekcje"
       style={{
         margin: "-1px calc(50% - 50vw) 0",
@@ -397,16 +393,16 @@ const FreeLessons: React.FC = () => {
       <SectionConnector />
 
       <div className="absolute inset-0 -z-10 opacity-30">
-        <Stars count={100} />
+        <LightAccents count={70} />
       </div>
 
       <motion.div
-        className="absolute w-[800px] h-[800px] rounded-full border border-white/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="absolute w-[800px] h-[800px] rounded-full border border-primary/5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         animate={{ rotate: 360 }}
         transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full border border-white/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="absolute w-[500px] h-[500px] rounded-full border border-primary/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         animate={{ rotate: -360 }}
         transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
       />
@@ -471,8 +467,8 @@ const FreeLessons: React.FC = () => {
             ))}
 
             <motion.button
-              className="mx-auto mt-6 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-blue-600 text-white font-medium flex items-center space-x-2"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(99, 102, 241, 0.5)" }}
+              className="mx-auto mt-6 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-indigo-500 text-white font-medium flex items-center space-x-2 shadow-md shadow-primary/20"
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(99, 102, 241, 0.4)" }}
               whileTap={{ scale: 0.98 }}
             >
               <span>Zobacz więcej lekcji</span>

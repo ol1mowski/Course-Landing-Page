@@ -1,6 +1,6 @@
 export const AUTHOR_DATA = {
   name: "Oliwier Markiewicz",
-  role: "React Frontend Developer",
+  role: "Full Stack Developer",
   experience: "5+ lat doświadczenia",
   description: "Programista freelancer, który specjalizuje się w tworzeniu nowoczesnego oprogramowania zarówno dla polskich, jak i zagranicznych firm.  ",
   achievements: [
