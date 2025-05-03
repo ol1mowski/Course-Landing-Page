@@ -41,10 +41,6 @@ A modern, responsive platform for hosting and managing online courses. This proj
 - **Hosting**: [Vercel](https://vercel.com/)
 - **Domain**: [freelancematt.pl](https://freelancematt.pl)
 
-### **Version Control**
-- **Git**: Source code managed with Git.
-- **Repository**: Hosted on GitHub.
-
 ### **CI/CD**
 - **GitHub Actions**: Automates testing and deployment workflows.
 
