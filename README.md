@@ -7,7 +7,6 @@
 <img width="1440" alt="Screenshot 2024-12-16 at 06 55 05" src="https://github.com/user-attachments/assets/20876094-ad28-4b81-8cd8-0f5621039cf6" />
 <img width="1440" alt="Screenshot 2024-12-18 at 09 45 01" src="https://github.com/user-attachments/assets/91bfe0f1-58ae-464d-8163-162bd73b42e2" />
 
-
 A modern, responsive platform for hosting and managing online courses. This project combines cutting-edge web development technologies to deliver a seamless user experience, including a landing page for showcasing courses and an admin panel for content management.
 
 ---
